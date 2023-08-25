@@ -16,47 +16,70 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "Users") // Xác định tên bảng là "Users"
 @Data
-public class Users implements UserDetails {
-    private static final long serialVersionUID = 1l;
+public class Users {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    public int id;
 
     @Size(min = 2, message = "Username must be at least 2 characters long")
-    private String username;
+    public String username;
 
     @Size(min = 4, message = "Password must be at least 2 characters long")
-    private String password;
+    public String password;
 
     @Transient
-    private String confirmPassword;
+    public String confirmPassword;
 
     @Email(message = "Please enter a valid email")
-    private String email;
+    public String email;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
+    @Column(name = "phone_number")
+    @Size(min = 6, message = "Phone number must be at least 6 characters long")
+    public String phoneNumber;
+
+    @Column(name = "role")
+    public String role;
+
+    public String getUsername() {
+        return username;
     }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
+    public String getPassword() {
+        return password;
     }
 
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    @Override
-    public boolean isEnabled() {
-        return true;
+    public String getEmail() {
+        return email;
     }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
 }

@@ -1,20 +1,23 @@
 package com.doapp.nanogear.security;
 
 import com.doapp.nanogear.model.data.Users;
-import com.doapp.nanogear.model.respository.UserRepository;
+import com.doapp.nanogear.model.usesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-@Service
-public class userService implements UserDetailsService {
-    @Autowired
-    private UserRepository userRepo;
+import java.util.List;
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+@Service
+public class userService {
+    @Autowired
+    private usesRepository userRepo;
+
+    public List<Users> findAll() {
+        return userRepo.findAll();
+    }
+    public Users loadUserByUsername(String username) throws UsernameNotFoundException {
         Users user = userRepo.findByUsername(username);
 
         if (user != null) {
@@ -22,5 +25,19 @@ public class userService implements UserDetailsService {
         }
 
         throw new UsernameNotFoundException("User: " + username + " not found!");
+    }
+
+    public Users authenticateUser(String username, String rawPassword) {
+        Users user = userRepo.findByUsername(username);
+
+        if (user != null) {
+            if (checkPassword(rawPassword, user.getPassword())) {
+                return user;
+            }
+        }
+        return null;
+    }
+    public boolean checkPassword(String rawPassword, String encodedPassword) {
+        return new BCryptPasswordEncoder().matches(rawPassword, encodedPassword);
     }
 }
