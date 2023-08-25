@@ -17,31 +17,73 @@ import javax.validation.constraints.Size;
 @Table(name = "Users") // Xác định tên bảng là "Users"
 @Data
 public class Users implements UserDetails {
-    private static final long serialVersionUID = 1l;
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    public int id;
 
     @Size(min = 2, message = "Username must be at least 2 characters long")
-    private String username;
+    public String username;
 
     @Size(min = 4, message = "Password must be at least 2 characters long")
-    private String password;
+    public String password;
 
     @Transient
-    private String confirmPassword;
+    public String confirmPassword;
 
     @Email(message = "Please enter a valid email")
-    private String email;
+    public String email;
 
     @Column(name = "phone_number")
     @Size(min = 6, message = "Phone number must be at least 6 characters long")
-    private String phoneNumber;
+    public String phoneNumber;
 
+    @Column(name = "role")
+    public String role;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
+        return Arrays.asList(new SimpleGrantedAuthority("USER"));
     }
 
     @Override
@@ -63,4 +105,6 @@ public class Users implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
 }

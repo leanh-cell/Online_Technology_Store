@@ -26,7 +26,7 @@ public class ContactUser {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "user_id") // Ánh xạ khóa ngoại đến bảng "users"
     private Users user;
 }
