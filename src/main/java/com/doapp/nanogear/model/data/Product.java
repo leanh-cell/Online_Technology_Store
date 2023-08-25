@@ -27,7 +27,7 @@ public class Product {
     @Column(name = "created_date") // Xác định tên cột trong bảng
     private Date createdDate;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "product_detail")
     private ProductDetail productDetail;
 

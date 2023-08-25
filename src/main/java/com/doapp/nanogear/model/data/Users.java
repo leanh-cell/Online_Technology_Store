@@ -35,10 +35,6 @@ public class Users implements UserDetails {
     @Email(message = "Please enter a valid email")
     private String email;
 
-    @Column(name = "phone_number")
-    @Size(min = 6, message = "Phone number must be at least 6 characters long")
-    private String phoneNumber;
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
