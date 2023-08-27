@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "products") // Xác định tên bảng là "products"
+@Table(name = "products")
 @Data
 public class Product {
     @Id
@@ -18,16 +18,16 @@ public class Product {
 
     private String name;
 
-    private double Price;
+    private double price;
 
-    @Column(name = "image_url") // Thêm cột cho trường ảnh
+    @Column(name = "image_url")
     private String imageUrl;
 
-    @CreatedDate // Tạo giá trị tự động cho cột created_date
-    @Column(name = "created_date") // Xác định tên cột trong bảng
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_date")
     private Date createdDate;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "product_detail")
     private ProductDetail productDetail;
 
