@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/user/login}" th:method="post" class="signin" th:object="${users}">
+  <fieldset class="textbox">
+    <label class="username">
+      <span>Username or email</span>
+      <input th:field="*{username}" id="username" name="username" value="" type="text" autocomplete="on" placeholder="Username">
+    </label>
+    <label class="password">
+      <span>Password</span>
+      <input th:field="*{password}" id="password" name="password" value="" type="password" placeholder="Password">
+    </label>
+    <button type="submit" class="submit button" >Log-in</button>
+    <p>
+      <a class="forgot" href="#">Forgot?</a> / <a class="register" href="dang-ky.html">Register</a>
+    </p>
+  </fieldset>
+</form>
+</body>
+</html>

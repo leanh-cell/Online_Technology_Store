@@ -31,19 +31,19 @@ public class UserService implements UserDetailsService {
 
         throw new UsernameNotFoundException("User: " + username + " not found!");
     }
-//    public Users authenticateUser(String username, String rawPassword) {
-//        Users user = userRepo.findByUsername(username);
-//
-//        if (user != null) {
-//            if (checkPassword(rawPassword, user.getPassword())) {
-//                return user;
-//            }
-//        }
-//        return null;
-//    }
-//    public boolean checkPassword(String rawPassword, String encodedPassword) {
-//        return new BCryptPasswordEncoder().matches(rawPassword, encodedPassword);
-//    }
+  public Users authenticateUser(String username, String rawPassword) {
+        Users user = userRepo.findByUsername(username);
+
+        if (user != null) {
+            if (checkPassword(rawPassword, user.getPassword())) {
+                return user;
+            }
+        }
+        return null;
+    }
+    public boolean checkPassword(String rawPassword, String encodedPassword) {
+        return new BCryptPasswordEncoder().matches(rawPassword, encodedPassword);
+    }
 @Bean
 public PasswordEncoder encoder() {
     return new BCryptPasswordEncoder();
