@@ -50,7 +50,7 @@ public class UserController {
                 UserRole userRole = UserRole.valueOf(userRoleValue.toUpperCase());
                 System.out.println(session + "/ " + authenticatedUser.username + "/ " + authenticatedUser.id + " /" + userRole + " /");
                 if (userRole == UserRole.ADMIN) {
-                    return "redirect:/admin/index";
+                    return "redirect:/admin/home";
                 } else if (userRole == UserRole.USER) {
                     return "redirect:/index";
                 }
