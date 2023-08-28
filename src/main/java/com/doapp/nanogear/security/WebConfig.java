@@ -33,7 +33,7 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .and()
                 .formLogin()
-                .loginPage("/login_page")
+                .loginPage("/login")
                 .and()
                 .logout()
                 .logoutSuccessUrl("/")
