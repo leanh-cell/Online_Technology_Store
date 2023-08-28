@@ -35,10 +35,6 @@ public class Users implements UserDetails {
     @Email(message = "Please enter a valid email")
     public String email;
 
-    @Column(name = "phone_number")
-    @Size(min = 6, message = "Phone number must be at least 6 characters long")
-    public String phoneNumber;
-
     @Column(name = "role")
     public String role;
 
@@ -64,14 +60,6 @@ public class Users implements UserDetails {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
     }
 
     public String getRole() {
