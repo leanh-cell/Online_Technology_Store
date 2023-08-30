@@ -14,12 +14,27 @@ public class Cart {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "UserID") // Ánh xạ khóa ngoại đến bảng "Users"
+    @JoinColumn(name = "user_id") // Ánh xạ khóa ngoại đến bảng "Users"
     private Users user;
 
     @ManyToOne
-    @JoinColumn(name = "ProductID") // Ánh xạ khóa ngoại đến bảng "Products"
+    @JoinColumn(name = "product_id") // Ánh xạ khóa ngoại đến bảng "Products"
     private Product product;
 
     private int quantity;
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 }

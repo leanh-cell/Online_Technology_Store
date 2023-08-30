@@ -114,7 +114,7 @@ $(document).ready(function($){
                         </label>
                         <button class="submit button" type="button">Log-in</button>
                         <p>
-                        <a class="forgot" href="#">Forgot?</a> / <a class="register" href="dang-ky.html">Register</a>
+                        <a class="forgot" href="#">Forgot?</a> / <a class="register" href="register.html">Register</a>
                         </p>        
                         </fieldset>
                   </form>
@@ -197,7 +197,7 @@ $(document).ready(function($){
                   <div class="container-2">
                     <section class="content" style="margin-left:20px">
                         <h2>REGISTER &nbsp;</h2>
-                        <form action="#" class="form-register">
+                        <form th:action="@{/user/register}" method="POST" th:object="${user}"class="form-register">
                         <h3>Personal Info</h3>
                         <div class="registerbox">
                           <fieldset>
