@@ -1,15 +1,21 @@
 package com.doapp.nanogear.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-    @GetMapping("/home")
-    public String home(){
-        return "/admin/index";
+
+    @RequestMapping("/home")
+    public String adminHome(){
+            return "/admin/index";
+    }
+    @GetMapping("/access-denied")
+    public String accessdenied(){
+       return "admin/access-denied";
+
     }
 }

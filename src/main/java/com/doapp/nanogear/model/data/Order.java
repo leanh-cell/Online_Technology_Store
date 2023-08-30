@@ -5,7 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Orders") // Xác định tên bảng là "Orders"
+@Table(name = "orders") // Xác định tên bảng là "Orders"
 @Data
 public class Order {
     @Id
@@ -13,18 +13,18 @@ public class Order {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "UserID") // Ánh xạ khóa ngoại đến bảng "Users"
+    @JoinColumn(name = "user_id") // Ánh xạ khóa ngoại đến bảng "Users"
     private Users user;
 
-    @Column(name = "OrderDate")
+    @Column(name = "order_date")
     private java.sql.Date orderDate;
 
-    @Column(name = "TotalAmount")
+    @Column(name = "total_amount")
     private double totalAmount;
 
-    @Column(name = "TotalPrice")
+    @Column(name = "total_price")
     private double totalPrice;
 
-    @Column(name = "OrderStatus")
+    @Column(name = "order_status")
     private String orderStatus;
 }

@@ -12,12 +12,12 @@ public class OrderDetail {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "OrderID") // Ánh xạ khóa ngoại đến bảng "Orders"
+    @JoinColumn(name = "order_id") // Ánh xạ khóa ngoại đến bảng "Orders"
     private Order order;
 
     private int quantity;
 
-    @Column(name = "TotalPrice")
+    @Column(name = "total_price")
     private double totalPrice;
 
     @Column(name = "delivery_date")

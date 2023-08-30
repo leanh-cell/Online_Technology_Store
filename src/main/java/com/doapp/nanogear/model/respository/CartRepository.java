@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface CartRepository extends JpaRepository<Cart,Integer> {
-    List<Cart> getUnpaidOrdersByUserId(String userid);
+    List<Cart> getCartsByUserId(int userid);
 }
