@@ -15,7 +15,7 @@ public class CartService {
         this.cartRepository = cartRepository;
     }
 
-    public List<Cart> getUnpaidOrdersByUserId(String userId) {
-        return cartRepository.getUnpaidOrdersByUserId(userId);
+    public List<Cart> getCartsByUserId(int userId) {
+        return cartRepository.getCartsByUserId(userId);
     }
 }
