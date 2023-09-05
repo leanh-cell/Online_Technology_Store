@@ -2,7 +2,7 @@ package com.doapp.nanogear.controller;
 
 import com.doapp.nanogear.model.data.Cart;
 import com.doapp.nanogear.model.data.ContactUser;
-import com.doapp.nanogear.model.data.Users;
+import com.doapp.nanogear.model.data.User;
 import com.doapp.nanogear.security.CartService;
 import com.doapp.nanogear.security.UserService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -41,22 +41,25 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String loginUser(@ModelAttribute("users") Users users, Model model, HttpSession session) {
+    public String loginUser(@ModelAttribute("user") User users, Model model, HttpSession session) {
         // Xác thực người dùng và lấy thông tin từ cơ sở dữ liệu
-        Users authenticatedUser = userService.authenticateUser(users.getUsername(), users.getPassword());
+        User authenticatedUser = userService.authenticateUser(users.getUsername(), users.getPassword());
 
         if (authenticatedUser != null) {
                 session.setAttribute("loggedInUser", authenticatedUser);
                 // Lưu thông tin người dùng vào phiên làm việc
                 session.setAttribute("loggedInUser", authenticatedUser);
+                session.setAttribute("userRole",authenticatedUser.role);
                 String userRoleValue = authenticatedUser.getRole(); // "admin", "user"
                 UserRole userRole = UserRole.valueOf(userRoleValue.toUpperCase());
                 System.out.println(session + "/ " + authenticatedUser.username + "/ " + authenticatedUser.id + " /" + userRole + " /");
                 List<Cart> cart = cartService.getCartsByUserId(authenticatedUser.id);
-                for (Cart cartItem : cart){
-                    System.out.println("Product ID: " + cartItem.getProduct());
-                    System.out.println("Quantity: " + cartItem.getQuantity());
-                }
+//                for (Cart cartItem : cart){
+//                    System.out.println("user id: " + cartItem.getUser());
+//                    System.out.println("Product ID: " + cartItem.getProduct());
+//                    System.out.println("Quantity: " + cartItem.getQuantity());
+//                }
+            System.out.println("gio hang : "+ cart );
 
                 session.setAttribute("cart", cart);
                 if (userRole == UserRole.ADMIN) {
@@ -80,7 +83,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute("user") Users user, ContactUser contactUser) {
+    public String registerUser(@ModelAttribute("user") User user,@ModelAttribute("contactUser") ContactUser contactUser) {
         // Kiểm tra xem người dùng đã tồn tại chưa
         if (userService.findUserByUsername(user.getUsername()) != null) {
             // Xử lý lỗi: người dùng đã tồn tại

@@ -6,7 +6,7 @@
     <link rel="stylesheet" th:href="@{/form/css/style.css}" type="text/css" media="screen"/>
 </head>
 <body>
-<form th:action="@{/user/login}" th:method="POST" class="signin" th:object="${users}">
+<form th:action="@{/user/login}" th:method="POST" class="signin" th:object="${user}">
     <fieldset class="textbox">
         <label class="username">
             <span>Username or email</span>
@@ -19,7 +19,7 @@
         </label>
         <button type="submit" class="submit button">Log-in</button>
         <p>
-            <a class="forgot" href="#">Forgot?</a> / <a class="register" href="register.html">Register</a>
+            <a class="forgot" href="#">Forgot?</a> / <a class="register" th:href="@{/register}">Register</a>
         </p>
     </fieldset>
 </form>
