@@ -68,7 +68,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Components:</h6>
                         <a class="collapse-item active" href="add_product.html">Buttons</a>
-                        <a class="collapse-item" href="cards.html">Cards</a>
+                        <a class="collapse-item" href="product_list.html">Cards</a>
                     </div>
                 </div>
             </li>
@@ -116,14 +116,14 @@
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Other Pages:</h6>
                         <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item" href="blank.html">Blank Page</a>
+                        <a class="collapse-item" href="add_category.html">Blank Page</a>
                     </div>
                 </div>
             </li>
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="charts.html">
+                <a class="nav-link" href="category_list.html">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Charts</span></a>
             </li>
@@ -367,6 +367,30 @@
                             <input type="text" class="form-control" id="product_name" name="product_name" placeholder="Nhập tên sản phẩm" required>
                         </div>
                         <div class="form-group">
+                            <label for="image_url">Product Image:</label>
+                            <input type="file" class="form-control" id="image_url" name="image_url" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="product_cpu">CPU:</label>
+                            <input type="text" class="form-control" id="product_cpu" name="product_cpu"  placeholder="Nhập CPU của sản phẩm " required>
+                        </div>
+                        <div class="form-group">
+                            <label for="product_ram">RAM:</label>
+                            <input type="number" class="form-control" id="product_ram" name="product_ram"  placeholder="Nhập RAM của sản phẩm" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="product_storage">Storage:</label>
+                            <input type="text" class="form-control" id="product_storage" name="product_storage"  placeholder="Nhập dung lượng lưu trữ của sản phẩm" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="product_gpu">GPU:</label>
+                            <input type="text" class="form-control" id="product_gpu" name="product_gpu"  placeholder="Nhập GPU của sản phẩm" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="product_inch">Inch:</label>
+                            <input type="text" class="form-control" id="product_inch" name="product_inch"  placeholder="Nhập kích thước của sản phẩm" required>
+                        </div>
+                        <div class="form-group">
                             <label for="price">Price:</label>
                             <input type="number" class="form-control" id="price" name="price" placeholder="Nhập giá sản phẩm" required>
                         </div>
@@ -374,10 +398,7 @@
                             <label for="quantity">Quantity:</label>
                             <input type="number" class="form-control" id="quantity" name="quantity"  placeholder="Nhập số lượng sản phẩm" required>
                         </div>
-                        <div class="form-group">
-                            <label for="product_detail">Product Detail:</label>
-                            <input type="number" class="form-control" id="product_detail" name="product_detail"  placeholder="Nhập ID chi tiết sản phẩm" required>
-                        </div>
+
                         <button type="submit" class="btn btn-primary">Add product</button>
                     </form>
 
