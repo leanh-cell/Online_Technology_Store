@@ -1,6 +1,6 @@
 package com.doapp.nanogear.security;
 
-import com.doapp.nanogear.model.data.Users;
+import com.doapp.nanogear.model.data.User;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +17,7 @@ public class AdminAuthenticationInterceptor implements HandlerInterceptor {
         Object loggedInUser = session.getAttribute("loggedInUser");
 
         if (loggedInUser != null) {
-            Users user = (Users) loggedInUser; // Cast loggedInUser về Users object
+            User user = (User) loggedInUser; // Cast loggedInUser về Users object
             String userRoleValue = user.getRole();
             if ("ADMIN".equalsIgnoreCase(userRoleValue)) {
                 return true;

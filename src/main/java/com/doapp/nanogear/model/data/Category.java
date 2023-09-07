@@ -4,22 +4,16 @@ import javax.persistence.*;
 import lombok.Data;
 
 import java.util.List;
-
 @Entity
-@Table(name = "Category")
-@Data
+@Table(name = "category")
 public class Category {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
+    @Column(name = "name")
+    public String name;
 
-    private String name;
-
-    @ManyToMany
-    @JoinTable(
-            name = "Products_Category",
-            joinColumns = @JoinColumn(name = "Category_product_id"),
-            inverseJoinColumns = @JoinColumn(name = "Products_id")
-    )
+    @ManyToMany(mappedBy = "cat_id")
     private List<Product> products;
+
+    // Getters and setters
 }

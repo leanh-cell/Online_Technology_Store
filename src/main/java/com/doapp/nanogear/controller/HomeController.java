@@ -1,6 +1,9 @@
 package com.doapp.nanogear.controller;
 
-import com.doapp.nanogear.model.data.Users;
+import com.doapp.nanogear.model.DTO.UserRegistrationDTO;
+//import com.doapp.nanogear.model.DTO.userLoginDTO;
+import com.doapp.nanogear.model.data.ContactUser;
+import com.doapp.nanogear.model.data.User;
 import com.doapp.nanogear.security.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,15 +33,23 @@ public class HomeController {
 
     @GetMapping ("/login")
     public String login(Model model) {
-        Users users = new Users();
-        model.addAttribute("users", users);
+//        userLoginDTO userDTO = new userLoginDTO();
+//        model.addAttribute("userDTO",userDTO);
         return "/form/login";
     }
+
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
-        Users user = new Users();
-        model.addAttribute("user", user);
+//        User user = new User();
+//        ContactUser contactUser = new ContactUser();
+//        model.addAttribute("user", user);
+//        model.addAttribute("contactUser", contactUser);
+        UserRegistrationDTO registrationDTO = new UserRegistrationDTO();
+        model.addAttribute("registrationDTO", registrationDTO);
         return "form/register";
     }
-
+@GetMapping("/myCart")
+    public String myCart(){
+        return "/form/cart";
+}
 }

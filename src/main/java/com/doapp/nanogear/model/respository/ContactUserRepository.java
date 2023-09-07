@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ContactUserRepository extends JpaRepository<ContactUser, Integer> {
     ContactUser findContactUserById(int userid);
-    @Query("SELECT c.imageUrl from ContactUser c where c.user.id = :userid")
+    @Query("SELECT c.image_url from ContactUser c where c.user.id = :userid")
     String findAvatar(int userid);
 }

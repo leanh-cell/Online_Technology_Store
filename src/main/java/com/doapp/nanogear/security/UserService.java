@@ -1,6 +1,6 @@
 package com.doapp.nanogear.security;
 
-import com.doapp.nanogear.model.data.Users;
+import com.doapp.nanogear.model.data.User;
 import com.doapp.nanogear.model.respository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -11,22 +11,23 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class UserService{
+public class UserService {
     @Autowired
     private UserRepository userRepo;
 
-    public List<Users> findAll() {
+    public List<User> findAll() {
         return userRepo.findAll();
     }
 
-    public Users findUserByUsername(String username) {
-        return userRepo.findByUsername(username);
+    public User findByUsernameOrEmail(String username) {
+        return userRepo.findByUsernameOrEmail(username);
     }
-    public void save(Users user) {
+
+    public void save(User user) {
         userRepo.save(user);
     }
 
-//        @Override
+    //        @Override
 //    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 //        Users user = userRepo.findByUsername(username);
 //
@@ -36,8 +37,8 @@ public class UserService{
 //
 //        throw new UsernameNotFoundException("User: " + username + " not found!");
 //    }
-    public Users authenticateUser(String username, String rawPassword) {
-        Users user = userRepo.findByUsername(username);
+    public User authenticateUser(String username, String rawPassword) {
+        User user = userRepo.findByUsernameOrEmail(username);
         if (user != null) {
             if (checkPassword(rawPassword, user.getPassword())) {
                 return user;
