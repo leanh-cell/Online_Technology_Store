@@ -3,23 +3,36 @@ package com.doapp.nanogear.model.data;
 import javax.persistence.*;
 import lombok.Data;
 
+import java.util.Date;
+import java.util.List;
+
 @Entity
-@Table(name = "OrderDetails") // Xác định tên bảng là "OrderDetails"
-@Data
+@Table(name = "order_details")
 public class OrderDetail {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "OrderID") // Ánh xạ khóa ngoại đến bảng "Orders"
-    private Order order;
+    @Column(name = "quantity")
+    private Integer quantity;
 
-    private int quantity;
-
-    @Column(name = "TotalPrice")
+    @Column(name = "totalPrice")
     private double totalPrice;
 
-    @Column(name = "delivery_date")
-    private java.sql.Date deliveryDate;
+    @Column(name = "deliveryDate")
+    private Date deliveryDate;
+
+    @Column(name = "orderStatus")
+    private String orderStatus;
+
+    @Column(name = "order_code")
+    private String orderCode;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
+
+    @OneToMany(mappedBy = "orderDetail", cascade = CascadeType.ALL)
+    private List<Order> orders;
+
+    // Getters and setters
 }

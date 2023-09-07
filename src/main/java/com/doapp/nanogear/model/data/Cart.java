@@ -3,23 +3,46 @@ package com.doapp.nanogear.model.data;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @Entity
-@Table(name = "Cart") // Xác định tên bảng là "Cart"
-@Data
+@Table(name = "cart")
 public class Cart {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "UserID") // Ánh xạ khóa ngoại đến bảng "Users"
-    private Users user;
+    @JoinColumn(name = "user_id")
+    public User user;
 
-    @ManyToOne
-    @JoinColumn(name = "ProductID") // Ánh xạ khóa ngoại đến bảng "Products"
-    private Product product;
+    @ManyToMany(mappedBy = "carts")
+    private List<Product> product;
 
-    private int quantity;
+    @Column(name = "quantity")
+    public Integer quantity;
+
+    public List<Product> getProduct() {
+        return product;
+    }
+
+    public void setProduct(List<Product> product) {
+        this.product = product;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 }

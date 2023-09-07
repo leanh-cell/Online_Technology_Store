@@ -1,0 +1,74 @@
+<header th:fragment="header_index">
+  <div id="top">
+    <span>WEBSITE SELL LAPTOP& ACCESSORIES</span>
+    <div>
+      <p>Languages:
+        <label>
+          <select onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+            <option selected value="index.html">English </option>
+            <option value="index2.html">Vietnamese</option>
+
+          </select>
+        </label>​
+      </p>
+      <p>Currency:
+        <label>
+          <select>
+            <option selected>US Dollar - USD </option>
+            <option>Vietnam Đồng- VND</option>
+          </select>
+        </label>​
+      </p>
+    </div>
+  </div><!--end:top-->
+  <div id="top2">
+    <ul class="myaccountmenu">
+      <li><a href="wishlist.html">My Wishlist</a></li>
+      <li><a href="#">My Cart</a></li>
+      <li><a href="checkout.html">Checkout</a></li>
+<!--      <li class="login"><a th:href="@{/login}" class="last login-window">Log-in</a></li>-->
+      <li class="login">
+        <a th:href="@{/login}" class="last login-window"
+           th:unless="${#httpServletRequest.session.getAttribute('loggedInUser') != null}">
+          Log-in
+        </a>
+        <a th:href="@{/logout}" class="last logout-link"
+           th:if="${#httpServletRequest.session.getAttribute('loggedInUser') != null}">
+          Log-out
+        </a>
+      </li>
+    </ul>
+    <div id="login-box" class="login-popup">
+      <a href="#" class="close"><img th:src="@{/form/images/process-stop.png}" class="btn_close" title="Close Window" alt="Close" /></a>
+      <!--                  <form th:action="@{/login}" method="post" class="signin" th:object="${users}">-->
+      <!--                        <fieldset class="textbox">-->
+      <!--                        <label class="username">-->
+      <!--                        <span>Username or email</span>-->
+      <!--                        <input th:field="*{username}" id="username" name="username" value="" type="text" autocomplete="on" placeholder="Username">-->
+      <!--                        </label>-->
+      <!--                        <label class="password">-->
+      <!--                        <span>Password</span>-->
+      <!--                        <input th:field="*{password}" id="password" name="password" value="" type="password" placeholder="Password">-->
+      <!--                        </label>-->
+      <!--                        <button type="submit" class="submit button" >Log-in</button>-->
+      <!--                        <p>-->
+      <!--                        <a class="forgot" href="#">Forgot?</a> / <a class="register" href="register.html">Register</a>-->
+      <!--                        </p>-->
+      <!--                        </fieldset>-->
+      <!--                  </form>-->
+    </div>
+    <div id="demo-header">
+      <a id="cart-link" th:href="@{/myCart}" title="Cart">My Cart</a>
+
+    </div><!-- /demoheader -->
+  </div><!--end:top2-->
+  <div id="top3">
+    <h1 class="logo"><a href="index.html">Sell Laptop</a></h1>
+    <!--                <form th:action="@{}" method="post" class="search_bar">-->
+    <!--                    <fieldset>-->
+    <!--                      <input type="text" name="search" class="search" value="Enter a keywords..." onBlur="if (this.value == ''){this.value = 'Enter a keywords...'; }" onFocus="if (this.value== 'Enter a keywords...') {this.value = ''; }" />-->
+    <!--                      <input type="submit" name="submit" value="Search" class="submit" />-->
+    <!--                    </fieldset>-->
+    <!--                </form>-->
+  </div><!--end:top3-->
+</header>

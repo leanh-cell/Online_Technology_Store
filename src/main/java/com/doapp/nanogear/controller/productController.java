@@ -2,7 +2,9 @@ package com.doapp.nanogear.controller;
 
 import com.doapp.nanogear.model.data.Product;
 import com.doapp.nanogear.model.respository.ProductRepository;
+import com.doapp.nanogear.security.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,38 +13,46 @@ import java.util.List;
 @RequestMapping("/api/products")
 public class productController {
 
-    private final ProductRepository productRepository;
+    private final ProductService productService;
+
 
     @Autowired
-    public productController(ProductRepository productRepository) {
-        this.productRepository = productRepository;
+    public productController(ProductService productService) {
+        this.productService = productService;
     }
 
+//    @PostMapping("/search")
+//    public ResponseEntity<List<Product>> searchProducts(
+//            @RequestParam(required = false) String keyword,
+//            @RequestParam(required = false) Double price) {
+//        List<Product> products = productService.SearchProduct(keyword, price);
+//        return ResponseEntity.ok(products);
+//    }
     @GetMapping
     public List<Product> getAllProducts() {
-        return productRepository.findAll();
+        return productService.findAll();
     }
 
     @GetMapping("/{id}")
     public Product getProductById(@PathVariable int id) {
-        return productRepository.findById(id).orElse(null);
+        return productService.findById(id);
     }
 
-    @PostMapping
-    public Product createProduct(@RequestBody Product product) {
-        return productRepository.save(product);
-    }
+//    @PostMapping
+//    public Product createProduct(@RequestBody Product product) {
+//        return productService.save(product);
+//    }
 
     @PutMapping("/{id}")
     public Product updateProduct(@PathVariable int id, @RequestBody Product updatedProduct) {
-        Product existingProduct = productRepository.findById(id).orElse(null);
+        Product existingProduct = productService.findById(id);
         if (existingProduct != null) {
-            return productRepository.save(existingProduct);
+            return productService.save(existingProduct);
         }
         return null;
     }
     @DeleteMapping("/{id}")
     public void deleteProduct(@PathVariable int id) {
-        productRepository.deleteById(id);
+        productService.deleteById(id);
     }
 }
