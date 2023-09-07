@@ -33,4 +33,8 @@ public class AdminController {
     public String accessdenied() {
         return "admin/access-denied";
     }
+    @GetMapping("/add_product")
+    public String AddProduct(){
+        return "/admin/add_product";
+    }
 }
