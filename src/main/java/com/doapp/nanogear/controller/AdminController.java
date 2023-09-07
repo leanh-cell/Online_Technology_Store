@@ -19,6 +19,19 @@ public class AdminController {
     public String AddProduct(){
         return "/admin/add_product";
     }
+    @GetMapping("/product_list")
+    public String ProductList(){
+        return "/admin/product_list";
+    }
+
+    @GetMapping("/add_category")
+    public String AddCategory(){
+        return "/admin/add_category";
+    }
+    @GetMapping("/category_list")
+    public String CategoryList(){
+        return "/admin/category_list";
+    }
 }
 
 
