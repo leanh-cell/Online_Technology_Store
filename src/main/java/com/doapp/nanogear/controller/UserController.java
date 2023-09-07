@@ -1,17 +1,17 @@
 package com.doapp.nanogear.controller;
 
+//import com.doapp.nanogear.model.DTO.userLoginDTO;
 import com.doapp.nanogear.model.data.Cart;
 import com.doapp.nanogear.model.data.ContactUser;
+import com.doapp.nanogear.model.DTO.UserRegistrationDTO;
 import com.doapp.nanogear.model.data.User;
 import com.doapp.nanogear.security.CartService;
+import com.doapp.nanogear.security.ContactUserService;
 import com.doapp.nanogear.security.UserService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -21,10 +21,12 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
     private final CartService cartService;
+    private final ContactUserService contactUserService;
 
-    public UserController(UserService userService,CartService cartService) {
+    public UserController(UserService userService,CartService cartService,ContactUserService contactUserService) {
         this.userService = userService;
         this.cartService = cartService;
+        this.contactUserService = contactUserService;
     }
 
     public enum UserRole {
@@ -41,12 +43,11 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String loginUser(@ModelAttribute("user") User users, Model model, HttpSession session) {
+    public String loginUser(@RequestParam("usernameOrEmail") String usernameOrEmail,@RequestParam("password") String password, Model model, HttpSession session) {
         // Xác thực người dùng và lấy thông tin từ cơ sở dữ liệu
-        User authenticatedUser = userService.authenticateUser(users.getUsername(), users.getPassword());
+        User authenticatedUser = userService.authenticateUser(usernameOrEmail, password);
 
         if (authenticatedUser != null) {
-                session.setAttribute("loggedInUser", authenticatedUser);
                 // Lưu thông tin người dùng vào phiên làm việc
                 session.setAttribute("loggedInUser", authenticatedUser);
                 session.setAttribute("userRole",authenticatedUser.role);
@@ -83,9 +84,11 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute("user") User user,@ModelAttribute("contactUser") ContactUser contactUser) {
+    public String registerUser(@ModelAttribute("registrationDTO") UserRegistrationDTO registrationDTO) {
+        User user = registrationDTO.getUser();
+        ContactUser contactUser = registrationDTO.getContactUser();
         // Kiểm tra xem người dùng đã tồn tại chưa
-        if (userService.findUserByUsername(user.getUsername()) != null) {
+        if (userService.findByUsernameOrEmail(user.getUsername() != null ? user.getUsername():user.getEmail()) != null) {
             // Xử lý lỗi: người dùng đã tồn tại
             return "redirect:/users/register?error";
         }
@@ -93,9 +96,10 @@ public class UserController {
         // Mã hóa mật khẩu trước khi lưu vào đối tượng User
         String encodedPassword = encodePassword(user.getPassword());
         user.setPassword(encodedPassword);
-
+        contactUser.setUser(user);
         // Lưu đối tượng User vào cơ sở dữ liệu
         userService.save(user);
+        contactUserService.saveUserInfo(contactUser);
 
         return "redirect:/users/login";
     }

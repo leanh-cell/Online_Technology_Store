@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class UserService{
+public class UserService {
     @Autowired
     private UserRepository userRepo;
 
@@ -19,14 +19,15 @@ public class UserService{
         return userRepo.findAll();
     }
 
-    public User findUserByUsername(String username) {
-        return userRepo.findByUsername(username);
+    public User findByUsernameOrEmail(String username) {
+        return userRepo.findByUsernameOrEmail(username);
     }
+
     public void save(User user) {
         userRepo.save(user);
     }
 
-//        @Override
+    //        @Override
 //    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 //        Users user = userRepo.findByUsername(username);
 //
@@ -37,7 +38,7 @@ public class UserService{
 //        throw new UsernameNotFoundException("User: " + username + " not found!");
 //    }
     public User authenticateUser(String username, String rawPassword) {
-        User user = userRepo.findByUsername(username);
+        User user = userRepo.findByUsernameOrEmail(username);
         if (user != null) {
             if (checkPassword(rawPassword, user.getPassword())) {
                 return user;

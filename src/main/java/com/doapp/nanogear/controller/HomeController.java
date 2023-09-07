@@ -1,5 +1,7 @@
 package com.doapp.nanogear.controller;
 
+import com.doapp.nanogear.model.DTO.UserRegistrationDTO;
+//import com.doapp.nanogear.model.DTO.userLoginDTO;
 import com.doapp.nanogear.model.data.ContactUser;
 import com.doapp.nanogear.model.data.User;
 import com.doapp.nanogear.security.UserService;
@@ -31,17 +33,19 @@ public class HomeController {
 
     @GetMapping ("/login")
     public String login(Model model) {
-        User User = new User();
-        model.addAttribute("user", User);
+//        userLoginDTO userDTO = new userLoginDTO();
+//        model.addAttribute("userDTO",userDTO);
         return "/form/login";
     }
 
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
-        User user = new User();
-        ContactUser contactUser = new ContactUser();
-        model.addAttribute("user", user);
-        model.addAttribute("contactUser", contactUser);
+//        User user = new User();
+//        ContactUser contactUser = new ContactUser();
+//        model.addAttribute("user", user);
+//        model.addAttribute("contactUser", contactUser);
+        UserRegistrationDTO registrationDTO = new UserRegistrationDTO();
+        model.addAttribute("registrationDTO", registrationDTO);
         return "form/register";
     }
 @GetMapping("/myCart")

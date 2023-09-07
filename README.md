@@ -4,6 +4,11 @@
 ## Config JAVA_HOME
 Add JAVA_HOME in system environment. Run echo %JAVA_HOME% to check value (Project use JDK 11)
 
+Port default config in file [application.properties]
+
+    server.port: 8080
+
+* [http://localhost:8080/home](http://localhost:8080/home)
 ### Password encrypt
 Password in table encrypted by `new BCryptPasswordEncoder().encode(password)`
 

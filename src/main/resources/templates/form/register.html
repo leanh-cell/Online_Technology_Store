@@ -10,40 +10,46 @@
                   <div class="container-2">
                     <section class="content" style="margin-left:20px">
                         <h2>REGISTER &nbsp;</h2>
-                        <form th:action="@{/user/register}" method="POST" th:object="${user}" th:object="${contactUser}" class="form-register">
+                        <form th:action="@{/user/register}" method="POST" th:object="${registrationDTO}" class="form-register">
                         <h3>Personal Info</h3>
                         <div class="registerbox">
                           <fieldset>
                             <div class="control-group">
-                              <label class="control-label"><span class="red">*</span> First Name:</label>
+                              <label class="control-label"><span class="red">*</span> Full Name:</label>
                               <div class="controls">
-                                <input  type="text"  class="input-xlarge" autofocus required placeholder="First Name" >
+                                <input  type="text" th:field="*{contactUser.fullName}" class="input-xlarge" autofocus required placeholder="First Name" >
                               </div>
                             </div>
-                            <div class="control-group">
-                              <label class="control-label"><span class="red">*</span> Last Name:</label>
-                              <div class="controls">
-                                <input type="text"  class="input-xlarge" autofocus required placeholder="Last Name">
+                              <div class="control-group">
+                                  <label class="control-label"><span class="red">*</span>Phone number :</label>
+                                  <div class="controls">
+                                      <input  type="text" th:field="*{contactUser.phoneNumber}" class="input-xlarge" autofocus required placeholder="First Name" >
+                                  </div>
                               </div>
-                            </div>
+<!--                            <div class="control-group">-->
+<!--                              <label class="control-label"><span class="red">*</span> Last Name:</label>-->
+<!--                              <div class="controls">-->
+<!--                                <input type="text" th:field="*{contactUser.lastName}"   class="input-xlarge" autofocus required placeholder="Last Name">-->
+<!--                              </div>-->
+<!--                            </div>-->
                             <div class="control-group">
                               <label class="control-label"><span class="red" >*</span> Email:</label>
                               <div class="controls">
-                                <input type="email"  class="input-xlarge" autofocus required placeholder="@gmail.com">
+                                <input type="email" th:field="*{user.email}"  class="input-xlarge" autofocus required placeholder="@gmail.com" autocomplete="off">
                               </div>
                             </div>
                             <div class="control-group">
                               <label class="control-label"><span class="red">*</span> Telephone:</label>
                               <div class="controls">
-                                <input type="number"  class="input-xlarge">
+                                <input type="number" th:field="*{contactUser.phoneNumber}"  class="input-xlarge">
                               </div>
                             </div>
-                            <div class="control-group">
-                              <label class="control-label"> Fax:</label>
-                              <div class="controls">
-                                <input type="text"  class="input-xlarge">
-                              </div>
-                            </div>
+<!--                            <div class="control-group">-->
+<!--                              <label class="control-label"> Fax:</label>-->
+<!--                              <div class="controls">-->
+<!--                                <input type="text"  class="input-xlarge">-->
+<!--                              </div>-->
+<!--                            </div>-->
                           </fieldset>
                         </div>
                         <h3>Your Password</h3>
@@ -52,7 +58,7 @@
                             <div class="control-group">
                               <label  class="control-label" ><span class="red">*</span> Password:</label>
                               <div class="controls">
-                                <input type ="password"  class="input-xlarge">
+                                <input type ="password" th:field="*{user.password}"  class="input-xlarge" autocomplete="off">
                               </div>
                             </div>
                             <div class="control-group">

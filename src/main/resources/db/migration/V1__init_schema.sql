@@ -10,12 +10,13 @@ CREATE TABLE IF NOT EXISTS `users`
 INSERT INTO users (id, username, email, password, role)
 VALUES
     (1, 'user1', 'user1@example.com', '$2a$12$CJm6UGbeLXAM2BasuvunF.w6oerpQJ1KSeIVLeyJyDbIOOXRDAjTK', 'user'),
-    (2, 'user2', 'user2@example.com', 'password2', 'user'),
+    (2, 'user2', 'user2@example.com', '$2a$12$6AVUVOU8zUqHyg5o2OjRAeDfBdiM3p4EnH89MtATI9Gf6aKRdB5Se', 'user'),
     (3, 'admin', 'admin@example.com', '$2a$12$2fu2njqQCiKwjlmYnfiBm.uG9CmYDmJLea0Hbx2EfZQmSrknilw/a', 'admin');
 
 CREATE TABLE IF NOT EXISTS `contact_user`
 (
     `id`           INT PRIMARY KEY AUTO_INCREMENT,
+    `full_name`   VARCHAR(100) NOT NULL,
     `image_url`    VARCHAR(100),
     `city`         VARCHAR(200),
     `province`     VARCHAR(200),
@@ -26,10 +27,10 @@ CREATE TABLE IF NOT EXISTS `contact_user`
     `total_order`  int
 );
 -- Chèn dữ liệu vào bảng contact_user
-INSERT INTO contact_user (id, city, province, town, street, phone_number, user_id, total_order)
+INSERT INTO contact_user (id, full_name, city, province, town, street, phone_number, user_id, total_order)
 VALUES
-    (1, 'Hanoi', 'Hanoi', 'Hai Ba Trung', '123 Street', '1234567890', 1, 5),
-    (2, 'Ho Chi Minh', 'Ho Chi Minh', 'District 1', '456 Street', '9876543210', 2, 3);
+    (1,'Le quoc anh', 'Hanoi', 'Hanoi', 'Hai Ba Trung', '123 Street', '1234567890', 1, 5),
+    (2,'nguyen thanh loan', 'Ho Chi Minh', 'Ho Chi Minh', 'District 1', '456 Street', '9876543210', 2, 3);
 
 CREATE TABLE IF NOT EXISTS `cart`
 (

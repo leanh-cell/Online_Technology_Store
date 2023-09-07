@@ -8,24 +8,26 @@ import javax.persistence.*;
 public class ContactUser {
     @Id
     private Integer id;
+    @Column(name = "full_name")
+    public String fullName;
 
     @Column(name = "image_url")
     public String image_url;
 
     @Column(name = "city")
-    private String city;
+    public String city;
 
     @Column(name = "province")
-    private String province;
+    public String province;
 
     @Column(name = "town")
-    private String town;
+    public String town;
 
     @Column(name = "street")
-    private String street;
+    public String street;
 
     @Column(name = "phoneNumber")
-    private String phoneNumber;
+    public String phoneNumber;
 
     @Column(name = "totalOrder")
     private Integer totalOrder;
@@ -35,6 +37,10 @@ public class ContactUser {
     private User user;
 
     // Getters and setters
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public String getPhoneNumber() {
         return phoneNumber;
@@ -70,5 +76,13 @@ public class ContactUser {
 
     public void setImage_url(String image_url) {
         this.image_url = image_url;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 }
