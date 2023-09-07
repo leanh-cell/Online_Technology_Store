@@ -26,8 +26,16 @@ public class Cart {
         return product;
     }
 
+    public void setProduct(List<Product> product) {
+        this.product = product;
+    }
+
     public User getUser() {
         return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public int getQuantity() {

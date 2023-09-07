@@ -38,6 +38,13 @@ public class HomeController {
         return "/form/login";
     }
 
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        // Xóa thông tin người dùng khỏi phiên làm việc
+        session.removeAttribute("loggedInUser");
+        return "redirect:/home";
+    }
+
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
 //        User user = new User();

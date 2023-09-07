@@ -55,11 +55,6 @@ public class UserController {
                 UserRole userRole = UserRole.valueOf(userRoleValue.toUpperCase());
                 System.out.println(session + "/ " + authenticatedUser.username + "/ " + authenticatedUser.id + " /" + userRole + " /");
                 List<Cart> cart = cartService.getCartsByUserId(authenticatedUser.id);
-//                for (Cart cartItem : cart){
-//                    System.out.println("user id: " + cartItem.getUser());
-//                    System.out.println("Product ID: " + cartItem.getProduct());
-//                    System.out.println("Quantity: " + cartItem.getQuantity());
-//                }
             System.out.println("gio hang : "+ cart );
 
                 session.setAttribute("cart", cart);
@@ -76,12 +71,7 @@ public class UserController {
         return null;
     }
 
-    @GetMapping("/logout")
-    public String logout(HttpSession session) {
-        // Xóa thông tin người dùng khỏi phiên làm việc
-        session.removeAttribute("loggedInUser");
-        return "redirect:/home";
-    }
+
 
     @PostMapping("/register")
     public String registerUser(@ModelAttribute("registrationDTO") UserRegistrationDTO registrationDTO) {

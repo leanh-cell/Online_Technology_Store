@@ -32,7 +32,7 @@
            th:unless="${#httpServletRequest.session.getAttribute('loggedInUser') != null}">
           Log-in
         </a>
-        <a th:href="@{/user/logout}" class="last logout-link"
+        <a th:href="@{/logout}" class="last logout-link"
            th:if="${#httpServletRequest.session.getAttribute('loggedInUser') != null}">
           Log-out
         </a>

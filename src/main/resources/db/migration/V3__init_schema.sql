@@ -117,13 +117,14 @@ CREATE TABLE IF NOT EXISTS `order_details`
     `total_price`   DECIMAL(10, 2),
     `delivery_date` DATE,
     `order_status`  VARCHAR(50),
+    `order_code`    VARCHAR(20) not null,
     `product_id`    int
 );
 -- Chèn dữ liệu vào bảng order_details
-INSERT INTO order_details (id, quantity, total_price, delivery_date, order_status, product_id)
+INSERT INTO order_details (id, quantity, total_price, delivery_date, order_status,order_code, product_id)
 VALUES
-    (1, 2, 200.00, '2023-09-05', 'Pending', 1),
-    (2, 3, 300.00, '2023-09-01', 'Shipped', 2);
+    (1, 2, 200.00, '2023-09-05', 'Pending','JWHQ2DN', 1),
+    (2, 3, 300.00, '2023-09-01', 'Shipped','UDBQIEB3U', 2);
 
 CREATE TABLE IF NOT EXISTS `products_category`
 (

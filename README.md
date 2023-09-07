@@ -9,7 +9,20 @@ Port default config in file [application.properties]
     server.port: 8080
 
 * [http://localhost:8080/home](http://localhost:8080/home)
-### Password encrypt
+
+## Database config
+Start Xampp in file application.properties change the path to the database :
+
+    spring.datasource.url=jdbc:mysql://<my_port>/nanogear_store?createDatabaseIfNotExist=true
+    spring.datasource.username=<my_username>
+    spring.datasource.password=<my_password>
+
+    Ex:
+       spring.datasource.url=jdbc:mysql://127.0.0.1/nanogear_store?createDatabaseIfNotExist=true
+       spring.datasource.username=root
+       spring.datasource.password=123456
+
+## Password encrypt
 Password in table encrypted by `new BCryptPasswordEncoder().encode(password)`
 
     Ex: new BCryptPasswordEncoder().encode("admin")
