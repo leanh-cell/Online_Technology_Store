@@ -11,9 +11,8 @@ public class Category {
     private Integer id;
     @Column(name = "name")
     public String name;
-
-    @ManyToMany(mappedBy = "cat_id")
-    private List<Product> products;
-
+    @OneToOne
+    @JoinColumn(name = "id")
+    private Product product;
     // Getters and setters
 }

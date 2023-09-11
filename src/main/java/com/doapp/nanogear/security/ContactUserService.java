@@ -17,7 +17,7 @@ public class ContactUserService {
 
     @Transactional
     public ContactUser getUserInfoByUserId(int userId) {
-        return contactUserRepository.findContactUserById(userId);
+        return contactUserRepository.findContactUserByUserId(userId);
     }
 
     @Transactional

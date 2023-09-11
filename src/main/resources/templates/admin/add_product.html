@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="th" xmlns:th="http://www.thymeleaf.org">
+<htmllang="th" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 
@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Blank</title>
+    <title>SB Admin 2 - Buttons</title>
 
     <!-- Custom fonts for this template-->
     <link th:href="@{/admin/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
@@ -19,6 +19,7 @@
 
     <!-- Custom styles for this template-->
     <link  th:href="@{/admin/css/admin.css}" rel="stylesheet">
+
 </head>
 
 <body id="page-top">
@@ -56,17 +57,18 @@
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
+            <li class="nav-item active">
+                <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
+                    aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Components</span>
                 </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo"
+                    data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="buttons.html">Buttons</a>
-                        <a class="collapse-item" href="cards.html">Cards</a>
+                        <a class="collapse-item active" href="add_product.html">Buttons</a>
+                        <a class="collapse-item" href="product_list.html">Cards</a>
                     </div>
                 </div>
             </li>
@@ -99,14 +101,13 @@
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item active">
-                <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true"
-                    aria-controls="collapsePages">
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                    aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-folder"></i>
                     <span>Pages</span>
                 </a>
-                <div id="collapsePages" class="collapse show" aria-labelledby="headingPages"
-                    data-parent="#accordionSidebar">
+                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Login Screens:</h6>
                         <a class="collapse-item" href="login.html">Login</a>
@@ -115,14 +116,14 @@
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Other Pages:</h6>
                         <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item active" href="blank.html">Blank Page</a>
+                        <a class="collapse-item" href="add_category.html">Blank Page</a>
                     </div>
                 </div>
             </li>
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="charts.html">
+                <a class="nav-link" href="category_list.html">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Charts</span></a>
             </li>
@@ -358,8 +359,48 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
+
+                    <h2 style="text-align: center;">ADD PRODUCT</h2>
+                    <form action="" method="POST">
+                        <div class="form-group">
+                            <label for="product_name">Product Name:</label>
+                            <input type="text" class="form-control" id="product_name" name="product_name" placeholder="Nhập tên sản phẩm" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="image_url">Product Image:</label>
+                            <input type="file" class="form-control" id="image_url" name="image_url" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="product_cpu">CPU:</label>
+                            <input type="text" class="form-control" id="product_cpu" name="product_cpu"  placeholder="Nhập CPU của sản phẩm " required>
+                        </div>
+                        <div class="form-group">
+                            <label for="product_ram">RAM:</label>
+                            <input type="number" class="form-control" id="product_ram" name="product_ram"  placeholder="Nhập RAM của sản phẩm" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="product_storage">Storage:</label>
+                            <input type="text" class="form-control" id="product_storage" name="product_storage"  placeholder="Nhập dung lượng lưu trữ của sản phẩm" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="product_gpu">GPU:</label>
+                            <input type="text" class="form-control" id="product_gpu" name="product_gpu"  placeholder="Nhập GPU của sản phẩm" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="product_inch">Inch:</label>
+                            <input type="text" class="form-control" id="product_inch" name="product_inch"  placeholder="Nhập kích thước của sản phẩm" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="price">Price:</label>
+                            <input type="number" class="form-control" id="price" name="price" placeholder="Nhập giá sản phẩm" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="quantity">Quantity:</label>
+                            <input type="number" class="form-control" id="quantity" name="quantity"  placeholder="Nhập số lượng sản phẩm" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Add product</button>
+                    </form>
 
                 </div>
                 <!-- /.container-fluid -->

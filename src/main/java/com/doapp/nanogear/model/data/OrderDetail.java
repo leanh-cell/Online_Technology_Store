@@ -24,6 +24,9 @@ public class OrderDetail {
     @Column(name = "orderStatus")
     private String orderStatus;
 
+    @Column(name = "order_code")
+    private String orderCode;
+
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;

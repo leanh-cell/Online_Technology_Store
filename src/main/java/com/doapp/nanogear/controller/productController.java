@@ -1,5 +1,6 @@
 package com.doapp.nanogear.controller;
 
+import com.doapp.nanogear.model.data.Category;
 import com.doapp.nanogear.model.data.Product;
 import com.doapp.nanogear.model.respository.ProductRepository;
 import com.doapp.nanogear.security.ProductService;
@@ -55,4 +56,9 @@ public class productController {
     public void deleteProduct(@PathVariable int id) {
         productService.deleteById(id);
     }
+
+//    @PostMapping("/save")
+//    public saveProduct(Product product, Category category){
+//
+//    }
 }
