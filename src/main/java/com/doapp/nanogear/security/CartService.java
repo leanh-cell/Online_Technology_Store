@@ -51,14 +51,6 @@ public class CartService {
             cart.setUser(loggedInUser);
             cart.setQuantity(1); // Số lượng mặc định là 1
 
-            // Tạo danh sách sản phẩm nếu chưa tồn tại
-            if (cart.getProduct() == null) {
-                cart.setProduct(new ArrayList<>());
-            }
-
-            // Thêm sản phẩm vào danh sách
-            cart.getProduct().add(product);
-
             cartRepository.save(cart);
 
 //            // Nếu sản phẩm chưa tồn tại trong giỏ hàng, tạo mới CartItem
@@ -69,4 +61,5 @@ public class CartService {
 //            cartRepository.save(cart);
         }
     }
+
 }

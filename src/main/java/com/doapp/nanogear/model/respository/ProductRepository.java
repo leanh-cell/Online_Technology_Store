@@ -14,7 +14,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     @Query("SELECT p FROM Product p " +
             "WHERE (:keyword IS NULL OR " +
             "       p.name LIKE %:keyword% OR " +
-            "       EXISTS (SELECT c FROM p.categories c WHERE c.name LIKE %:keyword%)) " +
+            "       EXISTS (SELECT c FROM p.category c WHERE c.name LIKE %:keyword%)) " +
             "AND (p.price >= :price - 100 AND p.price <= :price + 100) " +
             "ORDER BY " +
             "       CASE WHEN p.name LIKE %:keyword% THEN 1 " +

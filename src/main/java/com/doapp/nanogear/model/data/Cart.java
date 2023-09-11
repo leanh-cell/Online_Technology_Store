@@ -16,17 +16,18 @@ public class Cart {
     @JoinColumn(name = "user_id")
     public User user;
 
-    @ManyToMany(mappedBy = "carts")
-    private List<Product> product;
+    @ManyToOne()
+    @JoinColumn(name = "product_id")
+    private Product product;
 
     @Column(name = "quantity")
     public Integer quantity;
 
-    public List<Product> getProduct() {
+    public Product getProduct() {
         return product;
     }
 
-    public void setProduct(List<Product> product) {
+    public void setProduct(Product product) {
         this.product = product;
     }
 

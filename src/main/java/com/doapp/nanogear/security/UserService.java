@@ -8,12 +8,17 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
 public class UserService {
     @Autowired
     private UserRepository userRepo;
+
+    public User getUserById(int id){
+       return userRepo.getUserById(id);
+    }
 
     public List<User> findAll() {
         return userRepo.findAll();
@@ -22,7 +27,7 @@ public class UserService {
     public User findByUsernameOrEmail(String username) {
         return userRepo.findByUsernameOrEmail(username);
     }
-
+    @Transactional
     public void save(User user) {
         userRepo.save(user);
     }
