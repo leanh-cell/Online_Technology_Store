@@ -1,32 +1,89 @@
 package com.doapp.nanogear.model.data;
 
 import javax.persistence.*;
-import lombok.Data;
 
 
 @Entity
-@Table(name = "contact_user") // Xác định tên bảng là "contact_user"
-@Data
+@Table(name = "contact_user")
 public class ContactUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
+    @Column(name = "full_name")
+    public String fullName;
 
-    private String city;
+    @Column(name = "image_url")
+    public String image_url;
 
-    private String province;
+    @Column(name = "city")
+    public String city;
 
-    private String town;
+    @Column(name = "province")
+    public String province;
 
-    private String street;
+    @Column(name = "town")
+    public String town;
 
-    @Column(name = "image_url") // Thêm cột cho trường ảnh
-    private String imageUrl;
+    @Column(name = "street")
+    public String street;
 
-    @Column(name = "phone_number")
-    private String phoneNumber;
+    @Column(name = "phoneNumber")
+    public String phoneNumber;
 
-    @OneToOne
-    @JoinColumn(name = "user_id") // Ánh xạ khóa ngoại đến bảng "users"
-    private Users user;
+    @Column(name = "totalOrder")
+    private Integer totalOrder;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    // Getters and setters
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public Integer getTotalOrder() {
+        return totalOrder;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public void setTotalOrder(Integer totalOrder) {
+        this.totalOrder = totalOrder;
+    }
+
+    public void setTown(String town) {
+        this.town = town;
+    }
+
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
 }

@@ -26,7 +26,17 @@
       <li><a href="wishlist.html">My Wishlist</a></li>
       <li><a href="#">My Cart</a></li>
       <li><a href="checkout.html">Checkout</a></li>
-      <li class="login"><a th:href="@{/login}" class="last login-window">Log-in</a></li>
+<!--      <li class="login"><a th:href="@{/login}" class="last login-window">Log-in</a></li>-->
+      <li class="login">
+        <a th:href="@{/login}" class="last login-window"
+           th:unless="${#httpServletRequest.session.getAttribute('loggedInUser') != null}">
+          Log-in
+        </a>
+        <a th:href="@{/logout}" class="last logout-link"
+           th:if="${#httpServletRequest.session.getAttribute('loggedInUser') != null}">
+          Log-out
+        </a>
+      </li>
     </ul>
     <div id="login-box" class="login-popup">
       <a href="#" class="close"><img th:src="@{/form/images/process-stop.png}" class="btn_close" title="Close Window" alt="Close" /></a>
@@ -48,7 +58,7 @@
       <!--                  </form>-->
     </div>
     <div id="demo-header">
-      <a id="cart-link" href="#cart" title="Cart">My Cart</a>
+      <a id="cart-link" th:href="@{/myCart}" title="Cart">My Cart</a>
 
     </div><!-- /demoheader -->
   </div><!--end:top2-->

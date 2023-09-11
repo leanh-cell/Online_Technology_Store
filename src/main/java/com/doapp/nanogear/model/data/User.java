@@ -3,34 +3,36 @@ package com.doapp.nanogear.model.data;
 import javax.persistence.*;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import lombok.Data;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Size;
+import java.util.List;
+
 @Entity
-@Table(name = "Users") // Xác định tên bảng là "Users"
-@Data
-public class Users{
-
-
+@Table(name = "users")
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int id;
+    public Integer id;
 
-    @Size(min = 2, message = "Username must be at least 2 characters long")
+    @Column(name = "username")
     public String username;
 
-    @Size(min = 4, message = "Password must be at least 2 characters long")
-    public String password;
-
-    @Transient
-    public String confirmPassword;
-
-    @Email(message = "Please enter a valid email")
+    @Column(name = "email")
     public String email;
+
+    @Column(name = "password")
+    public String password;
 
     @Column(name = "role")
     public String role;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Cart> carts;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Order> orders;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<ContactUser> contactUsers;
 
     @PrePersist
     @PreUpdate

@@ -3,24 +3,29 @@ package com.doapp.nanogear.model.data;
 import javax.persistence.*;
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Entity
-@Table(name = "product_detail") // Xác định tên bảng là "product_detail"
-@Data
+@Table(name = "product_detail")
 public class ProductDetail {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String cpu;
+    @Column(name = "cpu")
+    public String cpu;
 
-    private int ram;
+    @Column(name = "ram")
+    public Integer ram;
+    @Column(name = "storage")
+    public String storage;
 
-    private String storage;
+    @Column(name = "gpu")
+    public String gpu;
+    @Column(name = "inch")
+    public Double inch;
 
-    private String gpu;
-
-    private double inch;
-
-    @OneToOne(mappedBy = "productDetail") // Ánh xạ ngược từ khóa ngoại ở Product
+    @OneToOne
+    @JoinColumn(name = "id")
     private Product product;
+    // Getters and setters
 }
