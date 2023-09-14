@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `products`
     `name`           VARCHAR(200),
     `price`          DECIMAL(10,2),
     `description`    VARCHAR(255),
-    `image_url`      VARCHAR(200),
+    `image_url`      VARCHAR(500),
     `created_date`   TIMESTAMP,
     `quantity`       int,
     `product_detail_id` Int,

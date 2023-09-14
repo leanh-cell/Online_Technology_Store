@@ -1,9 +1,7 @@
 package com.doapp.nanogear.controller;
 
-import com.doapp.nanogear.model.DTO.UserRegistrationDTO;
-//import com.doapp.nanogear.model.DTO.userLoginDTO;
-import com.doapp.nanogear.model.data.ContactUser;
-import com.doapp.nanogear.model.data.User;
+
+import com.doapp.nanogear.model.DTO.UserDTO;
 import com.doapp.nanogear.security.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,10 +14,10 @@ import javax.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/")
 public class HomeController {
-    private final UserService userService;
+//    private final UserService userService;
 
-    public HomeController(UserService userService) {
-        this.userService = userService;
+    public HomeController() {
+//        this.userService = userService;
         home();
     }
 
@@ -45,6 +43,8 @@ public class HomeController {
     public String logout(HttpSession session) {
         // Xóa thông tin người dùng khỏi phiên làm việc
         session.removeAttribute("loggedInUser");
+        session.removeAttribute("userRole");
+        session.removeAttribute("cart");
         return "redirect:/home";
     }
 
@@ -54,7 +54,7 @@ public class HomeController {
 //        ContactUser contactUser = new ContactUser();
 //        model.addAttribute("user", user);
 //        model.addAttribute("contactUser", contactUser);
-        UserRegistrationDTO registrationDTO = new UserRegistrationDTO();
+        UserDTO registrationDTO = new UserDTO();
         model.addAttribute("registrationDTO", registrationDTO);
         return "form/register";
     }
