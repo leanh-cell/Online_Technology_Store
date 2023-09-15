@@ -23,21 +23,20 @@ public class Product {
     private Integer quantity;
 
     @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
+    @JoinColumn(name = "Product_detail_id")
     private ProductDetail productDetailId;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private List<OrderDetail> orderDetails;
-
-    //    @ManyToMany
-//    @JoinTable(
-//            name = "products_category",
-//            joinColumns = @JoinColumn(name = "products_id"),
-//            inverseJoinColumns = @JoinColumn(name = "category_id")
-//    )
-//    private List<Category> categories;
     @OneToOne(mappedBy = "product",cascade = CascadeType.ALL)
     private Category category;
     // Getters and setters
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public double getPrice() {
         return price;
@@ -69,5 +68,29 @@ public class Product {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public Timestamp getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Timestamp createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public ProductDetail getProductDetailId() {
+        return productDetailId;
+    }
+
+    public void setProductDetailId(ProductDetail productDetailId) {
+        this.productDetailId = productDetailId;
     }
 }

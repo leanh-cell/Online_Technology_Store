@@ -6,8 +6,7 @@ import com.doapp.nanogear.model.data.User;
 import com.doapp.nanogear.model.respository.CartRepository;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -24,7 +23,7 @@ public class CartService {
     public List<Cart> getCartsByUserId(int userId) {
         return cartRepository.getCartsByUserId(userId);
     }
-
+    @Transactional
     public void addToCart(User loggedInUser, int productId) {
         Product product = productService.findById(productId);
         if (product == null) {
@@ -35,11 +34,6 @@ public class CartService {
         if (product.getQuantity() <= 0) {
             System.out.println("Out of stock");
         }
-
-        // Kiểm tra xem sản phẩm có thuộc về chính người dùng đang đăng nhập không
-//        if (product.getSeller().getUserId().equals(loggedInUser.getUserId())) {
-//            System.out.println("You cannot add your own product to the cart");
-//        }
 
         Cart existingCartItem = cartRepository.findByUserAndProduct(loggedInUser, product);
         if (existingCartItem != null) {
@@ -52,14 +46,17 @@ public class CartService {
             cart.setQuantity(1); // Số lượng mặc định là 1
 
             cartRepository.save(cart);
-
-//            // Nếu sản phẩm chưa tồn tại trong giỏ hàng, tạo mới CartItem
-//            Cart cart = new Cart();
-//            cart.setUser(loggedInUser);
-//            cart.setProduct(product);
-//            cart.setQuantity(1); // Số lượng mặc định là 1
-//            cartRepository.save(cart);
         }
     }
 
+    @Transactional
+    public void updateQuantity(int userid,int prdId){
+       Cart cart = cartRepository.findByUseridAndProductId(userid,prdId);
+       if(cart.quantity < cart.getProduct().getQuantity()){
+           cart.setQuantity(cart.quantity + 1);
+           cartRepository.save(cart);
+       }else if(cart.quantity == cart.getProduct().getQuantity()){
+       }
+
+    }
 }

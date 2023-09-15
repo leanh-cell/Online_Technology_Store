@@ -1,5 +1,6 @@
 package com.doapp.nanogear.controller;
 
+import com.doapp.nanogear.model.DTO.AuthenticatedHasRoleDTO;
 import com.doapp.nanogear.model.DTO.UserDTO;
 import com.doapp.nanogear.model.data.Cart;
 import com.doapp.nanogear.model.data.ContactUser;
@@ -31,6 +32,7 @@ public class UserController {
     @Autowired
     private ContactUserService contactUserService;
 
+    public AuthenticatedHasRoleDTO authenticatedHasRoleDTO;
 
 
 
@@ -40,16 +42,16 @@ public class UserController {
 //        this.contactUserService = contactUserService;
 //    }
 
-    private boolean isAuthenticatedAndHasRole(HttpSession session, String requiredRole) {
-        // Kiểm tra xem người dùng đã đăng nhập hay chưa
-        if (session.getAttribute("loggedInUser") == null) {
-            return false;
-        }
-        // Lấy thông tin về vai trò từ session hoặc cơ sở dữ liệu
-        String userRole = (String) session.getAttribute("userRole"); // "userRole" thuộc tính chứa vai trò trong session
-        // Kiểm tra vai trò của người dùng
-        return userRole != null && userRole.equals(requiredRole);
-    }
+//    private boolean isAuthenticatedAndHasRole(HttpSession session, String requiredRole) {
+//        // Kiểm tra xem người dùng đã đăng nhập hay chưa
+//        if (session.getAttribute("loggedInUser") == null) {
+//            return false;
+//        }
+//        // Lấy thông tin về vai trò từ session hoặc cơ sở dữ liệu
+//        String userRole = (String) session.getAttribute("userRole"); // "userRole" thuộc tính chứa vai trò trong session
+//        // Kiểm tra vai trò của người dùng
+//        return userRole != null && userRole.equals(requiredRole);
+//    }
 
     public enum UserRole {
         USER("USER"), ADMIN("ADMIN");
@@ -125,7 +127,7 @@ public class UserController {
 
     @PostMapping("/inForUser/{username}")
     public String inforUser(@PathVariable("username") String username, @RequestParam("userid") int userid, HttpSession session, Model model) {
-        if (!isAuthenticatedAndHasRole(session, "USER")) {
+        if (!authenticatedHasRoleDTO.isAuthenticatedAndHasRole(session,"USER")) {
             User user = userService.getUserById(userid);
             ContactUser contactUser = contactUserService.getUserInfoByUserId(userid);
             model.addAttribute("user", user);
@@ -138,7 +140,7 @@ public class UserController {
 
     @PutMapping("/changePass")
     public String changePass(@RequestParam("newPass") String newPass, HttpSession session, Model model, RedirectAttributes redirectAttributes) {
-        if (!isAuthenticatedAndHasRole(session, "USER")) {
+        if (!authenticatedHasRoleDTO.isAuthenticatedAndHasRole(session,"USER")) {
             User user = (User) session.getAttribute("loggedInUser");
             userService.changePassword(user, newPass);
             redirectAttributes.addFlashAttribute("message", "Change Password success!");
@@ -153,7 +155,7 @@ public class UserController {
                            @ModelAttribute("contactUsers") ContactUser updatedContactUsers,
                            @RequestParam("multipartFile") MultipartFile file,
                            HttpSession session) {
-        if (!isAuthenticatedAndHasRole(session, "USER")) {
+        if (!authenticatedHasRoleDTO.isAuthenticatedAndHasRole(session,"USER")) {
             User user = (User) session.getAttribute("loggedInUser");
             userService.updateUserAndContactUser(user.id, updatedUser, updatedContactUsers, file);
         }
