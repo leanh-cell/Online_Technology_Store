@@ -116,7 +116,7 @@
                     <div class="collapse-divider"></div>
                     <h6 class="collapse-header">Other Pages:</h6>
                     <a class="collapse-item" href="404.html">404 Page</a>
-                    <a class="collapse-item" href="blank.html">Blank Page</a>
+                    <a class="collapse-item" href="add_category.html">Blank Page</a>
                 </div>
             </div>
         </li>
@@ -359,17 +359,49 @@
             <!-- Begin Page Content -->
             <div class="container-fluid">
 
-         <div class="form">
-                <h2 style="text-align: center;">ADD CATEGORY</h2>
+
+                <h2 style="text-align: center;">UPDATE PRODUCT</h2>
                 <form action="" method="POST">
                     <div class="form-group">
-                        <label for="category_name">Category Name:</label>
-                        <input type="text" class="form-control" id="category_name" name="category_name" placeholder="Nhập tên loại sản phẩm" required>
+                        <label for="product_name">Product Name:</label>
+                        <input type="text" class="form-control" id="product_name" name="product_name" placeholder="Nhập tên sản phẩm" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="image_url">Product Image:</label>
+                        <input type="file" class="form-control" id="image_url" name="image_url" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="product_cpu">CPU:</label>
+                        <input type="text" class="form-control" id="product_cpu" name="product_cpu"  placeholder="Nhập CPU của sản phẩm " required>
+                    </div>
+                    <div class="form-group">
+                        <label for="product_ram">RAM:</label>
+                        <input type="number" class="form-control" id="product_ram" name="product_ram"  placeholder="Nhập RAM của sản phẩm" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="product_storage">Storage:</label>
+                        <input type="text" class="form-control" id="product_storage" name="product_storage"  placeholder="Nhập dung lượng lưu trữ của sản phẩm" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="product_gpu">GPU:</label>
+                        <input type="text" class="form-control" id="product_gpu" name="product_gpu"  placeholder="Nhập GPU của sản phẩm" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="product_inch">Inch:</label>
+                        <input type="text" class="form-control" id="product_inch" name="product_inch"  placeholder="Nhập kích thước của sản phẩm" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Price:</label>
+                        <input type="number" class="form-control" id="price" name="price" placeholder="Nhập giá sản phẩm" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="quantity">Quantity:</label>
+                        <input type="number" class="form-control" id="quantity" name="quantity"  placeholder="Nhập số lượng sản phẩm" required>
                     </div>
 
-                    <button type="submit" class="btn btn-primary" style="text-align: center">Add category</button>
+                    <button type="submit" class="btn btn-primary">Update product</button>
                 </form>
-         </div>
+
             </div>
             <!-- /.container-fluid -->
 
