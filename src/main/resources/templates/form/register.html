@@ -19,6 +19,9 @@
                               <div class="controls">
                                 <input  type="text" th:field="*{contactUser.fullName}" class="input-xlarge" autofocus required placeholder="First Name" >
                               </div>
+                                <div class="controls">
+                                    <input  type="text" th:field="*{user.username}" class="input-xlarge" autofocus required placeholder="UserName" >
+                                </div>
                             </div>
                               <div class="control-group">
                                   <label class="control-label"><span class="red">*</span>Phone number :</label>
@@ -67,6 +70,7 @@
                                 <input type ="password"  class="input-xlarge">
                               </div>
                             </div>
+<!--                              <input type="hidden" th:field="*{user.setRole('user')}">-->
                           </fieldset>
                         </div>
                         <div class="pull-right">

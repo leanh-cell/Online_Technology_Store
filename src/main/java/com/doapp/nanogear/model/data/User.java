@@ -10,6 +10,7 @@ import java.util.List;
 @Table(name = "users")
 public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer id;
 
     @Column(name = "username")
@@ -71,5 +72,11 @@ public class User {
         this.role = role;
     }
 
+    public void setContactUsers(List<ContactUser> contactUsers) {
+        this.contactUsers = contactUsers;
+    }
 
+    public List<ContactUser> getContactUsers() {
+        return contactUsers;
+    }
 }

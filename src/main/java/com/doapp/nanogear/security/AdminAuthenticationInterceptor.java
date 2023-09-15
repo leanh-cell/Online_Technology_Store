@@ -22,6 +22,7 @@ public class AdminAuthenticationInterceptor implements HandlerInterceptor {
             if ("ADMIN".equalsIgnoreCase(userRoleValue)) {
                 return true;
             }
+            response.sendRedirect("/login");
             return false;
         } else {
             // Người dùng chưa đăng nhập, chuyển hướng về trang đăng nhập hoặc xử lý khác

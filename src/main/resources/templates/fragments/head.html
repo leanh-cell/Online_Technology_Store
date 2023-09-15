@@ -29,18 +29,8 @@
   <script type="application/json" src="form/js/custom.js"></script><!--custom-->
   <script type="application/json" src="form/js/jquery-3.6.0.min.js"></script>
 
-  <script type="application/javascript">
-    $(document).ready(function($){
-      $('#mega-menu-3').dcMegaMenu({
-        rowItems: '2',
-        speed: 'fast',
-        effect: 'fade'
-      });
-    });
-  </script>
-  <script type="application/json"
-          th:src="@{http://maps.googleapis.com/maps/api/js?sensor=false&language=vi}">
-  </script>
+  <script type="text/javascript"
+          src="http://maps.googleapis.com/maps/api/js?sensor=false&language=vi"></script>
   <script type="application/javascript">
     var map;
     function initialize() {

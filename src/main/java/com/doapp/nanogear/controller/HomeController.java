@@ -1,13 +1,12 @@
 package com.doapp.nanogear.controller;
 
-import com.doapp.nanogear.model.DTO.UserRegistrationDTO;
-//import com.doapp.nanogear.model.DTO.userLoginDTO;
-import com.doapp.nanogear.model.data.ContactUser;
-import com.doapp.nanogear.model.data.User;
+
+import com.doapp.nanogear.model.DTO.UserDTO;
 import com.doapp.nanogear.security.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
@@ -15,23 +14,25 @@ import javax.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/")
 public class HomeController {
-    private final UserService userService;
-    public HomeController(UserService userService) {
-        this.userService = userService;
+//    private final UserService userService;
+
+    public HomeController() {
+//        this.userService = userService;
         home();
     }
 
     @GetMapping("/home")
     public String home() {
-            return "/form/index";
+        return "/form/index";
     }
+
     @GetMapping("/laptop-re")
     public String laptopRe() {
 
         return "form/laptop-re";
     }
 
-    @GetMapping ("/login")
+    @GetMapping("/login")
     public String login(Model model) {
 //        userLoginDTO userDTO = new userLoginDTO();
 //        model.addAttribute("userDTO",userDTO);
@@ -42,6 +43,8 @@ public class HomeController {
     public String logout(HttpSession session) {
         // Xóa thông tin người dùng khỏi phiên làm việc
         session.removeAttribute("loggedInUser");
+        session.removeAttribute("userRole");
+        session.removeAttribute("cart");
         return "redirect:/home";
     }
 
@@ -51,12 +54,18 @@ public class HomeController {
 //        ContactUser contactUser = new ContactUser();
 //        model.addAttribute("user", user);
 //        model.addAttribute("contactUser", contactUser);
-        UserRegistrationDTO registrationDTO = new UserRegistrationDTO();
+        UserDTO registrationDTO = new UserDTO();
         model.addAttribute("registrationDTO", registrationDTO);
         return "form/register";
     }
-@GetMapping("/myCart")
-    public String myCart(){
+
+    @GetMapping("/myCart")
+    public String myCart() {
         return "/form/cart";
-}
+    }
+
+    @GetMapping("/inForUser/{username}")
+    public String inforUser(@PathVariable String userName) {
+        return "/form/inforuser";
+    }
 }

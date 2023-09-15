@@ -7,6 +7,7 @@ import javax.persistence.*;
 @Table(name = "contact_user")
 public class ContactUser {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(name = "full_name")
     public String fullName;
@@ -38,44 +39,12 @@ public class ContactUser {
 
     // Getters and setters
 
+    public Integer getId() {
+        return id;
+    }
+
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public Integer getTotalOrder() {
-        return totalOrder;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public void setProvince(String province) {
-        this.province = province;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public void setTotalOrder(Integer totalOrder) {
-        this.totalOrder = totalOrder;
-    }
-
-    public void setTown(String town) {
-        this.town = town;
-    }
-
-    public void setImage_url(String image_url) {
-        this.image_url = image_url;
     }
 
     public String getFullName() {
@@ -85,4 +54,63 @@ public class ContactUser {
     public void setFullName(String fullName) {
         this.fullName = fullName;
     }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getTown() {
+        return town;
+    }
+
+    public void setTown(String town) {
+        this.town = town;
+    }
+
+    public String getImage_url() {
+        return image_url;
+    }
+
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
+    }
+
+
+
+    public Integer getTotalOrder() {
+        return totalOrder;
+    }
+
+    public void setTotalOrder(Integer totalOrder) {
+        this.totalOrder = totalOrder;
+    }
+
 }
