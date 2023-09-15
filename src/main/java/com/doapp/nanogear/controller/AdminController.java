@@ -23,10 +23,10 @@ public class AdminController {
 
     @RequestMapping("/home")
     public String adminHome(HttpSession session) {
-        if (!isAuthenticatedAndHasRole(session, "ADMIN")) {
+//        if (!isAuthenticatedAndHasRole(session, "ADMIN")) {
             return "/admin/index";
-        }
-        return "redirect:/home";
+//        }
+//        return "redirect:/home";
     }
 
     @GetMapping("/access-denied")

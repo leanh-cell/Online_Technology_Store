@@ -72,5 +72,11 @@ public class User {
         this.role = role;
     }
 
+    public void setContactUsers(List<ContactUser> contactUsers) {
+        this.contactUsers = contactUsers;
+    }
 
+    public List<ContactUser> getContactUsers() {
+        return contactUsers;
+    }
 }

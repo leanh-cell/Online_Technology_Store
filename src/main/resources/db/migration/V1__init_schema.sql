@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS `users`
     `email`    VARCHAR(100),
     `password` VARCHAR(100) NOT NULL,
     `role`     VARCHAR(10) NOT NULL
-);
+    );
 -- Chèn dữ liệu vào bảng users
 INSERT INTO users ( username, email, password, role)
 VALUES
@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `contact_user`
     `phone_number` VARCHAR(20),
     `user_id`      INT,
     `total_order`  int
-);
+    );
 -- Chèn dữ liệu vào bảng contact_user
 INSERT INTO contact_user ( full_name, city, province, town, street, phone_number, user_id, total_order)
 VALUES
@@ -52,12 +52,12 @@ CREATE TABLE IF NOT EXISTS `products`
     `name`           VARCHAR(200),
     `price`          DECIMAL(10,2),
     `description`    VARCHAR(255),
-    `image_url`      VARCHAR(200),
+    `image_url`      VARCHAR(500),
     `created_date`   TIMESTAMP,
     `quantity`       int,
     `product_detail_id` Int,
     `category_id`       INT
-);
+    );
 -- Chèn dữ liệu vào bảng products
 INSERT INTO products ( name, price, description, image_url, created_date, quantity, product_detail_id,category_id)
 VALUES
@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS `product_detail`
     `storage` VARCHAR(255),
     `gpu`     VARCHAR(255),
     `inch`    double
-);
+    );
 -- Chèn dữ liệu vào bảng product_detail
 INSERT INTO product_detail ( cpu, ram, storage, gpu, inch)
 VALUES
@@ -85,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `category`
 (
     `id`   INT PRIMARY KEY AUTO_INCREMENT,
     `name` VARCHAR(255)
-);
+    );
 -- Chèn dữ liệu vào bảng category
 INSERT INTO category ( name)
 VALUES
@@ -100,37 +100,46 @@ CREATE TABLE IF NOT EXISTS `orders`
     `contact_user`    INT,
     `user_id`         int,
     `order_date`      DATE,
-    `total_amount`    DECIMAL(10, 2),
-    `total_price`     DECIMAL(10, 2),
-    `order_detail_id` int
-);
+    `total_pay`       DECIMAL(10, 2),
+    `payment_method`  int,
+    `payment_status`  int,
+    `total_cost`      DECIMAL(10, 2),
+    `transport_fee`   DECIMAL(10, 2),
+    `quantity`        INT,
+    `date_receipt`    DATE,
+    `order_status`    VARCHAR(50),
+    `order_code`      VARCHAR(20) not null
+    );
 -- Chèn dữ liệu vào bảng orders
-INSERT INTO orders ( contact_user, user_id, order_date, total_amount, total_price, order_detail_id)
-VALUES
-    ( 1, 1, '2023-08-31', 3, 450.00, 1),
-    ( 2, 2, '2023-08-30', 2, 400.00, 2);
+INSERT INTO `orders` (`contact_user`, `user_id`, `order_date`, `total_pay`, `payment_method`, `payment_status`, `total_cost`, `transport_fee`, `quantity`, `date_receipt`, `order_status`, `order_code`) VALUES
+(1, 1, '2023-09-15', 100.50, 1, 1, 80.00, 20.50, 3, '2023-09-20', 'Processing', 'ORD12345'),
+(2, 2, '2023-09-16', 75.25, 2, 1, 60.00, 15.25, 2, '2023-09-21', 'Shipped', 'ORD12346'),
+(1, 1, '2023-09-17', 45.75, 1, 0, 40.00, 5.75, 1, '2023-09-22', 'Cancelled', 'ORD12347'),
+(1, 1, '2023-09-18', 120.00, 3, 1, 100.00, 20.00, 4, '2023-09-23', 'Delivered', 'ORD12348'),
+(1, 1, '2023-09-19', 60.90, 2, 1, 50.00, 10.90, 2, '2023-09-24', 'Shipped', 'ORD12349');
 
-CREATE TABLE IF NOT EXISTS `order_details`
+
+CREATE TABLE IF NOT EXISTS `order_item`
 (
-    `id`            INT PRIMARY KEY AUTO_INCREMENT,
-    `quantity`      INT,
-    `total_price`   DECIMAL(10, 2),
-    `delivery_date` DATE,
-    `order_status`  VARCHAR(50),
-    `order_code`    VARCHAR(20) not null,
-    `product_id`    int
+    `id`               INT PRIMARY KEY AUTO_INCREMENT,
+    `order_id`         int,
+    `product_id`       int,
+    `quantity`         int
 );
--- Chèn dữ liệu vào bảng order_details
-INSERT INTO order_details ( quantity, total_price, delivery_date, order_status,order_code, product_id)
+INSERT INTO order_item (order_id, product_id, quantity)
 VALUES
-    ( 2, 200.00, '2023-09-05', 'Pending','JWHQ2DN', 1),
-    ( 3, 300.00, '2023-09-01', 'Shipped','UDBQIEB3U', 2);
+    (1, 1, 2), -- Đơn đặt hàng có id = 1 chứa sản phẩm có id = 1 với số lượng là 2
+    (1, 2, 1), -- Đơn đặt hàng có id = 1 chứa sản phẩm có id = 2 với số lượng là 1
+    (2, 3, 3); -- Đơn đặt hàng có id = 2 chứa sản phẩm có id = 3 với số lượng là 3
+
+ALTER TABLE  `order_item`
+    ADD FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`);
+
+ALTER TABLE  `order_item`
+    ADD FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
 
 ALTER TABLE  `orders`
     ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
-
-ALTER TABLE `orders`
-    ADD FOREIGN KEY (`order_detail_id`) REFERENCES `order_details` (`id`);
 
 ALTER TABLE `cart`
     ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
@@ -146,9 +155,6 @@ ALTER TABLE `products`
 
 ALTER TABLE `products`
     ADD FOREIGN KEY (`category_id`) REFERENCES `category` (`id`);
-
-ALTER TABLE `order_details`
-    ADD FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
 
 ALTER TABLE `contact_user`
     ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
