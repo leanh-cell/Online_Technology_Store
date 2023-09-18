@@ -29,10 +29,6 @@ public class AdminController {
 //        return "redirect:/home";
     }
 
-    @GetMapping("/access-denied")
-    public String accessdenied() {
-        return "admin/access-denied";
-    }
     @GetMapping("/add_product")
     public String AddProduct(){
         return "/admin/add_product";
@@ -49,5 +45,9 @@ public class AdminController {
     @GetMapping("/category_list")
     public String CategoryList(){
         return "/admin/category_list";
+    }
+    @GetMapping("/tables")
+    public String Table(){
+        return "/admin/tables";
     }
 }
