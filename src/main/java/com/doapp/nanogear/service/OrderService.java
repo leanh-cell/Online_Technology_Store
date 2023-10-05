@@ -39,5 +39,7 @@ public interface OrderService {
 	Page<Order> findByIdKeyWord(Optional<String> id, Optional<Integer> p);
 	
 	List<TotalDate> findTotalByDate(Optional<String> date1, Optional<String> date2);
+
+	boolean orderExistsWithCode(String code);
 	
 }

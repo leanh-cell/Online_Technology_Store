@@ -11,25 +11,26 @@ CREATE TABLE IF NOT EXISTS `Users`
     `code`      varchar(50)
 );
 INSERT INTO Users (user_id, user_name, email, phone, address, password, role, is_Active, code)
-VALUES ('123', 'Văn Quang', 'test@gmail.com', '0346363860', '129 Lý Thường Kiệt Phường 4',
-        '$2a$12$FwaWiZpQCLD9qpxpil81UuRmFG.J3pia9umymAUe.nw0jOHLFVNpC', 1, 0, ''),
-       ('admin1', 'Nguyễn Văn AD', 'PhanLeThanhPhuc2010@gmail.com', '09090909209', '129 Lý Thường Kiệt Phường 4',
-        '$2a$12$FwaWiZpQCLD9qpxpil81UuRmFG.J3pia9umymAUe.nw0jOHLFVNpC', 0, 0, ''),
-       ('phucdzx1', 'Thành Phúc1', 'phanphuc20102003@gmail.com', '0346363860', '129 Lý Thường Kiệt Phường 4',
-        '$2a$12$FwaWiZpQCLD9qpxpil81UuRmFG.J3pia9umymAUe.nw0jOHLFVNpC', 1, 0, 'sGbg0CuWpgKefmOJ6tTimjVhxXhQBZ'),
-       ('test1', 'Nguyễn Văn A', 'ptlp2010@gmail.com', '0346363890', '129 Lý Thường Kiệt',
-        '$2a$12$FwaWiZpQCLD9qpxpil81UuRmFG.J3pia9umymAUe.nw0jOHLFVNpC', 0, 0, '0');
+VALUES
+('admin', 'admin', 'admin@gmail.com', '0987654321', 'quan nhan, ha noi ', '$2a$10$FQIsN0DnF6Ln8uDRX/xZ6.KeVvuQVSnOI7foGXlul1eqt6HhKXOTm', b'0', b'0', '0'),
+('qanh', 'anhr', 'quocanh277353@gmail.com', '0987654321', 'cầu giấy ', '$2a$10$bOxAP.pq3v4ftm.cPDxuAuFio.1tA1oljhx7ZA5LdoCgQaU0Eb8jO', b'0', b'0', '0');
 
 CREATE TABLE IF NOT EXISTS `delivery_address`
 (
     `delivery_address_id` int PRIMARY KEY AUTO_INCREMENT,
+    `user_name`           varchar(50),
+    `user_phone`          varchar(50),
     `province`            varchar(50),
     `district`            varchar(50),
     `country`             varchar(50),
-    `apartment`           varchar(50),
-    `isUse`               bit,
+    `address_detail`      varchar(255),
+    `is_use`              int,
     `user_id`             varchar(50)
 );
+INSERT INTO `delivery_address` (`user_name`,`user_phone`,`province`, `district`, `country`, `address_detail`, `is_use`, `user_id`) VALUES
+('phuc','0987654345','Hanoi', 'Ba Dinh', 'Vietnam', 'Apt 101', 1, 'qanh'),
+('nhi','0987654345','Ho Chi Minh City', 'District 1', 'Vietnam', 'Apt 202', 0, 'qanh'),
+('anh','0987654345','Da Nang', 'Hai Chau', 'Vietnam', 'Apt 303', 1, 'admin');
 
 CREATE TABLE IF NOT EXISTS `category`
 (
@@ -197,29 +198,30 @@ CREATE TABLE IF NOT EXISTS `Orders`
     `province`   varchar(50),
     `district`   varchar(50),
     `ward`       varchar(50),
+    `order_code`  varchar(255) not null,
     `user_id`    varchar(50)
 );
-INSERT INTO Orders (Order_id, Order_date, total, status, province, district, ward, user_id)
-VALUES (1, CAST('2023-06-10' AS Date), 28270000, 'N', 'Đắk Nông', 'Đắk R Lấp', 'Đạo Nghĩa', 'phucdzx1'),
-       (2, CAST('2023-06-09' AS Date), 18490000, 'X', 'Đắk Nông', '', 'Đạo Nghĩa', 'phucdzx1'),
-       (3, CAST('2023-06-11' AS Date), 100000000, 'N', '', 'Đắk R Lấp', 'Đạo Nghĩa', 'phucdzx1'),
-       (4, CAST('2023-06-12' AS Date), 14190000, 'N', 'Đắk Nông', 'Đắk R Lấp', 'Đạo Nghĩa', 'test1'),
-       (5, CAST('2023-06-08' AS Date), 14190000, 'N', 'Đắk Nông', 'Đắk R Lấp', 'Đạo Nghĩa', 'test1'),
-       (6, CAST('2023-06-07' AS Date), 14190000, 'N', 'Đắk Nông', 'Đắk R Lấp', 'Đạo Nghĩa', 'test1'),
-       (7, CAST('2023-06-12' AS Date), 38690000, 'H', 'Đắk Nông', 'Đắk R Lấp', 'Đạo Nghĩa', 'phucdzx1'),
-       (8, CAST('2023-06-12' AS Date), 43900000, 'H', 'Đắk Nông', 'Đắk R Lấp', 'Đạo Nghĩa', 'phucdzx1'),
-       (9, CAST('2023-06-06' AS Date), 43900000, 'N', 'Đắk Nông', 'Đắk R Lấp', 'Đạo Nghĩa', 'phucdzx1'),
-       (10, CAST('2023-06-05' AS Date), 439000000, 'N', 'Đắk Nông', 'Đắk R Lấp', 'Đạo Nghĩa', 'phucdzx1'),
-       (11, CAST('2023-06-04' AS Date), 439000000, 'N', 'Đắk Nông', 'Đắk R Lấp', 'Đạo Nghĩa', 'phucdzx1'),
-       (12, CAST('2023-06-13' AS Date), 28890000, 'N', 'HCM', 'Quận 12', 'Phường 4', 'phucdzx1'),
-       (13, CAST('2023-06-13' AS Date), 3690000, 'N', 'HCM', 'Quận 12', 'Phường 4', 'phucdzx1'),
-       (14, CAST('2023-06-13' AS Date), 32970000, 'H', 'HCM', 'Quận 12', 'Phường 4', 'phucdzx1'),
-       (15, CAST('2023-06-13' AS Date), 2400000, 'H', 'HCM', 'Quận 12', '', 'phucdzx1'),
-       (16, CAST('2023-06-13' AS Date), 53700000, 'N', 'HCM', 'Quận 12', 'Phường 4', 'phucdzx1'),
-       (17, CAST('2023-06-13' AS Date), 24685000, 'X', 'HCM', 'Quận 12', 'Phường 4', '123'),
-       (18, CAST('2023-06-13' AS Date), 44700000, 'X', 'HCM', 'Quận 12', 'Phường 4', '123'),
-       (19, CAST('2023-06-13' AS Date), 88885000, 'X', 'HCM', 'Quận 12', 'Phường 4', 'admin1'),
-       (20, CAST('2023-06-13' AS Date), 30390000, 'N', 'HCM', 'Quận 12', 'Phường 4', 'phucdzx1');
+INSERT INTO Orders (Order_id, Order_date, total, status, province, district, ward,order_code, user_id)
+VALUES (1, CAST('2023-06-10' AS Date), 28270000, 'N', 'Đắk Nông', 'Đắk R Lấp', 'Đạo Nghĩa','122wwiei3', 'qanh'),
+       (2, CAST('2023-06-09' AS Date), 18490000, 'X', 'Đắk Nông', 'Đắk R Lấp', 'Đạo Nghĩa','wwww333', 'qanh'),
+       (3, CAST('2023-06-11' AS Date), 100000000, 'N', 'Đắk Nông', 'Đắk R Lấp', 'Đạo Nghĩa','dd2def2', 'qanh'),
+       (4, CAST('2023-06-12' AS Date), 14190000, 'N', 'Đắk Nông', 'Đắk R Lấp', 'Đạo Nghĩa','dg546tg', 'qanh'),
+       (5, CAST('2023-06-08' AS Date), 14190000, 'N', 'Đắk Nông', 'Đắk R Lấp', 'Đạo Nghĩa','dd2def2', 'qanh'),
+       (6, CAST('2023-06-07' AS Date), 14190000, 'N', 'Đắk Nông', 'Đắk R Lấp', 'Đạo Nghĩa','sdsdsd', 'qanh'),
+       (7, CAST('2023-06-12' AS Date), 38690000, 'H', 'Đắk Nông', 'Đắk R Lấp', 'Đạo Nghĩa','54gr65', 'qanh'),
+       (8, CAST('2023-06-12' AS Date), 43900000, 'H', 'Đắk Nông', 'Đắk R Lấp', 'Đạo Nghĩa','grgtrhb', 'qanh'),
+       (9, CAST('2023-06-06' AS Date), 43900000, 'N', 'Đắk Nông', 'Đắk R Lấp', 'Đạo Nghĩa','756ưcrg', 'qanh'),
+       (10,CAST('2023-06-05' AS Date), 439000000, 'N', 'Đắk Nông', 'Đắk R Lấp', 'Đạo Nghĩa','45vu7b', 'qanh'),
+       (11,CAST('2023-06-04' AS Date), 439000000, 'N', 'Đắk Nông', 'Đắk R Lấp', 'Đạo Nghĩa','7u6nr5', 'qanh'),
+       (12,CAST('2023-06-13' AS Date), 28890000, 'N', 'HCM', 'Quận 12', 'Phường 4','8g9dgdd', 'admin'),
+       (13,CAST('2023-06-13' AS Date), 3690000, 'N', 'HCM', 'Quận 12', 'Phường 4','98gbnfg', 'admin'),
+       (14,CAST('2023-06-13' AS Date), 32970000, 'H', 'HCM', 'Quận 12', 'Phường 4','97s3rn', 'admin'),
+       (15,CAST('2023-06-13' AS Date), 2400000, 'H', 'HCM', 'Quận 12', 'Phường 4','897ydff', 'admin'),
+       (16,CAST('2023-06-13' AS Date), 53700000, 'N', 'HCM', 'Quận 12', 'Phường 4','oc8b9ff', 'admin'),
+       (17,CAST('2023-06-13' AS Date), 24685000, 'X', 'HCM', 'Quận 12', 'Phường 4','908hfds', 'admin'),
+       (18,CAST('2023-06-13' AS Date), 44700000, 'X', 'HCM', 'Quận 12', 'Phường 4','089shdf', 'admin'),
+       (19,CAST('2023-06-13' AS Date), 88885000, 'X', 'HCM', 'Quận 12', 'Phường 4','oiv9f7vy', 'admin'),
+       (20,CAST('2023-06-13' AS Date), 30390000, 'N', 'HCM', 'Quận 12', 'Phường 4', '97dhfhsj','admin');
 
 CREATE TABLE IF NOT EXISTS `order_detail`
 (

@@ -52,4 +52,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 	
 	@Query("select new TotalDate(o.date, sum(o.total)) from Order o where o.date between :date1 and :date2 and o.status = 'N' group by o.date")
 	List<TotalDate> findTotalByDate(@Param("date1") Date date1, @Param("date2") Date date2);
+
+	@Query("SELECT CASE WHEN COUNT(o) > 0 THEN true ELSE false END FROM Order o WHERE o.orderCode = :code")
+	boolean orderExistsWithCode(@Param("code") String code);
 }

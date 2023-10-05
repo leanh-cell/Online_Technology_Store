@@ -23,7 +23,7 @@
 			style="box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px; border-radius: 20px; background-color: #ffff;">
 				<a href="/admin/form-product-insert"  class="btn btn-primary mb-4">+</a>
 			<form class="d-flex mb-3" action="/admin/list-product" method="get">
-	        <input name="keyword" style="width: 300px;" class="form-control me-2" type="search" placeholder="Nhập mã đơn hàng, tên đơn hàng..." aria-label="Search">
+	        <input name="keyword" style="width: 300px;" class="form-control me-2" type="search" placeholder="Nhập tên sản phẩm, mã sản phẩm..." aria-label="Search">
 	        <button class="btn btn-outline-success ml-3" type="submit">Tìm kiếm</button>
 	        </form>
 			<table class="table">
@@ -37,7 +37,7 @@
 						<th scope="col">ẢNH</th>
 						<th scope="col">LOẠI</th>
 						<th scope="col">NHÀ SẢN XUẤT</th>
-						<th scope="col">GHI CHÚ</th>	
+						<th scope="col"></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -70,7 +70,11 @@
 	</div>
 </section>
 <script>
-$(function () {
+	<%--var totalPages = ${listProduct.totalPages}; // Tổng số trang--%>
+	<%--var itemsPerPage = ${listProduct.size}; // Số lượng sản phẩm trên mỗi trang--%>
+	<%--var visiblePages = Math.min(totalPages, Math.ceil(totalPages / itemsPerPage));--%>
+
+	$(function () {
     window.pagObj = $('#pagination').twbsPagination({
         totalPages: ${listProduct.totalPages},
         visiblePages: 5,
@@ -88,4 +92,31 @@ $(function () {
     });
 });
 </script>
+<script>
+	<c:if test="${message != null}">
+	$(document).ready(function() {
+		$.toast({
+			text : "${message}.", // Text that is to be shown in the toast
+			heading : 'Thông báo!', // Optional heading to be shown on the toast
+			icon : 'success', // Type of toast icon
+			showHideTransition : 'fade', // fade, slide or plain
+			allowToastClose : true, // Boolean value true or false
+			hideAfter : 3000, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
+			stack : false, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
+			position : 'top-right', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
+			textAlign : 'left', // Text alignment i.e. left, right or center
+			loader : true, // Whether to show loader or not. True by default
+			loaderBg : '#9EC600', // Background color of the toast loader
+			beforeShow : function() {
+			}, // will be triggered before the toast is shown
+			afterShown : function() {
+			}, // will be triggered after the toat has been shown
+			beforeHide : function() {
+			}, // will be triggered before the toast gets hidden
+			afterHidden : function() {
+			} // will be triggered after the toast has been hidden
+		});
+	});
 
+</c:if>
+</script>

@@ -24,42 +24,46 @@
         </a>
       </ul>
     </div>
-    <div class="col-sm-9">
-      <table class="table">
-        <thead>
-        <tr>
-          <th scope="col">tên</th>
-          <th scope="col">chi t</th>
-<%--          <th scope="col">Tổng tiền</th>--%>
-<%--          <th scope="col">Trạng thái</th>--%>
-<%--          <th scope="col">Chi tiết</th>--%>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach items="${deliveryAddress}" var="dla">
+    <c:if test="${deliveryAddress != null}">
+      <div class="col-sm-9">
+        <table class="table">
+          <thead>
           <tr>
-
-            <th scope="row">${order.id}</th>
-            <td><fmt:formatDate value="${order.date}" pattern="dd/MM/yyyy" /></td>
-            <td><fmt:formatNumber value="${order.total}"
-                                  pattern="###,###,###.##" />đ</td>
-            <td><c:choose>
-              <c:when test="${order.status == 'X'}"><span style="color: blue; font-style: italic;">Đang xử lí</span></c:when>
-              <c:when test="${order.status == 'N'}"><span style="color: green; font-style: italic;">Đã nhận hàng</span></c:when>
-              <c:when test="${order.status == 'H'}"><span style="color: red; font-style: italic;">Đã hủy</span></c:when>
-            </c:choose></td>
-
-            <td><a href="/user-order-details?idorder=${order.id}"
-                   class="btn btn-primary">Chi tiết</a> <c:if
-                    test="${order.status=='X'}">
-              <a href="/cancelorder?id=${order.id}"
-                 class="btn btn-outline-danger">Hủy</a>
-            </c:if></td>
+            <th scope="col">Tỉnh/Thành Phố</th>
+            <th scope="col">Quận/Huyện</th>
+            <th scope="col">Đường/Phố</th>
+            <th scope="col">Trạng thái</th>
+              <%--          <th scope="col">Chi tiết</th>--%>
           </tr>
-        </c:forEach>
-        </tbody>
-      </table>
-    </div>
+          </thead>
+          <tbody>
+          <c:forEach items="${deliveryAddress}" var="dla">
+            <tr>
+              <th scope="row">${dla.province}</th>
+              <td>${dla.district}</td>
+              <td>${dla.detail}</td>
+              <td><c:choose>
+                <c:when test="${dla.isUse == 0}"><span style="color: blue; font-style: italic;">Mặc Định</span></c:when>
+                <c:when test="${dla.isUse == 1}"><span style="color: blue; font-style: italic;"></span></c:when>
+              </c:choose></td>
+
+                <%--            <td><a href="/user-order-details?idorder=${order.id}"--%>
+                <%--                   class="btn btn-primary">Chi tiết</a> <c:if--%>
+                <%--                    test="${order.status=='X'}">--%>
+                <%--              <a href="/cancelorder?id=${order.id}"--%>
+                <%--                 class="btn btn-outline-danger">Hủy</a>--%>
+                <%--            </c:if></td>--%>
+            </tr>
+          </c:forEach>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-sm-1" style="margin-left: inherit;margin-top: 30px;" >
+          <a href="/add-new-address"
+             class="btn btn-outline-danger">tiep</a>
+      </div>
+    </c:if>
+    <c:if test="${notfound != null}"> ${notfound}</c:if>
   </div>
   <h6 class="mt-3"></h6>
 </div>

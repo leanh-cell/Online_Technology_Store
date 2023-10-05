@@ -18,9 +18,9 @@
 						Đơn hàng</li>
 				</a>
 				<a style="text-decoration: none;" href="/user-delivery-address">
-					<li style="font-weight: 500;"
-					class="list-group-item d-flex justify-content-between align-items-center">
-						Danh sách Địa chỉ</li>
+					<li style="font-weight: 500;" class="list-group-item d-flex justify-content-between align-items-center">
+						Danh sách Địa chỉ
+					</li>
 				</a>
 			</ul>
 		</div>
@@ -50,11 +50,7 @@
 								</c:choose></td>
 
 							<td><a href="/user-order-details?idorder=${order.id}"
-								class="btn btn-primary">Chi tiết</a> <c:if
-									test="${order.status=='X'}">
-									<a href="/cancelorder?id=${order.id}"
-										class="btn btn-outline-danger">Hủy</a>
-								</c:if></td>
+								class="btn btn-primary">Chi tiết</a></td>
 						</tr>
 					</c:forEach>
 				</tbody>

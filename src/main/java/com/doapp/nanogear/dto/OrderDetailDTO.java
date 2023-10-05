@@ -34,4 +34,5 @@ public class OrderDetailDTO {
 
 	private String ward;
 
+	private String idProduct;
 }

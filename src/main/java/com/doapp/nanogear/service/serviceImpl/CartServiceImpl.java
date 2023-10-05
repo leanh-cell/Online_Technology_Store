@@ -97,13 +97,14 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
-	public Long saveOrder(String province, String district, String country) {
+	public Long saveOrder(String province, String district, String country, String orderCode) {
 		// inser vao bang order
 		User userSession = sessionService.get("userss");
 		User user = new User();
 		user.setId(userSession.getId());
 		Order order = new Order();
 		Long id = (long) (orderRepository.selectMaxIdOrder() == null ? 1 : orderRepository.selectMaxIdOrder());
+		order.setOrderCode(orderCode);
 		order.setId(id);
 		order.setDate(new Timestamp(System.currentTimeMillis()));
 		order.setTotal(getAmount());
@@ -117,15 +118,17 @@ public class CartServiceImpl implements CartService {
 		// insert vao bang orderdetails
 		for (Map.Entry<String, CartDTO> entry : cart.entrySet()) {
 			OrderDetail orderDetail = new OrderDetail();
+			int qt = entry.getValue().getQty();
 			orderDetail.setQuantity(entry.getValue().getQty());
 			orderDetail.setPrice(entry.getValue().getPrice());
 			orderDetail.setTotal(entry.getValue().getPrice() * entry.getValue().getQty());
 			Product product = new Product();
 			product.setId(entry.getKey());
 			orderDetail.setProduct(product);
-			order = new Order();
-			order.setId(id);
+//			order = new Order();
+//			order.setId(id);
 			orderDetail.setOrder(order);
+			System.out.print(orderDetail);
 			orderDetailRepository.save(orderDetail);
 		}
 		deleteAllProduct();

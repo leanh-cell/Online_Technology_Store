@@ -1,6 +1,10 @@
 package com.doapp.nanogear.controller.admin;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Optional;
 
 import javax.servlet.ServletContext;
@@ -8,10 +12,7 @@ import javax.servlet.ServletContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.doapp.nanogear.entity.Product;
@@ -126,7 +127,16 @@ public class ProductControllerAdmin {
 				model.addAttribute("message", "Lỗi lưu file !");
 			}
 		}
-		return "formproductupdate";
+		return "redirect:/admin/list-product";
+	}
+	@GetMapping("/delete-product")
+	public String deleteProduct(@RequestParam("id") String idProduct,Model model) throws IOException {
+		Product product = productService.findById(idProduct);
+		Path path = Paths.get("src/main/webapp/image/" + product.getImg());
+		Files.delete(path);
+		productService.deleteProductById(idProduct);
+		model.addAttribute("message","Xoá thành công sản phẩm mã : "+ idProduct );
+		return "redirect:/admin/list-product";
 	}
 }
 

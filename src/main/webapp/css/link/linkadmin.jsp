@@ -65,7 +65,5 @@
 	src="https://pro.fontawesome.com/releases/v6.0.0-beta1/js/all.js"
 	integrity="..." crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.css" rel="stylesheet">
-    
+
     <script src="/css/user/jquery.twbsPagination.js"></script>

@@ -32,22 +32,32 @@ Password in table encrypted by `new BCryptPasswordEncoder().encode(password)`
 #### Source code java
     /java
       /com.doapp.nanogear
+        /been
+        /config
         /controller
-        /model
-          /data(Contains entity class, attribute mapping with table)
-          /repository
-        /security(Contains service class, operations with data in tables and project configuration)
+           /admin (admin controller)
+           (user & home controller) 
+        /dto
+        /entity
+        /interceptor
+        /repository
+        /sesrvice
+           /serviceImpl
+           (class interface service) 
 
 #### Resource file:
     /resources
-      /db.migration(contains sql script files for migrate database: V<version>__<description>.sql)
-      /static
-        /admin(contains css, js, img of admin template)
-        /form(contains css, js, img of user template)
-      /templates
-        /admin(contains the interface of the admin template)
-        /form(contains the interface of the user template)
-      /fragments(contains header, footer,... of the website)
+      /db.migration(contains sql script files for migrate database: V<version>__init_<description>.sql)
+#### webapp
+    /css
+    /image
+    /WEB-INF
+      /common
+      /layouts
+      /views
+        /admin
+        /user
+      tiles.xml
 
 ### Flyway database migration
 

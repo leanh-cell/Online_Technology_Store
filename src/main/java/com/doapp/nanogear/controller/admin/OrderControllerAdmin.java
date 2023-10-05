@@ -1,7 +1,12 @@
 package com.doapp.nanogear.controller.admin;
 
+import java.util.List;
 import java.util.Optional;
 
+import com.doapp.nanogear.dto.OrderDetailDTO;
+import com.doapp.nanogear.entity.OrderDetail;
+import com.doapp.nanogear.entity.Product;
+import com.doapp.nanogear.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +35,9 @@ public class OrderControllerAdmin {
 	
 	@Autowired
 	SessionService sessionService;
+
+	@Autowired
+	ProductService productService;
 	
 	@GetMapping("/view-all-order")
 	public String doGetViewOrderAll(Model model, @RequestParam("datemin") Optional<String> datemin, @RequestParam("datemax") Optional<String> datemax, @RequestParam("p") Optional<Integer> p,
@@ -89,6 +97,14 @@ public class OrderControllerAdmin {
 	@GetMapping("/delivery-order")
 	public String doGetDeliveryOrder(@RequestParam("id") Long idOrder) {
 		Order order = orderService.findOrderById(idOrder);
+		List<OrderDetail> orderDetail = orderDetailService.findOrderDetailByOrderId(idOrder);
+		for (OrderDetail od : orderDetail ) {
+			String id = od.getProduct().getId();
+			Product products = productService.findById(od.getProduct().getId()); // Lấy danh sách product từ orderDetail
+			int qty = products.getQty() - od.getQuantity();
+			products.setQty(qty);
+			productService.saveProduct(products);
+		}
 		order.setStatus("N");
 		orderService.SaveOrder(order);
 		sessionService.setAttribute("DeliveryOrder", "Giao đơn hàng số "+idOrder+" thành công.");

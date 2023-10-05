@@ -6,10 +6,14 @@ import org.springframework.stereotype.Repository;
 
 import com.doapp.nanogear.entity.DeliveryAddress;
 
+import java.util.List;
+
 @Repository
 public interface DeliveryAddressRepository extends JpaRepository<DeliveryAddress, Long>{
 	
 	@Query("SELECT d FROM DeliveryAddress d WHERE d.user.id=:iduser")
-	DeliveryAddress findByIdDeliveryAddress(@Param("iduser") String idUser);
-	
+	List<DeliveryAddress> findByIdDeliveryAddress(@Param("iduser") String idUser);
+
+	@Query("select d from DeliveryAddress d where d.id =:id")
+	DeliveryAddress findById(@Param("id") int id);
 }

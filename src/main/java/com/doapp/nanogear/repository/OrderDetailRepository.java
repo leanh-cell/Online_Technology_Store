@@ -2,6 +2,7 @@ package com.doapp.nanogear.repository;
 import java.util.List;
 
 //import org.hibernate.transform.ResultTransformer;
+import com.doapp.nanogear.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -18,9 +19,16 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetail, Long> 
 //	@Query("select o from OrderDetail o where o.order.id=:idorder ")
 //	List<OrderDetail> findByOrderDetailIdOrder(@Param("idorder") long idOrder);	
 	
-	@Query("select new OrderDetailDTO(o.id,o.product.name, o.product.img, o.product.price, o.quantity, o.total, o.order.province,  o.order.district,  o.order.ward  ) from OrderDetail o where o.order.id=:idorder")
+	@Query("select new OrderDetailDTO(o.id,o.product.name, o.product.img, o.product.price, o.quantity, o.total, o.order.province,  o.order.district,  o.order.ward , o.product.id  ) from OrderDetail o where o.order.id=:idorder")
 	List<OrderDetailDTO> findByOrderDetailIdOrder(@Param("idorder") long idOrder); 
-	
+
+	@Query("select o from OrderDetail o where o.order.id=:idOrder")
+	List<OrderDetail> findOrderDetailByOrderId(@Param("idOrder") long idOrder);
+
+	@Query("select o.product from OrderDetail o where o.product.id=:idProduct")
+	Product findProductByIdOrderDetail(@Param("idProduct") String idProduct);
+
+
 	@Query("select new RevenueByCategory(d.product.category.name, sum(d.price*d.quantity), sum(d.quantity)) from OrderDetail d group by d.product.category.name")
 	List<RevenueByCategory> RevenueByCategory();
 	

@@ -139,6 +139,10 @@ public class ProductServiceImpl implements ProductService {
 		return productRepository.getAllProductShare("%"+keyword+"%", pageable);
 	}
 
+	@Override
+	public void deleteProductById(String idProduct){
+		productRepository.deleteById(idProduct);
+	}
 //	@Override
 //	public List<Product> findAllProductTop10() {
 //		return productRepository.findAllProductTop10();

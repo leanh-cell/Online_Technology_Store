@@ -18,7 +18,7 @@ public interface CartService {
 
 	void sumQty(String idProduct, int qty);
 	
-	Long saveOrder(String province, String district, String country);
+	Long saveOrder(String province, String district, String country, String orderCode);
 	
 	int countCart();
 }

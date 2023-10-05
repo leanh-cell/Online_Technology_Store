@@ -31,7 +31,13 @@ public class DeliveryAddress implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "delivery_address_id")
 	private long id;
-	
+
+	@Column(name = "user_name")
+	private String name;
+
+	@Column(name = "user_phone")
+	private String phone;
+
 	@Column(name = "province")
 	private String province;
 	
@@ -41,8 +47,11 @@ public class DeliveryAddress implements Serializable {
 	@Column(name = "country")
 	private String country;
 	
-	@Column(name = "apartment")
-	private String apartment;
+	@Column(name = "address_detail")
+	private String detail;
+
+	@Column(name = "is_use")
+	private int isUse;
 	
 	@ManyToOne 
 	@JoinColumn(name ="user_id")

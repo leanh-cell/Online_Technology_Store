@@ -150,4 +150,13 @@ public class OrderServiceImpl implements OrderService {
 		}
 		return orderRepository.findTotalByDate(date1Convert, date2Convert);
 	}
+
+	public boolean orderExistsWithCode(String code){
+		if(orderRepository.orderExistsWithCode(code) == true){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
 }

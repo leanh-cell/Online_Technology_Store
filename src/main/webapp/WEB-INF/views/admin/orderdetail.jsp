@@ -44,7 +44,7 @@
 						<div>
 							<h6 class="mb-3" style="font-weight: 700;">THÔNG TIN ĐƠN
 								HÀNG</h6>
-							<p style="font-weight: 500;">Mã đơn hàng: ${Order.id}</p>
+							<p style="font-weight: 500;">Mã đơn hàng: ${Order.orderCode}</p>
 							<p style="font-weight: 500;">
 								Ngày đặt:
 								<fmt:formatDate value="${Order.date}" pattern="dd/MM/yyyy" />

@@ -160,6 +160,14 @@
                        value="/WEB-INF/views/user/delivery-address.jsp"/>
     </definition>
 
+    <definition name="add_new_address" extends="userlayout">
+        <put-attribute name="title" value="Địa chỉ mới"/>
+        <put-attribute name="body"
+                       value="/WEB-INF/views/user/add-new-address.jsp"/>
+    </definition>
+
+<!--/////////////////////////////////////////////////////////admin/////////////////////////////////////////////-->
+
     <definition name="adminlayout"
                 template="/WEB-INF/views/admin/admin.jsp">
 

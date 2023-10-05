@@ -42,4 +42,6 @@ public interface ProductService {
 	Page<Product> getAllProductPage(Optional<Integer> p);
 	
 	Page<Product> getAllProductShare(Optional<String> key,Optional<Integer> p);
+
+	void deleteProductById(String idProduct);
 }

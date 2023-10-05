@@ -20,6 +20,8 @@ import com.doapp.nanogear.been.SessionService;
 import com.doapp.nanogear.entity.User;
 import com.doapp.nanogear.entity.Order;
 
+import java.util.Random;
+
 @Controller
 public class CartController {
 
@@ -116,8 +118,31 @@ public class CartController {
 			model.addAttribute("totalCart", cartService.getAmount());
 			model.addAttribute("addressUserId", deliveryAddressService.findByIdDeliveryAddress(user.getId()));
 			model.addAttribute("countCart", cartService.countCart());
+			model.addAttribute("viewProduct", cartService.getProduct());
 			return "order_information";
 		}
+	}
+
+	String randomMaTracking() {
+		String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+		int length = 8;
+		Random random = new Random();
+
+		String code;
+		do {
+			StringBuilder codeBuilder = new StringBuilder();
+			for (int i = 0; i < length; i++) {
+				int index = random.nextInt(characters.length());
+				char randomChar = characters.charAt(index);
+				codeBuilder.append(randomChar);
+			}
+			code = codeBuilder.toString();
+		} while (trackingCodeExists(code)); // Kiểm tra nếu mã đã tồn tại
+		return code;
+	}
+
+	boolean trackingCodeExists(String code) {
+		return orderService.orderExistsWithCode(code);
 	}
 
 	@PostMapping("/saveorder")
@@ -126,7 +151,8 @@ public class CartController {
 			String province = paramService.getString("province", "");
 			String district = paramService.getString("district", "");
 			String country = paramService.getString("country", "");
-			Long idOrder =cartService.saveOrder(province, district, country);
+			String orderCode = randomMaTracking();
+			Long idOrder =cartService.saveOrder(province, district, country,orderCode);
 			model.addAttribute("totalorder", orderService.findTotalByIdOrder(idOrder));
 			model.addAttribute("order",orderService.findOrderById(idOrder));
 			model.addAttribute("detailOrder",orderDetailService.findByOrderDetailIdOrder(idOrder));
@@ -138,7 +164,8 @@ public class CartController {
 	
 	@GetMapping("/cancelorder")
 	public String CancelOrder(@RequestParam("id") Long idOrder) {
-		sessionService.setAttribute("cancalorder", "Hủy đơn hàng ID: "+idOrder+" thành công.");
+		Order ordert =	sessionService.get("Order");
+		sessionService.setAttribute("cancalorder", "Hủy đơn hàng mã : "+ordert.getOrderCode()+" thành công.");
 		Order order = orderService.findOrderById(idOrder);
 		order.setStatus("H");
 		orderService.SaveOrder(order);
