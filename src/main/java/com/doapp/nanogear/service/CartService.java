@@ -3,6 +3,7 @@ package com.doapp.nanogear.service;
 import java.util.Collection;
 
 import com.doapp.nanogear.dto.CartDTO;
+import com.doapp.nanogear.entity.DeliveryAddress;
 
 public interface CartService {
 
@@ -18,7 +19,7 @@ public interface CartService {
 
 	void sumQty(String idProduct, int qty);
 	
-	Long saveOrder(String province, String district, String country, String orderCode);
+	Long saveOrder(DeliveryAddress deliveryAddress, String orderCode);
 	
 	int countCart();
 }

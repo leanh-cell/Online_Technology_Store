@@ -43,6 +43,9 @@ public class DeliveryAddress implements Serializable {
 	
 	@Column(name = "district")
 	private String district;
+
+	@Column(name = "ward")
+	private String ward;
 	
 	@Column(name = "country")
 	private String country;

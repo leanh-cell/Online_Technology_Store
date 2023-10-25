@@ -25,7 +25,7 @@
             <form class="">
                 <button
                         style="background-color: rgb(205, 192, 50); font-weight: 500; border: none; border-radius: 0px;"
-                        formaction="/order" type="submit" class="btn btn-primary">
+                        formaction="/selected_address" type="submit" class="btn btn-primary">
                     TIẾN HÀNH ĐẶT HÀNG>>
                 </button>
             </form>

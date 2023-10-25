@@ -8,7 +8,7 @@ public interface DeliveryAddressService {
 	
 	List<DeliveryAddress> findByIdDeliveryAddress(String idUser);
 
-	DeliveryAddress findById(int id);
+	DeliveryAddress findById(long id);
 
 	void saveDeliveryAddress(DeliveryAddress deliveryAddress);
 }

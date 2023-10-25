@@ -36,6 +36,7 @@
                         <p style="font-weight: 500;">Họ và tên: ${sessionScope.userss.name}</p>
                         <p style="font-weight: 500;">Địa chỉ: ${Order.ward}, ${Order.district},
                             ${Order.province}</p>
+                        <p style="font-weight: 500;">Địa chỉ chi tiết: ${Order.addressDetail}</p>
                         <p style="font-weight: 500;">Số điện thoại: ${sessionScope.userss.phone}</p>
                     </div>
                 </div>

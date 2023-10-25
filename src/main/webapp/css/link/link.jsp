@@ -16,11 +16,12 @@
 
 
 <!-- Icon -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
         integrity="sha512-/9fJjK9+I0aRfjzFkDfLbCz2lZvG0m6ZyVw6gDmoYH6j9y+Z1lOBx+Xz6Pm8gX1Uz7kk4g0QnDlQ6J2e0CJjOg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
-<link rel="stylesheet"
-	href="<c:url value='/ps22980-phanlethanhphuc-asm-java5/src/main/webapp/WEB-INF/css/user/css.jsp'/>">
+<%--<link rel="stylesheet"--%>
+<%--	href="<c:url value='/Online_Technology_store/src/main/webapp/WEB-INF/css/user/css.jsp'/>">--%>
 <script
 	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
 	integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"

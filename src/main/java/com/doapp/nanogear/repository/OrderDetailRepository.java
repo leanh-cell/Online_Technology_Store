@@ -19,7 +19,7 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetail, Long> 
 //	@Query("select o from OrderDetail o where o.order.id=:idorder ")
 //	List<OrderDetail> findByOrderDetailIdOrder(@Param("idorder") long idOrder);	
 	
-	@Query("select new OrderDetailDTO(o.id,o.product.name, o.product.img, o.product.price, o.quantity, o.total, o.order.province,  o.order.district,  o.order.ward , o.product.id  ) from OrderDetail o where o.order.id=:idorder")
+	@Query("select new OrderDetailDTO(o.id,o.product.name, o.product.img, o.product.price, o.quantity, o.total, o.order.province,  o.order.district,  o.order.addressDetail , o.product.id  ) from OrderDetail o where o.order.id=:idorder")
 	List<OrderDetailDTO> findByOrderDetailIdOrder(@Param("idorder") long idOrder); 
 
 	@Query("select o from OrderDetail o where o.order.id=:idOrder")

@@ -31,12 +31,16 @@ public class DeliveryAddressController {
     @PostMapping("/save-address")
     public String saveAddress(DeliveryAddress da,Model model){
         if(da != null){
+            if(da.getName() == "" && da.getPhone() == "" && da.getProvince() == "" && da.getDistrict() == "" && da.getWard() == ""){
+                model.addAttribute("success","Vui lòng kiểm tra lại thông tin bị thiếu");
+                return "redirect:selected_address";
+            }
             deliveryAddressService.saveDeliveryAddress(da);
             model.addAttribute("deliveryAddress",da);
             model.addAttribute("success","thêm địa chỉ thành công");
-            return "redirect:user_delivery_address";
+            return "redirect:selected_address";
         }
         model.addAttribute("success","Vui lòng kiểm tra lại thông tin bị thiếu");
-       return null;
+       return "redirect:selected_address";
     }
 }

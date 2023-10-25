@@ -1,15 +1,11 @@
 package com.doapp.nanogear.controller;
 
 
+import com.doapp.nanogear.entity.DeliveryAddress;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import com.doapp.nanogear.service.CartService;
 import com.doapp.nanogear.service.DeliveryAddressService;
@@ -20,7 +16,10 @@ import com.doapp.nanogear.been.SessionService;
 import com.doapp.nanogear.entity.User;
 import com.doapp.nanogear.entity.Order;
 
+import java.util.Comparator;
+import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 @Controller
 public class CartController {
@@ -107,19 +106,42 @@ public class CartController {
 //		return cartService.getProduct();
 //	}
 
+	@GetMapping("/selected_address")
+	public String SelectedAddress(Model model){
+		User user = sessionService.get("userss");
+		if (user == null) {
+			sessionService.setAttribute("loginCart", "Vui lòng đăng nhập để đặt hàng.");
+			model.addAttribute("countCart", cartService.countCart());
+			return "redirect:/formlogin";
+		}else {
+			List<DeliveryAddress> deliveryAddress = deliveryAddressService.findByIdDeliveryAddress(user.getId());
+			if (deliveryAddress != null) {
+				List<DeliveryAddress> sortedDeliveryAddress = deliveryAddress.stream()
+						.sorted(Comparator.comparingInt(address -> address.getIsUse() == 0 ? 0 : 1))
+						.collect(Collectors.toList());
+				model.addAttribute("addressUserId", sortedDeliveryAddress);
+				return "selected_address";
+			}
+		}
+		model.addAttribute("error","Vui lòng thêm địa chỉ nhận hàng để tiếp tục đơn hàng của bạn !!");
+		return "selected_address";
+	}
+
 	@GetMapping("/order")
-	public String Order(Model model) {
+	public String Order(@RequestParam("idSelect") long idSelect, Model model) {
 		User user = sessionService.get("userss");
 		if (user == null) {
 			sessionService.setAttribute("loginCart", "Vui lòng đăng nhập để đặt hàng.");
 			model.addAttribute("countCart", cartService.countCart());
 			return "redirect:/formlogin";
 		} else {
-			model.addAttribute("totalCart", cartService.getAmount());
-			model.addAttribute("addressUserId", deliveryAddressService.findByIdDeliveryAddress(user.getId()));
-			model.addAttribute("countCart", cartService.countCart());
-			model.addAttribute("viewProduct", cartService.getProduct());
-			return "order_information";
+			DeliveryAddress deliveryAddress = deliveryAddressService.findById(idSelect);
+				model.addAttribute("viewProduct", cartService.getProduct());
+				model.addAttribute("totalCart", cartService.getAmount());
+				model.addAttribute("addressSelect", deliveryAddress);
+				model.addAttribute("countCart", cartService.countCart());
+				model.addAttribute("viewProduct", cartService.getProduct());
+				return "order_information";
 		}
 	}
 
@@ -146,13 +168,15 @@ public class CartController {
 	}
 
 	@PostMapping("/saveorder")
-	public String saveOrder(Model model) {
+	public String saveOrder(Model model,@RequestParam("idAddress") int idAddress) {
 		if(cartService.countCart() != 0) {
-			String province = paramService.getString("province", "");
-			String district = paramService.getString("district", "");
-			String country = paramService.getString("country", "");
+		    DeliveryAddress deliveryAddress  = deliveryAddressService.findById(idAddress);
+//			String province = paramService.getString("province", "");
+//			String district = paramService.getString("district", "");
+//			String detailAddress = paramService.getString("detailAddress","");
+//			String country = paramService.getString("country", "");
 			String orderCode = randomMaTracking();
-			Long idOrder =cartService.saveOrder(province, district, country,orderCode);
+			Long idOrder =cartService.saveOrder( deliveryAddress,orderCode);
 			model.addAttribute("totalorder", orderService.findTotalByIdOrder(idOrder));
 			model.addAttribute("order",orderService.findOrderById(idOrder));
 			model.addAttribute("detailOrder",orderDetailService.findByOrderDetailIdOrder(idOrder));

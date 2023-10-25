@@ -50,9 +50,12 @@ public class Order implements Serializable {
 	
 	@Column(name="district")
 	private String district;
-	
+
 	@Column(name="ward")
 	private String ward;
+	
+	@Column(name="address_detail")
+	private String addressDetail;
 
 	@Column(name = "order_code")
 	private String orderCode;

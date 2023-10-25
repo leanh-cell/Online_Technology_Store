@@ -5,15 +5,12 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.doapp.nanogear.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.doapp.nanogear.been.SessionService;
 import com.doapp.nanogear.dto.CartDTO;
-import com.doapp.nanogear.entity.Order;
-import com.doapp.nanogear.entity.OrderDetail;
-import com.doapp.nanogear.entity.Product;
-import com.doapp.nanogear.entity.User;
 import com.doapp.nanogear.repository.OrderDetailRepository;
 import com.doapp.nanogear.repository.OrderRepository;
 import com.doapp.nanogear.repository.ProductRepository;
@@ -97,7 +94,7 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
-	public Long saveOrder(String province, String district, String country, String orderCode) {
+	public Long saveOrder(DeliveryAddress deliveryAddress, String orderCode) {
 		// inser vao bang order
 		User userSession = sessionService.get("userss");
 		User user = new User();
@@ -110,9 +107,10 @@ public class CartServiceImpl implements CartService {
 		order.setTotal(getAmount());
 		order.setStatus("X");
 		order.setUser(user);
-		order.setProvince(province);
-		order.setDistrict(district);
-		order.setWard(country);
+		order.setProvince(deliveryAddress.getProvince());
+		order.setDistrict(deliveryAddress.getDistrict());
+		order.setWard(deliveryAddress.getWard());
+		order.setAddressDetail(deliveryAddress.getDetail());
 		orderRepository.save(order);
 
 		// insert vao bang orderdetails

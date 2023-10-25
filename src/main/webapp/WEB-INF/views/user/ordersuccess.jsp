@@ -8,7 +8,7 @@
             <div style=" box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;" class="p-3">
             <p style="font-weight: 500;">Mã đơn hàng: ${order.id}</p>
             <p style="font-weight: 500;">Ngày đặt: ${order.date}</p>
-            <p style="font-weight: 500;">Địa chỉ: ${order.ward}, ${order.district}, ${order.province}</p>
+            <p style="font-weight: 500;">Địa chỉ: ${order.district}, ${order.province},${order.addressDetail}</p>
             <p style="color: red; font-weight: 500;">Tổng tiền đơn hàng: <fmt:formatNumber
                                     value="${totalorder}"
                                     pattern="###,###,###.##" />đ</p>
@@ -31,5 +31,6 @@
                                         <hr>  
                                     </c:forEach>  
             <a href="/user-order" style="font-weight: 500; background-color: rgb(205, 192, 50);" type="button" class="btn  px-4 py-2 text-center">Xem lịch sử đặt hàng</a>
+                <a href="/home" style="font-weight: 500; background-color: rgb(205, 192, 50);" type="button" class="btn  px-4 py-2 text-center">Về Trang Chủ</a>
             </div>
         </div>

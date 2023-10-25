@@ -166,6 +166,11 @@
                        value="/WEB-INF/views/user/add-new-address.jsp"/>
     </definition>
 
+    <definition name="selected_address" extends="userlayout">
+        <put-attribute name="title" value="Địa chỉ nhận hàng"/>
+        <put-attribute name="body"
+                       value="/WEB-INF/views/user/selected-address.jsp"/>
+    </definition>
 <!--/////////////////////////////////////////////////////////admin/////////////////////////////////////////////-->
 
     <definition name="adminlayout"
