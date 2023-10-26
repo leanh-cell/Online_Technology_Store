@@ -1,163 +1,312 @@
 package com.doapp.nanogear.controller;
 
-import com.doapp.nanogear.model.DTO.AuthenticatedHasRoleDTO;
-import com.doapp.nanogear.model.DTO.UserDTO;
-import com.doapp.nanogear.model.data.Cart;
-import com.doapp.nanogear.model.data.ContactUser;
-import com.doapp.nanogear.model.data.User;
-import com.doapp.nanogear.security.CartService;
-import com.doapp.nanogear.security.ContactUserService;
-import com.doapp.nanogear.security.UserService;
+import java.io.UnsupportedEncodingException;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.mail.MessagingException;
+
+import com.doapp.nanogear.entity.DeliveryAddress;
+import com.doapp.nanogear.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpSession;
-import java.util.List;
+import com.doapp.nanogear.been.CookieService;
+import com.doapp.nanogear.been.ParamService;
+
+import com.doapp.nanogear.been.SessionService;
+import com.doapp.nanogear.entity.User;
 
 @Controller
-@RequestMapping("/user")
 public class UserController {
 
     @Autowired
-    private UserService userService;
+    CookieService cookieService;
 
     @Autowired
-    private CartService cartService;
+    ParamService paramService;
 
     @Autowired
-    private ContactUserService contactUserService;
+    SessionService sessionService;
 
-    public AuthenticatedHasRoleDTO authenticatedHasRoleDTO;
+    @Autowired
+    UserService userService;
 
+    @Autowired
+    OrderService orderService;
 
+    @Autowired
+    OrderDetailService orderDetailService;
 
-//    public UserController(UserService userService, CartService cartService, ContactUserService contactUserService) {
-//        this.userService = userService;
-//        this.cartService = cartService;
-//        this.contactUserService = contactUserService;
-//    }
+    @Autowired
+    SendEmailService sendEmailService;
 
-//    private boolean isAuthenticatedAndHasRole(HttpSession session, String requiredRole) {
-//        // Kiểm tra xem người dùng đã đăng nhập hay chưa
-//        if (session.getAttribute("loggedInUser") == null) {
-//            return false;
-//        }
-//        // Lấy thông tin về vai trò từ session hoặc cơ sở dữ liệu
-//        String userRole = (String) session.getAttribute("userRole"); // "userRole" thuộc tính chứa vai trò trong session
-//        // Kiểm tra vai trò của người dùng
-//        return userRole != null && userRole.equals(requiredRole);
-//    }
+    @Autowired
+    DeliveryAddressService deliveryService;
 
-    public enum UserRole {
-        USER("USER"), ADMIN("ADMIN");
-        private final String value;
+    @Autowired
+    CartService cartService;
 
-        UserRole(String value) {
-            this.value = value;
-        }
-
-        public String getValue() {
-            return value;
-        }
+    @GetMapping("/formlogin")
+    public String formLogin(Model model) {
+        model.addAttribute("u", cookieService.getValue("user", ""));
+        model.addAttribute("p", cookieService.getValue("pass", ""));
+        return "login";
     }
 
     @PostMapping("/login")
-    public String loginUser(@RequestParam("usernameOrEmail") String usernameOrEmail, @RequestParam("password") String password, Model model, HttpSession session) {
-        // Xác thực người dùng và lấy thông tin từ cơ sở dữ liệu
-        User authenticatedUser = userService.authenticateUser(usernameOrEmail, password);
-
-        if (authenticatedUser != null) {
-            // Lưu thông tin người dùng vào phiên làm việc
-            session.setAttribute("loggedInUser", authenticatedUser);
-            session.setAttribute("userRole", authenticatedUser.role);
-
-            String userRoleValue = authenticatedUser.getRole(); // "admin", "user"
-            UserRole userRole = UserRole.valueOf(userRoleValue.toUpperCase());
-            System.out.println(session + "/ " + authenticatedUser.username + "/ " + authenticatedUser.id + " /" + userRole + " /");
-
-            List<Cart> cart = cartService.getCartsByUserId(authenticatedUser.id);
-            ContactUser contactUser = contactUserService.getUserInfoByUserId(authenticatedUser.id);
-            session.setAttribute("contact", contactUser);
-            session.setAttribute("cart", cart);
-            if (userRole == UserRole.ADMIN) {
-                return "redirect:/admin/home";
-            } else if (userRole == UserRole.USER) {
-                return "redirect:/home";
-            }
-//            }
+    public String login(Model model) {
+        String un = paramService.getString("username", "");
+        String pw = paramService.getString("password", "");
+        boolean rmb = paramService.getBoolean("remember", false);
+        if (userService.findByIdAndPassword(un, pw) == null) {
+            cookieService.remove("user");
+            cookieService.remove("pass");
+//			model.addAttribute(pw);
+            model.addAttribute("login", "Sai tài khoản hoặc mật khẩu.");
+            return "login";
         } else {
-            model.addAttribute("error", "Tên đăng nhập hoặc mật khẩu không đúng.");
-            return "/form/index";
+            sessionService.setAttribute("logintc", "Đăng nhập thành công.");
+            sessionService.setAttribute("userss", userService.findByIdAndPassword(un, pw));
+            if (rmb = true) {
+                cookieService.add("user", un, 10);
+                cookieService.add("pass", pw, 10);
+            }
+            return "redirect:/home";
         }
-        return null;
     }
 
+    @GetMapping("/logout")
+    public String logout() {
+        sessionService.removeAttribute("userss");
+        cartService.deleteAllProduct();
+        return "redirect:/home";
+    }
 
-    @PostMapping("/register")
-    public String registerUser(@ModelAttribute("registrationDTO") UserDTO registrationDTO) {
-        User user = registrationDTO.getUser();
-        ContactUser contactUser = registrationDTO.getContactUser();
-        // Kiểm tra xem người dùng đã tồn tại chưa
-        if (userService.findByUsernameOrEmail(user.getUsername() != null ? user.getUsername() : user.getEmail()) != null) {
-            // Xử lý lỗi: người dùng đã tồn tại
-            return "redirect:/users/register?error";
+    @GetMapping("/userinfo")
+    public String userInfo(Model model) {
+//		model.addAttribute("countCart", cartService.countCart());
+        return "user_information";
+    }
+
+    @GetMapping("/edituser")
+    public String editUser(@ModelAttribute("user") User user) {
+        return "edituser";
+    }
+
+    @PostMapping("/saveuser")
+    public String saveUser(@ModelAttribute("user") User u, @RequestParam("id") String idUser) {
+        User user = userService.findById(idUser);
+        user.setName(u.getName());
+        user.setAddress(u.getAddress());
+        user.setEmail(u.getEmail());
+        user.setPhone(u.getPhone());
+        userService.saveUser(user);
+        sessionService.setAttribute("messageUserUpdate", "Cập nhật thông tin thành công.");
+        sessionService.setAttribute("userss", user);
+        return "redirect:/userinfo";
+    }
+
+    @GetMapping("/formregister")
+    public String formRegister(User user) {
+        return "register";
+    }
+
+    @PostMapping("/registersave")
+    public String registerSave(User u, Model model) {
+        User idUser = userService.findIdUserById(u.getId());
+        if (!isValidPassword(u.getPassword())) {
+            model.addAttribute("messageUserRegister", "Mật khẩu phải dài trên 6 ký tự và phải bao gồm cả chữ và số .");
+            return "register";
         }
+        System.out.println("iD: " + u.getId());
+        if (idUser == null) {
+            String pass = encodePassword(u.getPassword());
+            u.setPassword(pass);
+            u.setCode("0");
+            u.setRole(false);
+            u.setActive(false);
+            userService.saveUser(u);
+            sessionService.setAttribute("register", "Đăng kí tài khoản thành công và bạn sẽ được chuyển hướng đến trang login sau khi thông báo kết thúc !");
 
-        // Mã hóa mật khẩu trước khi lưu vào đối tượng User
-        String encodedPassword = encodePassword(user.getPassword());
-        user.setRole("user");
-        user.setPassword(encodedPassword);
-        contactUser.setUser(user);
-        // Lưu đối tượng User vào cơ sở dữ liệu
-        userService.save(user);
-        contactUserService.saveUserInfo(contactUser);
-
-        return "redirect:/login";
+        } else {
+            model.addAttribute("messageUserRegister", "Username đã tồn tại. Vui lòng chọn username khác.");
+        }
+        return "register";
     }
 
     private String encodePassword(String password) {
         return new BCryptPasswordEncoder().encode(password);
     }
 
-
-    @PostMapping("/inForUser/{username}")
-    public String inforUser(@PathVariable("username") String username, @RequestParam("userid") int userid, HttpSession session, Model model) {
-        if (!authenticatedHasRoleDTO.isAuthenticatedAndHasRole(session,"USER")) {
-            User user = userService.getUserById(userid);
-            ContactUser contactUser = contactUserService.getUserInfoByUserId(userid);
-            model.addAttribute("user", user);
-            model.addAttribute("contactUser", contactUser);
-            return "redirect:/inForUser/{username}";
-        }
-        model.addAttribute("error", "Bạn chưa đăng nhập , vui lòng đăng nhập để có thể xem các thông tin chi tiết !");
-        return "";
+    private boolean isValidPassword(String password) {
+        return password.length() >= 6 && containsDigit(password) && containsLetter(password);
     }
 
-    @PutMapping("/changePass")
-    public String changePass(@RequestParam("newPass") String newPass, HttpSession session, Model model, RedirectAttributes redirectAttributes) {
-        if (!authenticatedHasRoleDTO.isAuthenticatedAndHasRole(session,"USER")) {
-            User user = (User) session.getAttribute("loggedInUser");
-            userService.changePassword(user, newPass);
-            redirectAttributes.addFlashAttribute("message", "Change Password success!");
+    private boolean containsDigit(String str) {
+        for (char c : str.toCharArray()) {
+            if (Character.isDigit(c)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean containsLetter(String str) {
+        for (char c : str.toCharArray()) {
+            if (Character.isLetter(c)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @GetMapping("/user-order")
+    public String userInformation(Model model) {
+        User userSession = sessionService.get("userss");
+        if (userSession == null) {
+            return "redirect:formlogin";
+        } else {
+            model.addAttribute("informationOrder", orderService.findByOrderUserId(userSession.getId()));
+            return "user_order";
+        }
+    }
+
+    @GetMapping("/user-order-details")
+    public String userOrderDetails(Model model, @RequestParam("idorder") long idOrder) {
+        model.addAttribute("detailOrder", orderDetailService.findByOrderDetailIdOrder(idOrder));
+        model.addAttribute("Order", orderService.findOrderById(idOrder));
+        return "user_order_detail";
+    }
+
+    @GetMapping("/user-delivery-address")
+    public String userDeliveryAddress(Model model) {
+        User userSession = sessionService.get("userss");
+        if (userSession == null) {
+            return "redirect:formlogin";
+        } else {
+            List<DeliveryAddress> deliveryAddress = deliveryService.findByIdDeliveryAddress(userSession.getId());
+            if (deliveryAddress != null) {
+                List<DeliveryAddress> sortedDeliveryAddress = deliveryAddress.stream()
+                        .sorted(Comparator.comparingInt(address -> address.getIsUse() == 0 ? 0 : 1))
+                        .collect(Collectors.toList());
+                model.addAttribute("deliveryAddress", sortedDeliveryAddress);
+                return "user_delivery_address";
+            }
+            model.addAttribute("notfound", "Chưa có địa chỉ nào được thêm,vui lòng thêm địa chỉ mới để xem chi tiết");
+            return "user_delivery_address";
+        }
+    }
+
+    @GetMapping("/form-forgotpassword")
+    public String formForgotPassword() {
+
+        return "forgotpassword";
+    }
+
+    @PostMapping("/check-forgot")
+    public String checkForgot(Model model) throws UnsupportedEncodingException, MessagingException {
+        String username = paramService.getString("username", "");
+        String email = paramService.getString("email", "");
+        System.out.println("Username: " + username);
+        User user = userService.findByUserForgotPass(username);
+        if (user == null) {
+            model.addAttribute("message", "Tài khoản không tồn tại.");
+            model.addAttribute("username", username);
+            model.addAttribute("email", email);
+            return "forgotpassword";
+        } else if (!user.getEmail().equals(email)) {
+            model.addAttribute("message", "Email không đúng với tài khoản.");
+            model.addAttribute("username", username);
+            model.addAttribute("email", email);
+            return "forgotpassword";
+        } else {
+            sendEmailService.sendEmail(email, username);
+            model.addAttribute("message", "Gửi mail thành công. Vui lòng kiếm tra hòm thư gmail của bạn.");
+            return "forgotpassword";
+        }
+    }
+
+    @GetMapping("/form-resetpassword")
+    public String forgotPass(Model model) {
+        String token = paramService.getString("token", "");
+        User user = userService.findUserByToken(token);
+        if (user == null) {
             return "redirect:/home";
+        } else {
+            if (user.getCode().equals(token) && user.isActive() == true) {
+                model.addAttribute("token", token);
+                return "forgotpassword2";
+            } else {
+                return "redirect:/home";
+            }
         }
-        return "redirect:/login";
     }
 
-    @PutMapping("/update/{username}")
-    public void updateUser(@PathVariable("username") String username,
-                           @ModelAttribute("user") User updatedUser,
-                           @ModelAttribute("contactUsers") ContactUser updatedContactUsers,
-                           @RequestParam("multipartFile") MultipartFile file,
-                           HttpSession session) {
-        if (!authenticatedHasRoleDTO.isAuthenticatedAndHasRole(session,"USER")) {
-            User user = (User) session.getAttribute("loggedInUser");
-            userService.updateUserAndContactUser(user.id, updatedUser, updatedContactUsers, file);
+    @PostMapping("/save-resetpassword")
+    public String saveResetPassword(Model model) {
+        String token = paramService.getString("token", "");
+        String password = paramService.getString("password", "");
+        String password2 = paramService.getString("password2", "");
+        User user = userService.findUserByToken(token);
+        if (user == null || user.isActive() == false) {
+            return "redirect:/home";
+        } else {
+            if (!password.equals(password2)) {
+                model.addAttribute("message", "Mật khẩu không khớp.");
+                model.addAttribute("password", password);
+                model.addAttribute("token", token);
+                return "forgotpassword2";
+            } else {
+                userService.saveResetPassword(token, password);
+                model.addAttribute("message", "Đặt lại mật khẩu thành công.");
+                model.addAttribute("token", "");
+                return "redirect:/resetpasssucces";
+            }
         }
+    }
+
+    @GetMapping("/resetpasssucces")
+    public String resetPassSucces() {
+
+        return "resetpasssucces";
+    }
+
+    @GetMapping("/noadmin")
+    public String noAdmin() {
+
+        return "noadmin";
+    }
+
+    @GetMapping("/form-change-pass")
+    public String formChangePass(Model model) {
+        return "changepassword";
+    }
+
+    @PostMapping("/save-change-pass")
+    public String saveChangePass(Model model, @RequestParam("password") String password,
+                                 @RequestParam("passwordnew") String passwordnew,
+                                 @RequestParam("passwordnew2") String passwordnew2) {
+        User userss = sessionService.get("userss");
+        User user = userService.findIdUserById(userss.getId());
+        if (!user.getPassword().equals(password)) {
+            model.addAttribute("message", "Mật khẩu cũ k khớp");
+        } else if (!passwordnew.equals(passwordnew2)) {
+            model.addAttribute("password", password);
+            model.addAttribute("passwordnew", passwordnew);
+            model.addAttribute("message", "Mật mới không khớp");
+        } else {
+            userss.setPassword(passwordnew);
+            userService.saveUser(userss);
+            model.addAttribute("message", "Đổi mật khẩu thành công.");
+        }
+        return "changepassword";
     }
 }

@@ -1,64 +1,118 @@
 package com.doapp.nanogear.controller;
 
-import com.doapp.nanogear.model.data.Category;
-import com.doapp.nanogear.model.data.Product;
-import com.doapp.nanogear.model.respository.ProductRepository;
-import com.doapp.nanogear.security.ProductService;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
+import com.doapp.nanogear.been.ParamService;
+import com.doapp.nanogear.been.SessionService;
+import com.doapp.nanogear.service.BrandService;
+import com.doapp.nanogear.service.CartService;
+import com.doapp.nanogear.service.CategoryService;
+import com.doapp.nanogear.service.ProductService;
 
-@RestController
-@RequestMapping("/api/products")
-public class productController {
+@Controller
+public class ProductController {
 
-    private final ProductService productService;
+	@Autowired
+	ProductService productService;
 
+	@Autowired
+	CartService cartService;
 
-    @Autowired
-    public productController(ProductService productService) {
-        this.productService = productService;
-    }
+	@Autowired
+	CategoryService categoryService;
 
-//    @PostMapping("/search")
-//    public ResponseEntity<List<Product>> searchProducts(
-//            @RequestParam(required = false) String keyword,
-//            @RequestParam(required = false) Double price) {
-//        List<Product> products = productService.SearchProduct(keyword, price);
-//        return ResponseEntity.ok(products);
-//    }
-    @GetMapping
-    public List<Product> getAllProducts() {
-        return productService.findAll();
-    }
+	@Autowired
+	BrandService brandService;
 
-    @GetMapping("/{id}")
-    public Product getProductById(@PathVariable int id) {
-        return productService.findById(id);
-    }
+	@Autowired
+	ParamService paramService;
 
-//    @PostMapping
-//    public Product createProduct(@RequestBody Product product) {
-//        return productService.save(product);
-//    }
+	@Autowired
+	SessionService sessionService;
 
-    @PutMapping("/{id}")
-    public Product updateProduct(@PathVariable int id, @RequestBody Product updatedProduct) {
-        Product existingProduct = productService.findById(id);
-        if (existingProduct != null) {
-            return productService.save(existingProduct);
-        }
-        return null;
-    }
-    @DeleteMapping("/{id}")
-    public void deleteProduct(@PathVariable int id) {
-        productService.deleteById(id);
-    }
+	@GetMapping("/productdetail")
+	public String productDetail(@RequestParam("productId") String productId, @RequestParam("categoryId") int categoryId,
+			Model model) {
+		model.addAttribute("productCategoryId", productService.findProductDetailType(categoryId));
+		model.addAttribute("productDetail", productService.findById(productId));
+		model.addAttribute("countCart", cartService.countCart());
+		return "product_detail";
+	}
 
-//    @PostMapping("/save")
-//    public saveProduct(Product product, Category category){
-//
-//    }
+	@GetMapping("/product-all-shareandpage")
+	public String productAll1(Model model, @RequestParam("keyword") Optional<String> keyword,
+			@RequestParam("p") Optional<Integer> p) {
+		model.addAttribute("productAll", productService.findByProductKeyWordAndPage(keyword, p));
+		model.addAttribute("categoryAll", categoryService.getAllCategory());
+		model.addAttribute("countCart", cartService.countCart());
+		return "productall";
+	}
+
+	@GetMapping("/productcategory")
+	public String viewProductCategory(@RequestParam("id") int idCategory, Model model,
+			@RequestParam("price-min") Optional<Double> min, @RequestParam("price-max") Optional<Double> max,
+			@RequestParam("p") Optional<Integer> p, @RequestParam("sort") Optional<String> s) {
+		model.addAttribute("s", s.isPresent() ? s.get() : "asc");
+		model.addAttribute("minPriceRange", (int) (productService.findMinPriceProduct(idCategory) / 1000));
+		model.addAttribute("maxPriceRange", (int) (productService.findMaxPriceProduct(idCategory) / 1000));
+		model.addAttribute("brandByIdCategory", brandService.findBrandByCategory(idCategory));
+		model.addAttribute("productByCategory",
+				productService.findProductByIdCategory(idCategory, min, max, p, s));
+		model.addAttribute("idCategory", idCategory);
+		model.addAttribute("countCart", cartService.countCart());
+		return "productcategory";
+	}
+
+	@PostMapping("/productcategory")
+	public String postProductCategory(@RequestParam("id") int idCategory, Model model,
+			@RequestParam("price-min") Optional<Double> min, @RequestParam("price-max") Optional<Double> max,
+			@RequestParam("p") Optional<Integer> p, @RequestParam("sort") Optional<String> s) {
+		model.addAttribute("minPriceRange", (int) (productService.findMinPriceProduct(idCategory) / 1000));
+		model.addAttribute("maxPriceRange", (int) (productService.findMaxPriceProduct(idCategory) / 1000));
+		model.addAttribute("brandByIdCategory", brandService.findBrandByCategory(idCategory));
+		model.addAttribute("productByCategory",	productService.findProductByIdCategory(idCategory, min, max, p, s));
+		model.addAttribute("idCategory", idCategory);
+		model.addAttribute("min", min.isPresent() ? min.get() : "");
+		model.addAttribute("max", max.isPresent() ? max.get() : "");
+		model.addAttribute("s", s.isPresent() ? s.get() : "asc");
+		model.addAttribute("countCart", cartService.countCart());
+		return "productcategory";
+	}
+
+	@GetMapping("/productbrand")
+	public String getProductBrand(@RequestParam("idBrand") int idBrand, @RequestParam("idCategory") int idCategory,@RequestParam("price-min") Optional<Double> min, @RequestParam("price-max") Optional<Double> max,
+			Model model,@RequestParam("p") Optional<Integer> p,@RequestParam("sort") Optional<String> s) {
+		model.addAttribute("minPriceRange", (int) (productService.findMinPriceProductByBrand(idCategory,idBrand) / 1000));
+		model.addAttribute("maxPriceRange", (int) (productService.findMaxPriceProductByBrand(idCategory, idBrand) / 1000));
+		model.addAttribute("productByBrand", productService.findProductByIdBrand(idBrand, idCategory,min,max, p,s));
+		model.addAttribute("idCategory", idCategory);
+		model.addAttribute("idBrand", idBrand);
+		model.addAttribute("s", s.isPresent() ? s.get() : "asc");
+		model.addAttribute("countCart", cartService.countCart());
+		return "productBrand";
+	}
+	
+	@PostMapping("/productbrand")
+	public String postProductBrand(@RequestParam("idBrand") int idBrand, @RequestParam("idCategory") int idCategory,
+			Model model,@RequestParam("price-min") Optional<Double> min, @RequestParam("price-max") Optional<Double> max,@RequestParam("p") Optional<Integer> p,
+			@RequestParam("sort") Optional<String> s) {
+		model.addAttribute("minPriceRange", (int) (productService.findMinPriceProductByBrand(idCategory,idBrand) / 1000));
+		model.addAttribute("maxPriceRange", (int) (productService.findMaxPriceProductByBrand(idCategory, idBrand) / 1000));
+		model.addAttribute("productByBrand", productService.findProductByIdBrand(idBrand, idCategory,min, max, p,s));
+		model.addAttribute("idCategory", idCategory);
+		model.addAttribute("idBrand", idBrand);
+		model.addAttribute("min", min.isPresent() ? min.get() : "");
+		model.addAttribute("max", max.isPresent() ? max.get() : "");
+		model.addAttribute("s", s.isPresent() ? s.get() : "asc");
+		model.addAttribute("countCart", cartService.countCart());
+		return "productBrand";
+	}
+	
 }

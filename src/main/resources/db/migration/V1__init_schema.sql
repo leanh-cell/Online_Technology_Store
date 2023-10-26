@@ -1,160 +1,283 @@
-CREATE TABLE IF NOT EXISTS `users`
+CREATE TABLE IF NOT EXISTS `Users`
 (
-    `id`       INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    `username` VARCHAR(50) NOT NULL,
-    `email`    VARCHAR(100),
-    `password` VARCHAR(100) NOT NULL,
-    `role`     VARCHAR(10) NOT NULL
-    );
--- Chèn dữ liệu vào bảng users
-INSERT INTO users ( username, email, password, role)
-VALUES
-    ( 'user1', 'user1@example.com', '$2a$12$CJm6UGbeLXAM2BasuvunF.w6oerpQJ1KSeIVLeyJyDbIOOXRDAjTK', 'user'),
-    ( 'user2', 'user2@example.com', '$2a$12$6AVUVOU8zUqHyg5o2OjRAeDfBdiM3p4EnH89MtATI9Gf6aKRdB5Se', 'user'),
-    ( 'admin', 'admin@example.com', '$2a$12$2fu2njqQCiKwjlmYnfiBm.uG9CmYDmJLea0Hbx2EfZQmSrknilw/a', 'admin');
-
-CREATE TABLE IF NOT EXISTS `contact_user`
-(
-    `id`           INT PRIMARY KEY AUTO_INCREMENT,
-    `full_name`   VARCHAR(100) NOT NULL,
-    `image_url`    VARCHAR(100),
-    `city`         VARCHAR(200),
-    `province`     VARCHAR(200),
-    `town`         VARCHAR(200),
-    `street`       VARCHAR(200),
-    `phone_number` VARCHAR(20),
-    `user_id`      INT,
-    `total_order`  int
-    );
--- Chèn dữ liệu vào bảng contact_user
-INSERT INTO contact_user ( full_name, city, province, town, street, phone_number, user_id, total_order)
-VALUES
-    ('Le quoc anh', 'Hanoi', 'Hanoi', 'Hai Ba Trung', '123 Street', '1234567890', 1, 5),
-    ('nguyen thanh loan', 'Ho Chi Minh', 'Ho Chi Minh', 'District 1', '456 Street', '9876543210', 2, 3);
-
-CREATE TABLE IF NOT EXISTS `cart`
-(
-    `id`         INT PRIMARY KEY AUTO_INCREMENT,
-    `user_id`    INT,
-    `product_id` INT,
-    `quantity`   INT
+    `user_id`   varchar(50) PRIMARY KEY,
+    `user_name` varchar(50),
+    `email`     varchar(50),
+    `phone`     varchar(50),
+    `address`   varchar(255),
+    `password`  varchar(255),
+    `role`      bit,
+    `is_Active` bit,
+    `code`      varchar(50)
 );
--- Chèn dữ liệu vào bảng cart
-INSERT INTO cart ( user_id, product_id, quantity)
+INSERT INTO Users (user_id, user_name, email, phone, address, password, role, is_Active, code)
 VALUES
-    ( 1, 1, 2),
-    ( 1, 3, 1),
-    ( 2, 2, 3);
+('admin', 'admin', 'admin@gmail.com', '0987654321', 'quan nhan, ha noi ', '$2a$10$FQIsN0DnF6Ln8uDRX/xZ6.KeVvuQVSnOI7foGXlul1eqt6HhKXOTm', b'0', b'0', '0'),
+('qanh', 'anhr', 'quocanh277353@gmail.com', '0987654321', 'cầu giấy ', '$2a$10$bOxAP.pq3v4ftm.cPDxuAuFio.1tA1oljhx7ZA5LdoCgQaU0Eb8jO', b'0', b'0', '0');
 
-CREATE TABLE IF NOT EXISTS `products`
+CREATE TABLE IF NOT EXISTS `delivery_address`
 (
-    `id`             INT PRIMARY KEY AUTO_INCREMENT,
-    `name`           VARCHAR(200),
-    `price`          DECIMAL(10,2),
-    `description`    VARCHAR(255),
-    `image_url`      VARCHAR(500),
-    `created_date`   TIMESTAMP,
-    `quantity`       int,
-    `product_detail_id` Int,
-    `category_id`       INT
-    );
--- Chèn dữ liệu vào bảng products
-INSERT INTO products ( name, price, description, image_url, created_date, quantity, product_detail_id,category_id)
-VALUES
-    ( 'Product 1', 100.00, 'Description 1', 'image1.jpg', NOW(), 10, 1,1),
-    ( 'Product 2', 200.00, 'Description 2', 'image2.jpg', NOW(), 20, 2,2),
-    ( 'Product 3', 150.00, 'Description 3', 'image3.jpg', NOW(), 15, 3,3);
-
-CREATE TABLE IF NOT EXISTS `product_detail`
-(
-    `id`      INT PRIMARY KEY AUTO_INCREMENT,
-    `cpu`     VARCHAR(255),
-    `ram`     INT,
-    `storage` VARCHAR(255),
-    `gpu`     VARCHAR(255),
-    `inch`    double
-    );
--- Chèn dữ liệu vào bảng product_detail
-INSERT INTO product_detail ( cpu, ram, storage, gpu, inch)
-VALUES
-    ( 'Intel Core i5', 8, '256GB SSD', 'N/A', 15.6),
-    ( 'AMD Ryzen 7', 16, '512GB NVMe SSD', 'N/A', 14),
-    ( 'Intel Core i7', 16, '1TB HDD', 'NVIDIA GTX 1650', 17);
+    `delivery_address_id` int PRIMARY KEY AUTO_INCREMENT,
+    `user_name`           varchar(50),
+    `user_phone`          varchar(50),
+    `province`            varchar(50),
+    `district`            varchar(50),
+    `ward`                varchar(50),
+    `country`             varchar(50),
+    `address_detail`      varchar(255),
+    `is_use`              int,
+    `user_id`             varchar(50)
+);
+INSERT INTO `delivery_address` (`user_name`,`user_phone`,`province`, `district`,`ward`, `country`, `address_detail`, `is_use`, `user_id`) VALUES
+('phuc','0987654345','Hanoi', 'Ba Dinh','hoan kiem', 'Vietnam', 'Apt 101', 1, 'qanh'),
+('nhi','0987654345','Ho Chi Minh City', 'District 1','ward1', 'Vietnam', 'Apt 202', 0, 'qanh'),
+('anh','0987654345','Da Nang', 'Hai Chau','ward2', 'Vietnam', 'Apt 303', 1, 'admin');
 
 CREATE TABLE IF NOT EXISTS `category`
 (
-    `id`   INT PRIMARY KEY AUTO_INCREMENT,
-    `name` VARCHAR(255)
-    );
--- Chèn dữ liệu vào bảng category
-INSERT INTO category ( name)
-VALUES
-    ( 'Laptops'),
-    ( 'Phones'),
-    ( 'Accessories');
-
-
-CREATE TABLE IF NOT EXISTS `orders`
-(
-    `id`              INT PRIMARY KEY AUTO_INCREMENT,
-    `contact_user`    INT,
-    `user_id`         int,
-    `order_date`      DATE,
-    `total_pay`       DECIMAL(10, 2),
-    `payment_method`  int,
-    `payment_status`  int,
-    `total_cost`      DECIMAL(10, 2),
-    `transport_fee`   DECIMAL(10, 2),
-    `quantity`        INT,
-    `date_receipt`    DATE,
-    `order_status`    VARCHAR(50),
-    `order_code`      VARCHAR(20) not null
-    );
--- Chèn dữ liệu vào bảng orders
-INSERT INTO `orders` (`contact_user`, `user_id`, `order_date`, `total_pay`, `payment_method`, `payment_status`, `total_cost`, `transport_fee`, `quantity`, `date_receipt`, `order_status`, `order_code`) VALUES
-(1, 1, '2023-09-15', 100.50, 1, 1, 80.00, 20.50, 3, '2023-09-20', 'Processing', 'ORD12345'),
-(2, 2, '2023-09-16', 75.25, 2, 1, 60.00, 15.25, 2, '2023-09-21', 'Shipped', 'ORD12346'),
-(1, 1, '2023-09-17', 45.75, 1, 0, 40.00, 5.75, 1, '2023-09-22', 'Cancelled', 'ORD12347'),
-(1, 1, '2023-09-18', 120.00, 3, 1, 100.00, 20.00, 4, '2023-09-23', 'Delivered', 'ORD12348'),
-(1, 1, '2023-09-19', 60.90, 2, 1, 50.00, 10.90, 2, '2023-09-24', 'Shipped', 'ORD12349');
-
-
-CREATE TABLE IF NOT EXISTS `order_item`
-(
-    `id`               INT PRIMARY KEY AUTO_INCREMENT,
-    `order_id`         int,
-    `product_id`       int,
-    `quantity`         int
+    `category_id`   int PRIMARY KEY AUTO_INCREMENT,
+    `category_name` varchar(50),
+    `category_img`  LONGTEXT
 );
-INSERT INTO order_item (order_id, product_id, quantity)
-VALUES
-    (1, 1, 2), -- Đơn đặt hàng có id = 1 chứa sản phẩm có id = 1 với số lượng là 2
-    (1, 2, 1), -- Đơn đặt hàng có id = 1 chứa sản phẩm có id = 2 với số lượng là 1
-    (2, 3, 3); -- Đơn đặt hàng có id = 2 chứa sản phẩm có id = 3 với số lượng là 3
+INSERT INTO category (category_id, category_name, category_img)
+VALUES (1, 'Điện thoại', 'dien-thoai-doc-quyen-128x128.png'),
+       (2, 'Laptop', 'Laptop-129x129.png'),
+       (3, 'Máy tính bảng', 'Tablet-128x129.png'),
+       (4, 'Chuột', 'chuot-128x129.png'),
+       (5, 'Bàn phím', 'ban-phim-128x129.png'),
+       (1008, 'Đồng hồ', 'Donghothongminh-128x129.png');
 
-ALTER TABLE  `order_item`
-    ADD FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`);
+CREATE TABLE IF NOT EXISTS `brand`
+(
+    `id`   int PRIMARY KEY AUTO_INCREMENT,
+    `name` varchar(50),
+    `img`  LONGTEXT
+);
+INSERT INTO brand (id, name, img)
+VALUES (1, 'SamSung', 'samsungnew-220x48-1.png'),
+       (2, 'Iphone', 'lo-iphone-220x48.png'),
+       (3, 'Oppo', 'OPPO42-b_5.jpg'),
+       (4, 'Xiaomi', 'lo-xiaomi-220x48-5.png'),
+       (5, 'MacBook', 'lo-macbook-149x40.png'),
+       (6, 'Asus', 'lo-asus-149x40.png'),
+       (7, 'Levono', 'Lenovo522-b_6.jpg'),
+       (8, 'IPad', 'iPad-(Apple)522-b_4.jpg'),
+       (9, 'Logitech', 'lologitech.png'),
+       (10, 'Razer', 'razer.png'),
+       (11, 'Nokia', 'Nokia42-b_21.jpg'),
+       (12, 'SamSung1', 'samsungnew-220x48-1.png'),
+       (13, 'SamSung', 'samsungnew-220x48-1.png'),
+       (14, 'Bàn phímtest', 'default-avatar.png'),
+       (1011, 'Bàn phím test', 'Nokia42-b_21.jpg'),
+       (1012, 'Appe Watch', 'Apple7077-b26-220x48.png');
 
-ALTER TABLE  `order_item`
-    ADD FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
+CREATE TABLE IF NOT EXISTS `product`
+(
+    `product_id`    varchar(50) PRIMARY KEY,
+    `product_name`  varchar(50),
+    `product_img`   LONGTEXT,
+    `price`         float,
+    `qty`           int,
+    `discount`      float,
+    `sold_quantity` int,
+    `description`   LONGTEXT,
+    `category_id`   int,
+    `brand_id`      int
+);
+INSERT INTO product (product_id, product_name, product_img, price, qty, discount, description, category_id, brand_id,
+                     sold_quantity)
+VALUES ('DT01', 'Xiaomi note 15', 'xiaomi-redmi-note12s-den-thumb-600x600.jpg', 9990000, 1005, 0,
+        'Xiaomi Redmi Note 12 8GB/128GB - ĐỘC QUYỀN là mẫu điện thoại tầm trung vừa được ra mắt tại thị trường Việt Nam, máy thu hút sự chú ý đến từ người dùng nhờ được trang bị con chip Snapdran 685 và camera 50 MP nổi bật trong phân khúc.',
+        1, 4, 0),
+       ('DT02', 'Samsung Galaxy S23', 'samsung-galaxy-s23-ultra-thumb-xanh-600x600.jpg', 26000000, 120, 0,
+        'Samsung Galaxy A24 6GB tiếp tục là mẫu điện thoại tầm trung được nhà Samsung giới thiệu đến thị trường Việt Nam vào tháng 04/2023, máy nổi bật với giá thành rẻ, màn hình Super AMOLED cùng camera 50 MP chụp ảnh sắc nét.',
+        1, 1, 12),
+       ('DT03', 'Samsung Galaxy A23', 'samsung-galaxy-a23-cam-thumb-600x600.jpg', 46900000, 120, 0,
+        'Samsung Galaxy A24 6GB tiếp tục là mẫu điện thoại tầm trung được nhà Samsung giới thiệu đến thị trường Việt Nam vào tháng 04/2023, máy nổi bật với giá thành rẻ, màn hình Super AMOLED cùng camera 50 MP chụp ảnh sắc nét.',
+        1, 1, 12),
+       ('DT04', 'Samsung Galaxy S20 FE', 'samsung-galaxy-s20-fan-edition-xanh-la-thumbnew-600x600.png', 9400000, 120, 0,
+        'Samsung Galaxy A24 6GB tiếp tục là mẫu điện thoại tầm trung được nhà Samsung giới thiệu đến thị trường Việt Nam vào tháng 04/2023, máy nổi bật với giá thành rẻ, màn hình Super AMOLED cùng camera 50 MP chụp ảnh sắc nét.',
+        1, 1, 1),
+       ('DT05', 'Samsung Galaxy S23+', 'samsung-galaxy-s23-plus-600x600.jpg', 21000000, 120, 0,
+        'Samsung Galaxy A24 6GB tiếp tục là mẫu điện thoại tầm trung được nhà Samsung giới thiệu đến thị trường Việt Nam vào tháng 04/2023, máy nổi bật với giá thành rẻ, màn hình Super AMOLED cùng camera 50 MP chụp ảnh sắc nét.',
+        1, 1, 2),
+       ('DT06', 'Samsung Galaxy Z Fold4', 'samsung-galaxy-z-fold4-kem-256gb-600x600.jpg', 35000000, 120, 0,
+        'Samsung Galaxy A24 6GB tiếp tục là mẫu điện thoại tầm trung được nhà Samsung giới thiệu đến thị trường Việt Nam vào tháng 04/2023, máy nổi bật với giá thành rẻ, màn hình Super AMOLED cùng camera 50 MP chụp ảnh sắc nét.',
+        1, 1, 1),
+       ('DT07', 'Samsung Galaxy A04s', 'samsung-galaxy-a04s-thumb-den-600x600.jpg', 3690000, 120, 0,
+        'Samsung Galaxy A24 6GB tiếp tục là mẫu điện thoại tầm trung được nhà Samsung giới thiệu đến thị trường Việt Nam vào tháng 04/2023, máy nổi bật với giá thành rẻ, màn hình Super AMOLED cùng camera 50 MP chụp ảnh sắc nét.',
+        1, 1, 1),
+       ('DT08', 'Samsung Galaxy S22', 'Galaxy-S22-Ultra-Black-600x600.jpg', 23900000, 120, 0,
+        'Samsung Galaxy A24 6GB tiếp tục là mẫu điện thoại tầm trung được nhà Samsung giới thiệu đến thị trường Việt Nam vào tháng 04/2023, máy nổi bật với giá thành rẻ, màn hình Super AMOLED cùng camera 50 MP chụp ảnh sắc nét.',
+        1, 1, 0),
+       ('DT09', 'Xiaomi Mi 12', 'xiaomi-mi-12-thumb-xanh-la-600x600.jpg', 28000000, 120, 0,
+        'Xiaomi Mi 12 12GB/256GB - Đẳng cấp là một mẫu flagship của Xiaomi với cấu hình khủng khiếp: Snapdragon 895, camera 108MP, màn hình AMOLED 2K.',
+        1, 4, 10),
+       ('DT10', 'Realme 9 Pro', 'realme-9-pro-thumb-xanh-600x600.jpg', 6590000, 120, 0,
+        'Realme 9 Pro 8GB/128GB là mẫu smartphone tầm trung mới ra mắt của Realme với thiết kế hiện đại, cấu hình mạnh mẽ và camera đa dạng, đặc biệt với chế độ chụp đêm Super Nightscape.',
+        2, 5, 3),
+       ('DT11', 'OPPO Reno8 T 5G', 'oppo-reno8t-vang1-thumb-600x600.png', 10990000, 120, 0,
+        'Tiếp nối sự thành công rực rỡ đến từ các thế hệ trước đó thì chiếc OPPO Reno8 T 5G 256GB cuối cùng đã được giới thiệu chính thức tại Việt Nam, được định hình là dòng sản phẩm thuộc phân khúc tầm trung với camera 108 MP, con chip Snapdran 695 cùng kiểu dáng thiết kế mặt lưng và màn hình bo cong hết sức nổi bật.',
+        1, 3, 1),
+       ('DT12', 'OPPO Reno8 series', 'oppo-reno8-pro-thumb-xanh-1-600x600.jpg', 17900000, 120, 0,
+        'Tiếp nối sự thành công rực rỡ đến từ các thế hệ trước đó thì chiếc OPPO Reno8 T 5G 256GB cuối cùng đã được giới thiệu chính thức tại Việt Nam, được định hình là dòng sản phẩm thuộc phân khúc tầm trung với camera 108 MP, con chip Snapdran 695 cùng kiểu dáng thiết kế mặt lưng và màn hình bo cong hết sức nổi bật.',
+        1, 3, 11),
+       ('DT13', 'OPPO Find X5 Pro 5G', 'oppo-find-x5-pro-den-thumb-600x600.jpg', 19900000, 120, 0,
+        'Tiếp nối sự thành công rực rỡ đến từ các thế hệ trước đó thì chiếc OPPO Reno8 T 5G 256GB cuối cùng đã được giới thiệu chính thức tại Việt Nam, được định hình là dòng sản phẩm thuộc phân khúc tầm trung với camera 108 MP, con chip Snapdran 695 cùng kiểu dáng thiết kế mặt lưng và màn hình bo cong hết sức nổi bật.',
+        1, 3, 11),
+       ('DT14', 'OPPO Reno6 Pro 5G', 'oppo-reno6-pro-grey-600x600.jpg', 13900000, 120, 0,
+        'Tiếp nối sự thành công rực rỡ đến từ các thế hệ trước đó thì chiếc OPPO Reno8 T 5G 256GB cuối cùng đã được giới thiệu chính thức tại Việt Nam, được định hình là dòng sản phẩm thuộc phân khúc tầm trung với camera 108 MP, con chip Snapdran 695 cùng kiểu dáng thiết kế mặt lưng và màn hình bo cong hết sức nổi bật.',
+        1, 3, 1),
+       ('DT15', 'iPhone 14 Pro Max', 'iphone-14-pro-max-den-thumb-600x600.jpg', 18900000, 120, 0,
+        'iPhone 14 Pro Max một siêu phẩm trong giới smartphone được nhà Táo tung ra thị trường vào tháng 09/2022. Máy trang bị con chip Apple A16 Bionic vô cùng mạnh mẽ, đi kèm theo đó là thiết kế hình màn hình mới, hứa hẹn mang lại những trải nghiệm đầy mới mẻ cho người dùng iPhone.',
+        1, 2, 1),
+       ('DT16', 'iPhone 14 Pro', 'iphone-14-pro-vang-thumb-600x600.jpg', 15900000, 120, 0,
+        'iPhone 14 Pro Max một siêu phẩm trong giới smartphone được nhà Táo tung ra thị trường vào tháng 09/2022. Máy trang bị con chip Apple A16 Bionic vô cùng mạnh mẽ, đi kèm theo đó là thiết kế hình màn hình mới, hứa hẹn mang lại những trải nghiệm đầy mới mẻ cho người dùng iPhone.',
+        1, 2, 11),
+       ('DT17', 'iPhone 11', 'iphone-xi-den-600x600.jpg', 15900000, 120, 0,
+        'iPhone 14 Pro Max một siêu phẩm trong giới smartphone được nhà Táo tung ra thị trường vào tháng 09/2022. Máy trang bị con chip Apple A16 Bionic vô cùng mạnh mẽ, đi kèm theo đó là thiết kế hình màn hình mới, hứa hẹn mang lại những trải nghiệm đầy mới mẻ cho người dùng iPhone.',
+        1, 2, 11),
+       ('DT18', 'iPhone 14', 'iPhone-14-thumb-trang-600x600.jpg', 13900000, 120, 0,
+        'iPhone 14 Pro Max một siêu phẩm trong giới smartphone được nhà Táo tung ra thị trường vào tháng 09/2022. Máy trang bị con chip Apple A16 Bionic vô cùng mạnh mẽ, đi kèm theo đó là thiết kế hình màn hình mới, hứa hẹn mang lại những trải nghiệm đầy mới mẻ cho người dùng iPhone.',
+        1, 2, 1),
+       ('DT19', 'iPhone 14 Plus', 'iPhone-14-plus-thumb-den-600x600.jpg', 21900000, 120, 0,
+        'iPhone 14 Pro Max một siêu phẩm trong giới smartphone được nhà Táo tung ra thị trường vào tháng 09/2022. Máy trang bị con chip Apple A16 Bionic vô cùng mạnh mẽ, đi kèm theo đó là thiết kế hình màn hình mới, hứa hẹn mang lại những trải nghiệm đầy mới mẻ cho người dùng iPhone.',
+        1, 2, 1),
+       ('DT20', 'Xiaomi Redmi 12C', 'xiaomi-redmi-12c-grey-thumb-600x600.jpg', 21900000, 120, 0,
+        'Xiaomi Redmi Note 12 8GB/128GB - ĐỘC QUYỀN là mẫu điện thoại tầm trung vừa được ra mắt tại thị trường Việt Nam, máy thu hút sự chú ý đến từ người dùng nhờ được trang bị con chip Snapdran 685 và camera 50 MP nổi bật trong phân khúc.',
+        1, 4, 11),
+       ('DT200', 'Bàn phím Bluetooth A4tech FBX51C', 'ban-phim-bluetooth-a4tech-fbx51c-thumb-1-600x600.jpg', 720000,
+        1000, 0, 'Mo ta', 5, 9, 0),
+       ('DT21', 'Xiaomi Redmi Note 12', 'xiaomi-redmi-note-12-4g-mono-den-600x600.jpg', 900000, 120, 0,
+        'Xiaomi Redmi Note 12 8GB/128GB - ĐỘC QUYỀN là mẫu điện thoại tầm trung vừa được ra mắt tại thị trường Việt Nam, máy thu hút sự chú ý đến từ người dùng nhờ được trang bị con chip Snapdran 685 và camera 50 MP nổi bật trong phân khúc.',
+        1, 4, 11),
+       ('DT22', 'Xiaomi Redmi A1', 'Xiaomi-Redmi-A1-thumb-xanh-duong-600x600.jpg', 200000, 120, 0,
+        'Xiaomi Redmi Note 12 8GB/128GB - ĐỘC QUYỀN là mẫu điện thoại tầm trung vừa được ra mắt tại thị trường Việt Nam, máy thu hút sự chú ý đến từ người dùng nhờ được trang bị con chip Snapdran 685 và camera 50 MP nổi bật trong phân khúc.',
+        1, 4, 11),
+       ('DT23', 'MacBook Air M1 2020', 'macbook-air-m1-2020-gray-600x600.jpg', 18490000, 120, 0, 'Mo ta', 2, 5, 11),
+       ('DT24', 'MacBook Air M2', 'apple-macbook-air-m2-2022-bac-600x600.jpg', 27800000, 120, 0, 'Mo ta', 2, 5, 1),
+       ('DT25', 'Asus TUF Gaming F15 FX506LHB', 'asus-tuf-gaming-fx506lhb-i5-hn188w-(54).jpg', 19900000, 120, 0,
+        'Mo ta', 2, 6, 1),
+       ('DT26', 'Asus Vivobook X415EA i3 1115G4 (EK2034W)', 'asus-vivobook-x415ea-i3-ek2034w-thumb-laptop-600x600.jpg',
+        11900000, 120, 0, 'Mo ta', 2, 6, 1),
+       ('DT27', 'Asus VivoBook 15X OLED A1503ZA', 'asus-vivobook-15x-oled-a1503za-i5-l1290w-040722-050332-600x600.jpg',
+        20900000, 120, 0, 'Mo ta', 2, 6, 1),
+       ('DT28', 'Lenovo Yoga Tab 11', 'lenovo-yoga-tab-11-thumb-600x600.jpg', 11900000, 120, 0, 'Mo ta', 3, 7, 1),
+       ('DT29', 'Lenovo Tab M10 (Gen 3)', 'lenovo-tab-m10-gen-3-1-2-600x600.jpg', 4590000, 120, 0, 'Mo ta', 3, 7, 1),
+       ('DT30', 'iPad 9 WiFi', 'iPad-9-wifi-trang-600x600 (1).jpg', 7900000, 120, 0, 'Mo ta', 3, 8, 1),
+       ('DT31', 'iPad 10 WiFi', 'iPad-gen-10-1-600x600.jpg', 11900000, 120, 0, 'Mo ta', 3, 8, 11),
+       ('DT32', 'Chuột Không dây Logitech M190', 'chuot-khong-day-logitech-m190-thumb3-600x600.png', 390000, 120, 0,
+        'Mo ta', 4, 9, 11),
+       ('DT33', 'Logitech G102 Gen2 Lightsync', 'chuot-gaming-logitech-g102-gen2-lightsync-01-600x600.jpg', 420000, 120,
+        0, 'Mo ta', 4, 9, 111),
+       ('DT34', 'Chuột Không dây Logitech M185', 'chuot-khong-day-logitech-m185-thumb2-1-600x600.png', 285000, 120, 0,
+        'Mo ta', 4, 9, 1),
+       ('DT35', 'Razer DeathAdder Essential', 'chuot-co-day-gaming-razer-deathadder-essential-thumb-600x600.png',
+        750000, 120, 0, 'Mo ta', 4, 10, 1),
+       ('DT36', 'Xiaomi 13', 'xiaomi-13-thumb-den-600x600.jpg', 18900000, 200, 0, 'Xiaomi', 1, 4, 1),
+       ('DT37', 'Xiaomi Redmi Note 12 Pro', 'xiaomi-redmi-note-12-pro-5g-momo-1-600x600.jpg', 9000000, 12, 0, 'Xiaomi',
+        1, 4, 1),
+       ('DT38', 'Xiaomi Redmi Note 12 S', 'xiaomi-redmi-note12s-den-thumb-600x600.jpg', 12000000, 12, 0, 'Xiaomi', 1, 4,
+        1),
+       ('DT39', 'Xiaomi Redmi A2+', 'xiaomi-redmi-note-12-plus-xanh-duong-thumb-600x600.jpg', 2400000, 100, 0, 'Xiaomi',
+        1, 4, 1),
+       ('DT40', 'Bàn Phím Cơ Có Dây Gaming', 'ban-phim-co-co-day-gaming-corsair-k63-den-thumb-600x600.png', 1500000000,
+        13, 0,  5, 10, 0),
+       ('DT60', 'iPhone 14 Plus', 'iPhone-14-plus-thumb-xanh-1-600x600.jpg', 19900000, 123, 0, 'Iphone', 1, 2, 0),
+       ('DT89', 'Đồng hồ thông minh Apple Watch SE', 'apple-watch-se-2022-40-mm-vien-nhom-tn-600x600.jpg', 5500000, 12,
+        0,
+        'Trong sự kiện Far Out 2022, nhà Táo Khuyết đã mang đến hàng loạt sản phẩm mới trong đó có đồng hồ thông minh Apple Watch SE 2022 GPS 40mm. Mẫu smartwatch giá rẻ mới nhất của Apple này hứa hẹn sẽ khiến cho các iFans đứng ngồi không yên khi sở hữu nhiều tính năng hấp dẫn.',
+        1008, 1012, 0);
 
-ALTER TABLE  `orders`
-    ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
-ALTER TABLE `cart`
-    ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+CREATE TABLE IF NOT EXISTS `Orders`
+(
+    `Order_id`   int PRIMARY KEY,
+    `Order_date` date,
+    `total`      float,
+    `status`     varchar(1),
+    `province`   varchar(50),
+    `district`   varchar(50),
+    `ward`       varchar(50),
+    `address_detail`       varchar(50),
+    `order_code`  varchar(255) not null,
+    `user_id`    varchar(50)
+);
+INSERT INTO Orders (Order_id, Order_date, total, status, province, district,ward, address_detail,order_code, user_id)
+VALUES (1, CAST('2023-06-10' AS Date), 28270000, 'N', 'Đắk Nông', 'Đắk R Lấp', 'Đạo Nghĩa','','122wwiei3', 'qanh'),
+       (2, CAST('2023-06-09' AS Date), 18490000, 'X', 'Đắk Nông', 'Đắk R Lấp', 'Đạo Nghĩa','','wwww333', 'qanh'),
+       (3, CAST('2023-06-11' AS Date), 100000000, 'N', 'Đắk Nông', 'Đắk R Lấp', 'Đạo Nghĩa','','dd2def2', 'qanh'),
+       (4, CAST('2023-06-12' AS Date), 14190000, 'N', 'Đắk Nông', 'Đắk R Lấp', 'Đạo Nghĩa','','dg546tg', 'qanh'),
+       (5, CAST('2023-06-08' AS Date), 14190000, 'N', 'Đắk Nông', 'Đắk R Lấp', 'Đạo Nghĩa','','dd2def2', 'qanh'),
+       (6, CAST('2023-06-07' AS Date), 14190000, 'N', 'Đắk Nông', 'Đắk R Lấp','Đạo Nghĩa','','sdsdsd', 'qanh'),
+       (7, CAST('2023-06-12' AS Date), 38690000, 'H', 'Đắk Nông', 'Đắk R Lấp','Đạo Nghĩa','','54gr65', 'qanh'),
+       (8, CAST('2023-06-12' AS Date), 43900000, 'H', 'Đắk Nông', 'Đắk R Lấp','Đạo Nghĩa','','grgtrhb', 'qanh'),
+       (9, CAST('2023-06-06' AS Date), 43900000, 'N', 'Đắk Nông', 'Đắk R Lấp','Đạo Nghĩa','','756ưcrg', 'qanh'),
+       (10,CAST('2023-06-05' AS Date), 439000000, 'N', 'Đắk Nông', 'Đắk R Lấp','Đạo Nghĩa','','45vu7b', 'qanh'),
+       (11,CAST('2023-06-04' AS Date), 439000000, 'N', 'Đắk Nông', 'Đắk R Lấp','Đạo Nghĩa','','7u6nr5', 'qanh'),
+       (12,CAST('2023-06-13' AS Date), 28890000, 'N', 'HCM', 'Quận 12', 'Phường 4','','8g9dgdd', 'admin'),
+       (13,CAST('2023-06-13' AS Date), 3690000, 'N', 'HCM', 'Quận 12', 'Phường 4','','98gbnfg', 'admin'),
+       (14,CAST('2023-06-13' AS Date), 32970000, 'H', 'HCM', 'Quận 12','Phường 4','','97s3rn', 'admin'),
+       (15,CAST('2023-06-13' AS Date), 2400000, 'H', 'HCM', 'Quận 12', 'Phường 4','','897ydff', 'admin'),
+       (16,CAST('2023-06-13' AS Date), 53700000, 'N', 'HCM', 'Quận 12', 'Phường 4','','oc8b9ff', 'admin'),
+       (17,CAST('2023-06-13' AS Date), 24685000, 'X', 'HCM', 'Quận 12','Phường 4','','908hfds', 'admin'),
+       (18,CAST('2023-06-13' AS Date), 44700000, 'X', 'HCM', 'Quận 12', 'Phường 4','','089shdf', 'admin'),
+       (19,CAST('2023-06-13' AS Date), 88885000, 'X', 'HCM', 'Quận 12', 'Phường 4','','oiv9f7vy', 'admin'),
+       (20,CAST('2023-06-13' AS Date), 30390000, 'N', 'HCM', 'Quận 12', 'Phường 4','', '97dhfhsj','admin');
 
-ALTER TABLE `cart`
-    ADD FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
+CREATE TABLE IF NOT EXISTS `order_detail`
+(
+    `order_detail_id` int PRIMARY KEY AUTO_INCREMENT,
+    `quantity`        int,
+    `price`           float,
+    `total`           float,
+    `product_id`      varchar(50),
+    `Order_id`        int
+);
+INSERT INTO order_detail (order_detail_id, quantity, price, total, product_id, Order_id)
+VALUES (5034, 1, 18490000, 18490000, 'DT23', 1),
+       (5035, 1, 2400000, 2400000, 'DT39', 1),
+       (5036, 2, 3690000, 7380000, 'DT07', 1),
+       (5037, 1, 18490000, 18490000, 'DT23', 2),
+       (5038, 1, 3690000, 3690000, 'DT07', 3),
+       (5039, 4, 2400000, 9600000, 'DT39', 4),
+       (5040, 1, 4590000, 4590000, 'DT29', 4),
+       (6034, 1, 35000000, 35000000, 'DT06', 7),
+       (6035, 1, 3690000, 3690000, 'DT07', 7),
+       (6036, 1, 26000000, 26000000, 'DT02', 8),
+       (6037, 1, 17900000, 17900000, 'DT10', 8),
+       (7034, 1, 10990000, 10990000, 'DT11', 12),
+       (7035, 1, 17900000, 17900000, 'DT12', 12),
+       (7036, 1, 3690000, 3690000, 'DT07', 13),
+       (7037, 3, 10990000, 32970000, 'DT11', 14),
+       (7038, 1, 2400000, 2400000, 'DT39', 15),
+       (7039, 3, 17900000, 53700000, 'DT10', 16),
+       (7040, 1, 285000, 285000, 'DT34', 17),
+       (7041, 1, 5500000, 5500000, 'DT89', 17),
+       (7042, 1, 18900000, 18900000, 'DT36', 17),
+       (7043, 2, 11900000, 23800000, 'DT26', 18),
+       (7044, 1, 20900000, 20900000, 'DT27', 18),
+       (7047, 1, 285000, 285000, 'DT34', 19),
+       (7048, 1, 46900000, 46900000, 'DT03', 19),
+       (7049, 3, 13900000, 41700000, 'DT18', 19),
+       (7050, 1, 18490000, 18490000, 'DT23', 20),
+       (7051, 1, 11900000, 11900000, 'DT26', 20);
 
-ALTER TABLE `orders`
-    ADD FOREIGN KEY (`contact_user`) REFERENCES `contact_user` (`id`);
 
-ALTER TABLE `products`
-    ADD FOREIGN KEY (`product_detail_id`) REFERENCES `product_detail` (`id`);
+ALTER TABLE `delivery_address`
+    ADD FOREIGN KEY (`user_id`) REFERENCES `Users` (`user_id`);
 
-ALTER TABLE `products`
-    ADD FOREIGN KEY (`category_id`) REFERENCES `category` (`id`);
+ALTER TABLE `product`
+    ADD FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`);
 
-ALTER TABLE `contact_user`
-    ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+ALTER TABLE `product`
+    ADD FOREIGN KEY (`brand_id`) REFERENCES `brand` (`id`);
+
+ALTER TABLE `Orders`
+    ADD FOREIGN KEY (`user_id`) REFERENCES `Users` (`user_id`);
+
+ALTER TABLE `order_detail`
+    ADD FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`);
+
+ALTER TABLE `order_detail`
+    ADD FOREIGN KEY (`Order_id`) REFERENCES `Orders` (`Order_id`);
