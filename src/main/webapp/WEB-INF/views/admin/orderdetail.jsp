@@ -17,6 +17,7 @@
 	/* font-size: 10px; */
 }
 </style>
+<a href="/admin/view-all-order" class="btn btn-primary ml-4 mb-2">Quay lại</a>
 <section class="content">
 	<div class="container-fluid">
 		<div class="p-5"

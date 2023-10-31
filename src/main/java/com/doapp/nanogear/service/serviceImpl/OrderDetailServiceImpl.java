@@ -39,17 +39,5 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 		return orderDetailRepository.RevenueByCategory();
 	}
 
-	@Override
-	public List<Top10> findAllProductTop10() {
-		List<Top10> listTop10 = new ArrayList<>();
-		int count = 0;
-		for (Top10 list : orderDetailRepository.getTop10()) {
-			if (count > 10) {
-				break;
-			}			
-			listTop10.add(list);
-			count++;
-		}
-		return listTop10;
-	}
+
 }

@@ -185,8 +185,7 @@ background-color: #c67605;
 		}
 
 		.product-grid .product-discount-label {
-			color: #fff;
-
+			color: #000000;
 			font-size: 14px;
 			font-weight: 400;
 			text-transform: uppercase;
@@ -196,6 +195,18 @@ background-color: #c67605;
 			top: 12px;
 			left: 12px;
 		}
+		.product-grid span{
+			color: #000000;
+			font-size: 14px;
+			font-weight: 400;
+			text-transform: uppercase;
+			padding: 2px 8px;
+			border-radius: 5px;
+			/*position: absolute;*/
+			/*top: 12px;*/
+			/*left: 12px;*/
+		}
+
 
 		.product-grid .product-links {
 			width: 145px;
@@ -272,7 +283,7 @@ background-color: #c67605;
 		}
 
 		.product-grid .product-content {
-			padding: 12px 12px 15px;
+			/*padding: 12px 12px 15px;*/
 			position: relative;
 		}
 
@@ -294,14 +305,21 @@ background-color: #c67605;
 		.product-grid .title {
 			font-size: 14px;
 			font-weight: 500;
-		
-			margin: 0 0 15px;
+		    text-align: left;
+			margin: 0px 0px 0px 15px;
+
 		}
 
 		.product-grid .title a {
 			color: #2c2c2c;
 			transition: all 0.3s ease 0s;
 			text-decoration: none;
+			display: -webkit-box;
+			-webkit-line-clamp: 3;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+			text-overflow: unset;
+			max-height: 3em;
 		}
 
 		.product-grid .title a:hover {

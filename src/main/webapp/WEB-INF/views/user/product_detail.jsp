@@ -11,9 +11,23 @@
         </div>
         <div class="col-sm-8 p-3">
             <h4 style="font-weight: 600;">${productDetail.name}</h4>
-            <h5 class="mt-4 mb-4" style="font-weight: 600; color:red">
-                <fmt:formatNumber value="${productDetail.price}" pattern="###,###,###.##"/>đ
-            </h5>
+
+            <div class="row">
+                <h5 class="col-sm-2 mt-4 mb-4" style="font-weight: 600; color:red">
+                    <fmt:formatNumber value="${productDetail.price - productDetail.discount}" pattern="###,###,###.##"/>đ
+                </h5>
+                <span class="col-sm-2 mt-4 mb-4">
+                    <c:if test="${productDetail.discount > 0}">
+
+                        <fmt:formatNumber value="${productDetail.price}"
+                                          pattern="###,###,###.##"/>đ
+                    </c:if>
+
+                </span>
+
+            </div>
+
+
             <p>${productDetail.description}</p>
             <button id="${productDetail.id}" type="button" class="btn btn-primary mt-3 button-details">Thêm vào giỏ
                 hàng
@@ -72,7 +86,7 @@
                             </h3>
                             <div class="price">
                                 <fmt:formatNumber value="${product.price}"
-                                                                      pattern="###,###,###.##"/>
+                                                  pattern="###,###,###.##"/>
                                 đ
                             </div>
 

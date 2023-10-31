@@ -1,6 +1,7 @@
 package com.doapp.nanogear.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -50,9 +51,15 @@ public class Product implements Serializable {
 	
 	@Column(name ="discount")
 	private double discount ;
-	
+
+//	@Column(name ="time_discount_start")
+//	private Date timeDiscountStart ;
+//
+//	@Column(name ="time_discount_end")
+//	private Date timeDiscountEnd ;
+//
 	@Column(name ="sold_quantity")
-	private int soidQuantity ;
+	private int soldQuantity ;
 	
 	@ManyToOne
 	@JoinColumn(name = "category_id")

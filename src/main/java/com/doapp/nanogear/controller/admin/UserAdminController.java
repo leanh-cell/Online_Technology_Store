@@ -2,6 +2,7 @@ package com.doapp.nanogear.controller.admin;
 
 import java.util.Optional;
 
+import com.doapp.nanogear.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,11 +24,24 @@ public class UserAdminController {
 	
 	@Autowired
 	SessionService sessionService;
-	
-	@GetMapping("/homeadmin")
+
+	@Autowired
+	OrderService orderService;
+
+
+	@GetMapping("/dashboard")
+	public String dashboard (Model model) {
+//		model.addAttribute("user", userService.findUserByKeyWord(key,p));
+		model.addAttribute("orderX",orderService.getTotalOrderX());
+		model.addAttribute("orderN",orderService.getTotalOrderN());
+		model.addAttribute("orderH",orderService.getTotalOrderH());
+
+		return "statistical";
+	}
+	@GetMapping("/user_management")
 	public String doGetAllUser(Model model, Optional<Integer> p,@RequestParam("keyword") Optional<String> key) {
 		model.addAttribute("user", userService.findUserByKeyWord(key,p));
-		return "homePage1";
+		return "user_management";
 	}
 	
 	@GetMapping("/edituseradmin")

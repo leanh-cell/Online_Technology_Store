@@ -8,8 +8,7 @@
 		<div style="max-width: 1300px;" class="m-auto mt-2 mb-2">
 			<div class="mt-4">
 				<span class="text-center"
-					style="font-size: 18px; font-weight: bold;">DANH MỤC SẢN
-					PHẨM</span>
+					style="font-size: 18px; font-weight: bold;">DANH MỤC SẢN PHẨM</span>
 				<div class=""
 					style="width: 203px; height: 2px; background-color: black;"></div>
 			</div>
@@ -45,11 +44,12 @@
 					style="font-size: 18px; font-weight: bold;">TẤT CẢ SẢN PHẨM
 					<div class=""
 						style="width: 203px; height: 2px; background-color: black;"></div>
+				</span>
 			</div>
 
 
 			<div class="col-sm-12">
-				<div class="row ">
+				<div class="row mb-4">
 					<div class="col-sm-9">
 						<form class="d-flex" action="/product-all-shareandpage" method="get">
 							<input style="border-radius: 0px;" class="form-control me-2"
@@ -60,21 +60,21 @@
 						</form>
 					</div>
 
-					<div class="col-sm-3">
-						<div class="input-group mb-3">
-							<label class="input-group-text" style="border-radius: 0px;"
-								for="inputGroupSelect01"><i
-								class="fa-solid fa-filter fa-beat"></i></label> <select
-								style="border-radius: 0px;" class="form-select"
-								id="inputGroupSelect01">
-								<option selected>Vui lòng chọn...</option>
-								<option value="1">Từ A-Z</option>
-								<option value="2">Từ Z-A</option>
-								<option value="3">Giá cao đến thấp</option>
-								<option value="3">Giá thấp đến cao</option>
-							</select>
-						</div>
-					</div>
+<%--					<div class="col-sm-3">--%>
+<%--						<div class="input-group mb-3">--%>
+<%--							<label class="input-group-text" style="border-radius: 0px;"--%>
+<%--								for="inputGroupSelect01"><i--%>
+<%--								class="fa-solid fa-filter fa-beat"></i></label> <select--%>
+<%--								style="border-radius: 0px;" class="form-select"--%>
+<%--								id="inputGroupSelect01">--%>
+<%--								<option selected>Vui lòng chọn...</option>--%>
+<%--								<option value="1">Từ A-Z</option>--%>
+<%--								<option value="2">Từ Z-A</option>--%>
+<%--								<option value="3">Giá cao đến thấp</option>--%>
+<%--								<option value="3">Giá thấp đến cao</option>--%>
+<%--							</select>--%>
+<%--						</div>--%>
+<%--					</div>--%>
 				</div>
 
 				<div class="row">
@@ -84,9 +84,11 @@
 										<div class="product-image">
 											<a href="#" class="image"> <img class="pic-1 p-4"
 												src="/image/${product.img}">
-											</a> <span class="product-discount-label">0</span>
+											</a>
 											 <ul class="product-links">
-                       				  <a class="button-detail" href="/productdetail?productId=${product.id}&categoryId=${product.category.id}" type="button" class="btn btn-outline-success">Chi tiết</a>
+                       				  <a class="button-detail" href="/productdetail?productId=${product.id}&categoryId=${product.category.id}"
+										 type="button" style="border-radius: 12px"
+										 class="btn btn-outline-success">Chi tiết</a>
                                     </ul>
 										</div>
 										<div class="product-content">
@@ -100,6 +102,7 @@
 											<h3 class="title">
 												<a href="#">${product.name}</a>
 											</h3>
+											<span>Đã bán: ${product.soldQuantity}</span>
 											<div class="price">
 												<fmt:formatNumber value="${product.price}"
 											pattern="###,###,###.##" />

@@ -114,7 +114,7 @@ public class CartController {
 			model.addAttribute("countCart", cartService.countCart());
 			return "redirect:/formlogin";
 		}else {
-			List<DeliveryAddress> deliveryAddress = deliveryAddressService.findByIdDeliveryAddress(user.getId());
+			List<DeliveryAddress> deliveryAddress = deliveryAddressService.findByIdUser(user.getId());
 			if (deliveryAddress != null) {
 				List<DeliveryAddress> sortedDeliveryAddress = deliveryAddress.stream()
 						.sorted(Comparator.comparingInt(address -> address.getIsUse() == 0 ? 0 : 1))

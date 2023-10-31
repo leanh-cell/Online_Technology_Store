@@ -3,6 +3,7 @@ package com.doapp.nanogear.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.doapp.nanogear.dto.TotalMonth;
 import org.springframework.data.domain.Page;
 
 import com.doapp.nanogear.dto.OrderStatistics;
@@ -33,13 +34,28 @@ public interface OrderService {
 	Page<Order> findByOrderDate(Optional<String> minDate, Optional<String> maxDate, Optional<String> status, Optional<Integer> p );
 	
 	List<TotalYear> getTotalYear();
-	
+
+	List<TotalMonth> getTotalMonth();
+
 	List<OrderStatistics> getStatusOrder();
 	
 	Page<Order> findByIdKeyWord(Optional<String> id, Optional<Integer> p);
 	
 	List<TotalDate> findTotalByDate(Optional<String> date1, Optional<String> date2);
 
+	List<Order> findOrderStatusXByUserId(String userid);
+
+	List<Order> findOrderStatusNByUserId(String userid);
+
+	List<Order> findOrderStatusHByUserId(String userid);
+
 	boolean orderExistsWithCode(String code);
-	
+
+	long getTotalOrderCount();
+
+	long getTotalOrderX();
+
+	long getTotalOrderN();
+
+	long getTotalOrderH();
 }

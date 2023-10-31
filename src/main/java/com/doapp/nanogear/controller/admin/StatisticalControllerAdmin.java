@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import com.doapp.nanogear.dto.TotalMonth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,16 +31,22 @@ public class StatisticalControllerAdmin {
 
 	@ResponseBody
 	@GetMapping("/total-year")
-	public List<TotalYear> test() {
+	public List<TotalYear> totalYear() {
 		return orderService.getTotalYear();
 	}
-	
-	@GetMapping("/statistical")
-	public String statistical(Model model) {
-		Date date = new Date();
-		model.addAttribute("date",new SimpleDateFormat("yyyy-MM-dd").format(date));
-		return "testchart";
+
+	@ResponseBody
+	@GetMapping("/total-month")
+	public List<TotalMonth> totalMonth() {
+		return orderService.getTotalMonth();
 	}
+	
+//	@GetMapping("/statistical")
+//	public String statistical(Model model) {
+//		Date date = new Date();
+//		model.addAttribute("date",new SimpleDateFormat("yyyy-MM-dd").format(date));
+//		return "testchart";
+//	}
 
 	@GetMapping("/view-total-year")
 	public String viewTotalYear() {

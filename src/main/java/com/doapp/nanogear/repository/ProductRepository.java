@@ -54,7 +54,7 @@ public interface ProductRepository extends JpaRepository<Product, String> {
 	@Query("select new com.doapp.nanogear.dto.ProductCategoryCount( o.category.name, count(o)) from Product o group by o.category.id, o.category.name")
 	List<ProductCategoryCount> getCountProductByCategory();
 
-	@Query("select p from Product p where p.name like ?1 or p.id like ?1")
+	@Query("select p from Product p where p.name like ?1 or p.id like ?1 or p.brand.name like ?1 or p.category.name like ?1")
 	Page<Product> getAllProductShare(String key, Pageable pageable);
 	
 //	@Query("select new ProductCategoryCount(p.name) from product p")
@@ -65,4 +65,7 @@ public interface ProductRepository extends JpaRepository<Product, String> {
 //			+ " GROUP BY o.category"
 //			+ " ORDER BY sum(o.price) DESC")
 //	List<Report> getInventoryByCategory();
+
+	@Query("SELECT p FROM Product p ORDER BY p.soldQuantity DESC")
+	List<Product> getTop10();
 }

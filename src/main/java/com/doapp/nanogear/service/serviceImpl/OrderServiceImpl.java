@@ -6,6 +6,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import com.doapp.nanogear.dto.TotalMonth;
+import com.doapp.nanogear.entity.User;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -29,6 +32,23 @@ public class OrderServiceImpl implements OrderService {
 	@Autowired
 	SessionService sessionService;
 
+	@Override
+    public long getTotalOrderCount(){
+		return orderRepository.getTotalOrderCount();
+	}
+    @Override
+	public long getTotalOrderX(){
+		return orderRepository.getTotalOrderX();
+	}
+	@Override
+	public long getTotalOrderN(){
+		return orderRepository.getTotalOrderN();
+	}
+
+	@Override
+	public long getTotalOrderH(){
+		return orderRepository.getTotalOrderH();
+	}
 	@Override
 	public List<Order> getAllOrder() {
 		return orderRepository.findAll();
@@ -105,6 +125,11 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
+	public List<TotalMonth> getTotalMonth() {
+		return orderRepository.getTotalMonth();
+	}
+
+	@Override
 	public List<OrderStatistics> getStatusOrder() {
 		List<OrderStatistics> listOrder = new ArrayList<>();
 		orderRepository.getStatusOrder().forEach(list -> {
@@ -149,6 +174,42 @@ public class OrderServiceImpl implements OrderService {
 			
 		}
 		return orderRepository.findTotalByDate(date1Convert, date2Convert);
+	}
+
+	@Override
+ 	public List<Order> findOrderStatusXByUserId(String userid){
+	List<Order> orderListByX = orderRepository.findByOrderUserId(userid);
+	List<Order> orderListX = new ArrayList<>();
+		for (Order order : orderListByX) {
+			if ("X".equals(order.getStatus())) {
+				orderListX.add(order);
+			}
+		}
+		return orderListX;
+	}
+
+	@Override
+	public List<Order> findOrderStatusNByUserId(String userid){
+		List<Order> orderListByN = orderRepository.findByOrderUserId(userid);
+		List<Order> orderListN = new ArrayList<>();
+		for (Order order : orderListByN) {
+			if ("N".equals(order.getStatus())) {
+				orderListN.add(order);
+			}
+		}
+		return orderListN;
+	}
+
+	@Override
+	public List<Order> findOrderStatusHByUserId(String userid){
+		List<Order> orderListByH = orderRepository.findByOrderUserId(userid);
+		List<Order> orderListH = new ArrayList<>();
+		for (Order order : orderListByH) {
+			if ("H".equals(order.getStatus())) {
+				orderListH.add(order);
+			}
+		}
+		return orderListH;
 	}
 
 	public boolean orderExistsWithCode(String code){

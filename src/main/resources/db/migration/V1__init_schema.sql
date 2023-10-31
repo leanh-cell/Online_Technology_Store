@@ -73,19 +73,20 @@ VALUES (1, 'SamSung', 'samsungnew-220x48-1.png'),
 
 CREATE TABLE IF NOT EXISTS `product`
 (
-    `product_id`    varchar(50) PRIMARY KEY,
-    `product_name`  varchar(50),
-    `product_img`   LONGTEXT,
-    `price`         float,
-    `qty`           int,
-    `discount`      float,
-    `sold_quantity` int,
-    `description`   LONGTEXT,
-    `category_id`   int,
-    `brand_id`      int
+    `product_id`            varchar(50) PRIMARY KEY,
+    `product_name`          varchar(50),
+    `product_img`           LONGTEXT,
+    `price`                 float,
+    `qty`                    int,
+    `discount`              float,
+    `time_discount_start`   datetime,
+    `time_discount_end`     datetime,
+    `sold_quantity`         int,
+    `description`           LONGTEXT,
+    `category_id`           int,
+    `brand_id`              int
 );
-INSERT INTO product (product_id, product_name, product_img, price, qty, discount, description, category_id, brand_id,
-                     sold_quantity)
+INSERT INTO product (product_id, product_name, product_img, price, qty, discount, description, category_id, brand_id,sold_quantity)
 VALUES ('DT01', 'Xiaomi note 15', 'xiaomi-redmi-note12s-den-thumb-600x600.jpg', 9990000, 1005, 0,
         'Xiaomi Redmi Note 12 8GB/128GB - ĐỘC QUYỀN là mẫu điện thoại tầm trung vừa được ra mắt tại thị trường Việt Nam, máy thu hút sự chú ý đến từ người dùng nhờ được trang bị con chip Snapdran 685 và camera 50 MP nổi bật trong phân khúc.',
         1, 4, 0),

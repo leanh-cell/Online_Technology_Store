@@ -3,6 +3,7 @@ package com.doapp.nanogear.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.doapp.nanogear.dto.Top10;
 import org.springframework.data.domain.Page;
 
 import com.doapp.nanogear.entity.Product;
@@ -44,4 +45,7 @@ public interface ProductService {
 	Page<Product> getAllProductShare(Optional<String> key,Optional<Integer> p);
 
 	void deleteProductById(String idProduct);
+
+	List<Product> findAllProductTop10();
+
 }

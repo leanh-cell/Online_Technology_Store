@@ -1,5 +1,6 @@
 package com.doapp.nanogear.controller;
 
+import com.doapp.nanogear.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,7 +31,7 @@ public class HomeController {
 	
 	@GetMapping("/home")
 	public String Home(Model model) {
-		model.addAttribute("listProductTop10", orderDetailService.findAllProductTop10());
+		model.addAttribute("listProductTop10",productService.findAllProductTop10());
 		model.addAttribute("listProduct", productService.getAllProduct());
 		model.addAttribute("listCategory", categoryService.getAllCategory());
 		model.addAttribute("countCart",cartService.countCart());

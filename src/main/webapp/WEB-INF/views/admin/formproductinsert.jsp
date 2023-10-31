@@ -53,14 +53,7 @@
 								<p id="qtyError" class="error-message"></p>
 							</div>
 						</div>
-						<div class="col-sm-6">
-							<div class="mb-3">
-								<label for="imageInput" class="form-label">ẢNH SẢN PHẨM</label>
-								<input onchange="chooseFile(this)" value="" class="form-control"
-									name="image" type="file" id="imageInput">
-								<p id="imageError" class="error-message"></p>
-							</div>
-						</div>
+
 						<input value="${formProduct.img}" name="img" type="hidden">
 						<div class="col-sm-6">
 							<div class="mb-3">
@@ -99,12 +92,22 @@
 								<p id="brandError" class="error-message"></p>
 							</div>
 						</div>
-						<div class="mb-3 col-sm-12">
-							<label for="descriptionInput" class="form-label">GHI CHÚ</label>
-							<textarea ${formProduct.description} name="description"
-								id="descriptionInput" class="form-control"
-								placeholder="Nhập ghi chú (nếu có)" rows="3"></textarea>
+						<div class="col-sm-12">
+							<div class="mb-3">
+								<label for="imageInput" class="form-label">ẢNH SẢN PHẨM</label>
+								<input onchange="chooseFile(this)" value="" class="form-control"
+									   name="image" type="file" id="imageInput" multiple>
+								<p id="imageError" class="error-message"></p>
+							</div>
 						</div>
+						<div class="col-sm-12" id="imageContainer" style="overflow-x: auto; white-space: nowrap;scrollbar-color: #e0e0e0 #6969dd"></div>
+
+					<%--						<div class="mb-3 col-sm-12">--%>
+<%--							<label for="descriptionInput" class="form-label">GHI CHÚ</label>--%>
+<%--							<textarea ${formProduct.description} name="description"--%>
+<%--								id="descriptionInput" class="form-control"--%>
+<%--								placeholder="Nhập ghi chú (nếu có)" rows="3"></textarea>--%>
+<%--						</div>--%>
 					</div>
 					<h4>${message}</h4>
 					<div style="text-align: center;">
@@ -113,90 +116,126 @@
 						</button>
 					</div>
 				</div>
-				<div class="col-sm-4">
-					<div style="background-color: rgb(241, 241, 241); height: 400px;">
-						<img id="image"
-							style="width: 100%; height: 100%; object-fit: contain;"
-							src="/image/${formProduct.img}" alt="">
-					</div>
+<%--				<div class="col-sm-4">--%>
+<%--					<div style="background-color: rgb(241, 241, 241); height: 400px;">--%>
+<%--						<img id="image"--%>
+<%--							style="width: 100%; height: 100%; object-fit: contain;"--%>
+<%--							src="/image/${formProduct.img}" alt="">--%>
+<%--					</div>--%>
+<%--				</div>--%>
+				<div class="mb-3 col-sm-4">
+					<label for="descriptionInput" class="form-label">GHI CHÚ</label>
+					<textarea ${formProduct.description} name="description"
+														 id="descriptionInput" class="form-control"
+														 placeholder="Nhập ghi chú (nếu có)" rows="16"></textarea>
 				</div>
 			</div>
 		</form>
 	</div>
+</div>
 
+
+<script>
+	document.getElementById("imageInput").addEventListener("change", function(event) {
+		var imageContainer = document.getElementById("imageContainer");
+		imageContainer.innerHTML = ""; // Xóa nội dung trước đó
+
+		var selectedFiles = event.target.files;
+		for (var i = 0; i < selectedFiles.length; i++) {
+			var file = selectedFiles[i];
+			if (file.type.startsWith("image/")) {
+				var img = document.createElement("img");
+				img.classList.add("preview-image");
+
+				var reader = new FileReader();
+				reader.onload = (function(imgElement) {
+					return function(e) {
+						imgElement.src = e.target.result;
+						imgElement.width = 200;
+						imgElement.style.marginLeft = '10px'
+						imgElement.style.borderRadius = '8px'
+					};
+				})(img);
+
+				reader.readAsDataURL(file);
+				imageContainer.appendChild(img);
+			}
+		}
+	});
+</script>
 
 	<script>
-				chooseFile = (fileInput) => {
-					if (fileInput.files && fileInput.files[0]) {
-						var reader = new FileReader();
-						reader.onload = (e) => {
-							$('#image').attr('src', e.target.result);
-						}
-						reader.readAsDataURL(fileInput.files[0]);
-					}
+		chooseFile = (fileInput) => {
+			if (fileInput.files && fileInput.files[0]) {
+				var reader = new FileReader();
+				reader.onload = (e) => {
+					$('#image').attr('src', e.target.result);
 				}
+				reader.readAsDataURL(fileInput.files[0]);
+			}
+		}
 				
 				
-				function validateForm() {
-					  var id = document.getElementById('idInput').value;
-					  var name = document.getElementById('nameInput').value;
-					  var price = document.getElementById('priceInput').value;
-					  var qty = document.getElementById('qtyInput').value;
-					  var image = document.getElementById('imageInput').value;
-					  var category = document.getElementById('categoryInput').value;
-					  var brand = document.getElementById('brandInput').value;
+		function validateForm() {
+			var id = document.getElementById('idInput').value;
+			var name = document.getElementById('nameInput').value;
+			var price = document.getElementById('priceInput').value;
+			var qty = document.getElementById('qtyInput').value;
+			var image = document.getElementById('imageInput').value;
+			var category = document.getElementById('categoryInput').value;
+			var brand = document.getElementById('brandInput').value;
 
-					  var isValid = true;
+			var isValid = true;
 
 					  // Clear previous error messages
-					  var errorMessages = document.getElementsByClassName('error-message');
-					  for (var i = 0; i < errorMessages.length; i++) {
-					    errorMessages[i].innerText = '';
-					  }
+			var errorMessages = document.getElementsByClassName('error-message');
+			for (var i = 0; i < errorMessages.length; i++) {
+				errorMessages[i].innerText = '';
+			}
 
 					  // Validate ID (required)
-					  if (id.trim() === '') {
-					    document.getElementById('idError').innerText = 'Vui lòng nhập mã sản phẩm';
-					    isValid = false;
-					  }
+			if (id.trim() === '') {
+				document.getElementById('idError').innerText = 'Vui lòng nhập mã sản phẩm';
+				isValid = false;
+			}
 
 					  // Validate Name (required)
-					  if (name.trim() === '') {
-					    document.getElementById('nameError').innerText = 'Vui lòng nhập tên sản phẩm';
-					    isValid = false;
-					  }
+			if (name.trim() === '') {
+				document.getElementById('nameError').innerText = 'Vui lòng nhập tên sản phẩm';
+				isValid = false;
+			}
 
 					  // Validate Price (required, must be a number)
-					  if (price.trim() === '' || isNaN(price)) {
-					    document.getElementById('priceError').innerText = 'Vui lòng nhập giá sản phẩm hợp lệ';
-					    isValid = false;
-					  }
+			if (price.trim() === '' || isNaN(price)) {
+				document.getElementById('priceError').innerText = 'Vui lòng nhập giá sản phẩm hợp lệ';
+				isValid = false;
+			}
 
 					  // Validate Quantity (required, must be a number)
-					  if (qty.trim() === '' || isNaN(qty)) {
-					    document.getElementById('qtyError').innerText = 'Vui lòng nhập số lượng hợp lệ';
-					    isValid = false;
-					  }
+			if (qty.trim() === '' || isNaN(qty)) {
+				document.getElementById('qtyError').innerText = 'Vui lòng nhập số lượng hợp lệ';
+				isValid = false;
+			}
 
 					  // Validate Image (required)
-					  if (image.trim() === '') {
-					    document.getElementById('imageError').innerText = 'Vui lòng chọn ảnh sản phẩm';
-					    isValid = false;
-					  }
+			if (image.trim() === '') {
+				document.getElementById('imageError').innerText = 'Vui lòng chọn ảnh sản phẩm';
+				isValid = false;
+			}
 
 					  // Validate Category (required)
-					  if (category.trim() === '') {
-					    document.getElementById('categoryError').innerText = 'Vui lòng chọn loại sản phẩm';
-					    isValid = false;
-					  }
+			if (category.trim() === '') {
+				document.getElementById('categoryError').innerText = 'Vui lòng chọn loại sản phẩm';
+				isValid = false;
+			}
 
 					  // Validate Brand (required)
-					  if (brand.trim() === '') {
-					    document.getElementById('brandError').innerText = 'Vui lòng chọn nhà sản xuất';
-					    isValid = false;
-					  }
+			if (brand.trim() === '') {
+				document.getElementById('brandError').innerText = 'Vui lòng chọn nhà sản xuất';
+				isValid = false;
+			}
 
-					  return isValid;
-					}
+			return isValid;
+		}
 
 			</script>

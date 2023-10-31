@@ -115,6 +115,24 @@
                        value="/WEB-INF/views/user/user_order.jsp"/>
     </definition>
 
+    <definition name="user_order_waiting" extends="userlayout">
+        <put-attribute name="title" value="Order"/>
+        <put-attribute name="body"
+                       value="/WEB-INF/views/user/user_order_waiting.jsp"/>
+    </definition>
+
+    <definition name="user_order_delivered" extends="userlayout">
+        <put-attribute name="title" value="Order"/>
+        <put-attribute name="body"
+                       value="/WEB-INF/views/user/user_order_delivered.jsp"/>
+    </definition>
+
+    <definition name="user_order_cancel" extends="userlayout">
+        <put-attribute name="title" value="Order"/>
+        <put-attribute name="body"
+                       value="/WEB-INF/views/user/user_order_cancel.jsp"/>
+    </definition>
+
     <definition name="user_order_detail"
                 extends="userlayout">
         <put-attribute name="title" value="Order details"/>
@@ -169,9 +187,9 @@
     <definition name="selected_address" extends="userlayout">
         <put-attribute name="title" value="Địa chỉ nhận hàng"/>
         <put-attribute name="body"
-                       value="/WEB-INF/views/user/selected-address.jsp"/>
+                       value="/WEB-INF/views/user/selected_address.jsp"/>
     </definition>
-<!--/////////////////////////////////////////////////////////admin/////////////////////////////////////////////-->
+    <!--/////////////////////////////////////////////////////////admin/////////////////////////////////////////////-->
 
     <definition name="adminlayout"
                 template="/WEB-INF/views/admin/admin.jsp">
@@ -184,7 +202,7 @@
     </definition>
 
     <!-- Home Page -->
-    <definition name="homePage1" extends="adminlayout">
+    <definition name="user_management" extends="adminlayout">
         <put-attribute name="link"
                        value="/css/link/linkadmin.jsp"/>
         <put-attribute name="title" value="Home Page"/>
@@ -362,12 +380,12 @@
                        value="/WEB-INF/views/admin/statisticaOrder.jsp"/>
     </definition>
 
-    <definition name="testchart" extends="adminlayout">
+    <definition name="statistical" extends="adminlayout">
         <put-attribute name="link"
                        value="/css/link/linkadmin.jsp"/>
         <put-attribute name="title" value="ListCategory"/>
         <put-attribute name="body"
-                       value="/WEB-INF/views/admin/testchart.jsp"/>
+                       value="/WEB-INF/views/admin/statistical.jsp"/>
     </definition>
 
     <definition name="statisticaltotaldate" extends="adminlayout">

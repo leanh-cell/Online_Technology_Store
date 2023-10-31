@@ -27,24 +27,10 @@
                 </a>
             </ul>
         </div>
-        <div class="col-sm-9">
-<%--            <form action="/save-address" method="post">--%>
-<%--                <div class="row">--%>
-<%--                    <div class="col-sm-4">--%>
-<%--                        <input type="text" value="Họ và tên" style="height: 50px;width: 250px">--%>
-<%--                    </div>--%>
-<%--                    <div class="col-sm-4">--%>
-<%--                        <input type="text" value="Số điện thoại" style="height: 50px;width: 250px">--%>
-<%--                    </div>--%>
-<%--                    <div class="col-sm-6 col-md-3 bg-primary  align-self-sm-start">--%>
-<%--                        Cột 2--%>
-<%--                    </div>--%>
-<%--                </div>--%>
-<%--            </form>--%>
-    <form id="register-form" action="/save-address" method="post">
         <div class="box">
             <h3 class="heading">New Address !!</h3>
-            <form class="mb-5" method="post" id="contactForm" name="contactForm" novalidate="novalidate">
+            <form class="mb-5" action="/save-address" method="post" id="contactForm" name="contactForm" novalidate="novalidate">
+                <input type="hidden" name="screen" value="addressList">
                 <div class="row">
                     <div class="col-md-6 form-group">
                         <label for="name" class="col-form-label">Họ và tên</label>
@@ -75,14 +61,12 @@
                     <div class="mb-3">
                         <div class="form-check form-check-inline">
                             <input
-<%--                            ${user.role == true ? "checked" : ""}--%>
                                     class="form-check-input" type="radio" name="role"
                                     id="inlineRadio1" value="true" checked> <label
                                 class="form-check-label" for="inlineRadio1">Mặc định</label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input
-<%--                            ${user.role == false ? "checked" : ""}--%>
                                     class="form-check-input" type="radio" name="role"
                                     id="inlineRadio2" value="false"> <label
                                 class="form-check-label" for="inlineRadio2">Địa chỉ phụ</label>
@@ -97,7 +81,7 @@
                 </div>
             </form>
         </div>
-    </form>
+<%--    </form>--%>
 
         </div>
     </div>

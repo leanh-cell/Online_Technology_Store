@@ -59,6 +59,10 @@ Password in table encrypted by `new BCryptPasswordEncoder().encode(password)`
         /user
       tiles.xml
 
+### DB Diagram
+
+* https://dbdiagram.io/d/6416a0b6296d97641d8904ef
+
 ### Flyway database migration
 
     spring.flyway.baseline-on-migrate=true

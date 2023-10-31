@@ -172,7 +172,7 @@ public class UserController {
     public String userInformation(Model model) {
         User userSession = sessionService.get("userss");
         if (userSession == null) {
-            return "redirect:formlogin";
+            return "redirect:/formlogin";
         } else {
             model.addAttribute("informationOrder", orderService.findByOrderUserId(userSession.getId()));
             return "user_order";
@@ -190,9 +190,9 @@ public class UserController {
     public String userDeliveryAddress(Model model) {
         User userSession = sessionService.get("userss");
         if (userSession == null) {
-            return "redirect:formlogin";
+            return "redirect:/formlogin";
         } else {
-            List<DeliveryAddress> deliveryAddress = deliveryService.findByIdDeliveryAddress(userSession.getId());
+            List<DeliveryAddress> deliveryAddress = deliveryService.findByIdUser(userSession.getId());
             if (deliveryAddress != null) {
                 List<DeliveryAddress> sortedDeliveryAddress = deliveryAddress.stream()
                         .sorted(Comparator.comparingInt(address -> address.getIsUse() == 0 ? 0 : 1))

@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface DeliveryAddressService {
 	
-	List<DeliveryAddress> findByIdDeliveryAddress(String idUser);
+	List<DeliveryAddress> findByIdUser(String idUser);
 
 	DeliveryAddress findById(long id);
 

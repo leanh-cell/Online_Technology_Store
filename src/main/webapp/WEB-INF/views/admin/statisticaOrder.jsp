@@ -6,6 +6,9 @@
 	src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0/dist/chartjs-plugin-datalabels.min.js"></script>
 
  <div class="col-sm-10 m-auto mt-5 row" style="border: 1px solid red;">
+     <div class="row mb-2 ml-1 mr-1 mt-2">
+hello
+     </div>
         <div class="col-sm-5 p-5">
             <h4 style="text-align: center;">THỐNG KÊ ĐƠN HÀNG </h4>
             <canvas class="m-auto" id="myChartUser" style="width: 300px;"></canvas>

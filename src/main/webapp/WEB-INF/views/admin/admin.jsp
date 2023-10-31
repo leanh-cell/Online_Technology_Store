@@ -174,9 +174,9 @@
             <div class="sidebar">
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-<%--                    <div class="image">--%>
-<%--                        <img src="/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">--%>
-<%--                    </div>--%>
+                    <div class="image">
+                        <img src="/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="">
+                    </div>
                     <div class="info">
                         <a href="#" class="d-block" style="font-size: 20px; text-align: center">Admin ${sessionScope.userss.name}</a>
                     </div>
@@ -201,15 +201,40 @@
                         data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-                        <li class="nav-item menu-open">
-                            <a href="/admin/homeadmin" class="nav-link active">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-tree"></i>
+                                <p>
+                                    THỐNG KÊ
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="/renoveByCategory" class="nav-link pr-0">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>DOANH THU THEO LOẠI</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/admin/dashboard" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>DOANH THU</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <hr style="color: grey"/>
+                        <li class="nav-item">
+                            <a href="/admin/user_management" class="nav-link">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     QUẢN LÍ USER
-                                    <i class="right fas fa-angle-left"></i>
+<%--                                    <i class="right fas fa-angle-left"></i>--%>
                                 </p>
                             </a>
                         </li>
+                        <hr style="color: grey"/>
                         <li class="nav-item">
                             <a href="" class="nav-link">
                                 <i class="nav-icon fas fa-copy"></i>
@@ -240,6 +265,7 @@
                                 </li>
                             </ul>
                         </li>
+                        <hr style="color: grey"/>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-chart-pie"></i>
@@ -275,30 +301,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-tree"></i>
-                                <p>
-                                    THỐNG KÊ
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="/renoveByCategory" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>DOANH THU THEO LOẠI</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="/statistical" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>DOANH THU</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                       
+
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->

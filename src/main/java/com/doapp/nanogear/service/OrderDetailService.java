@@ -16,8 +16,6 @@ public interface OrderDetailService {
 	Product findProductByIdOrderDetail(String isProduct);
 
 	List<RevenueByCategory> RevenueByCategory();
-	
-	List<Top10> findAllProductTop10();
 
 	List<OrderDetail> findOrderDetailByOrderId(long idOrder);
 }

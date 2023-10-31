@@ -17,7 +17,9 @@ import com.doapp.nanogear.entity.Product;
 public class Top10 implements Serializable{
 
 	private static final long serialVersionUID = 1L;
+
 	@Id
 	Product product;
-	long sum;
+
+//	long sum;
 }

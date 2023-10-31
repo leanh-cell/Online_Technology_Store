@@ -6,7 +6,7 @@
 	<div class="row">
 		<div class="col-sm-3">
 			<ul class="list-group">
-				<a style="text-decoration: none;" href="/userinfo">
+				<a style="text-decoration: none;border-top-left-radius: 12px;border-top-right-radius: 12px;" href="/userinfo">
 					<li style="font-weight: 500;"
 					class="list-group-item d-flex justify-content-between align-items-center">
 						Thông tin cá nhân</li>
@@ -17,7 +17,7 @@
 					class="list-group-item d-flex justify-content-between align-items-center">
 						Đơn hàng</li>
 				</a>
-				<a style="text-decoration: none;" href="/user-delivery-address">
+				<a style="text-decoration: none;border-bottom-left-radius: 12px;border-bottom-right-radius: 12px;" href="/user-delivery-address">
 					<li style="font-weight: 500;" class="list-group-item d-flex justify-content-between align-items-center">
 						Danh sách Địa chỉ
 					</li>
@@ -25,6 +25,29 @@
 			</ul>
 		</div>
 		<div class="col-sm-9">
+			<div class="row mb-3">
+				<a style="text-decoration: none;color: #226dc4;" class="col" href="/order-waiting">
+					<div style="text-align: center;padding-top: 10px;padding-bottom: 10px;border-radius: 8px;border: #226dc4 solid">
+						<h5>
+							Đang xử lý
+						</h5>
+					</div>
+				</a>
+				<a style="text-decoration: none;color: #226dc4;" class="col" href="/order-delivered">
+					<div style="text-align: center;padding-top: 10px;padding-bottom: 10px;border-radius: 8px;border: #226dc4 solid">
+						<h5>
+							Đã nhận
+						</h5>
+					</div>
+				</a>
+				<a style="text-decoration: none;color: #226dc4;" class="col" href="/order-cancel">
+					<div style="text-align: center;padding-top: 10px;padding-bottom: 10px;border-radius: 8px;border: #226dc4 solid">
+						<h5>
+							Đã huỷ
+						</h5>
+					</div>
+				</a>
+			</div>
 			<table class="table">
 				<thead>
 					<tr>

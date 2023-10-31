@@ -15,7 +15,7 @@ public interface DeliveryAddressRepository extends JpaRepository<DeliveryAddress
 	Long selectMaxDeliveryAddressId();
 
 	@Query("SELECT d FROM DeliveryAddress d WHERE d.user.id=:iduser")
-	List<DeliveryAddress> findByIdDeliveryAddress(@Param("iduser") String idUser);
+	List<DeliveryAddress> findByIdUser(@Param("iduser") String idUser);
 
 	@Query("select d from DeliveryAddress d where d.id =:id")
 	DeliveryAddress findById(@Param("id") long id);

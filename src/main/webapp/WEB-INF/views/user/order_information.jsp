@@ -51,13 +51,16 @@
                  style="margin: 0px auto;box-shadow:rgba(255, 255, 255, 0.05) 0px 0px 0px 1px,rgba(0, 0, 0, 0.1) 0px 2px 4px 0px,
                  rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;">
                 <div class="row">
-                    <i class="material-icons" style="font-size:48px;color:red">place</i>
-                    <h4>Địa chỉ nhận hàng</h4>
+                    <i class="col-sm-1 material-icons" style="font-size:24px;color:red">place</i>
+                    <h4 class="col-sm-10" style="color: red">Địa Chỉ Nhận Hàng</h4>
+                    <div class="col-sm-2">
+                        <h6>${addressSelect.name}</h6>
+                        <h6>${addressSelect.phone}</h6>
+                        <h6>${addressSelect.country},${addressSelect.province},${addressSelect.district}</h6>
+                        <h6>${addressSelect.detail}</h6>
+                    </div>
                 </div>
-                <h6>${addressSelect.name}</h6>
-                <h6>${addressSelect.phone}</h6>
-                <h6>${addressSelect.country},${addressSelect.province},${addressSelect.district}</h6>
-                <h6>${addressSelect.detail}</h6>
+
             </div>
             <div class="col-sm-10 p-4"
                  style="margin: 0px auto;box-shadow:

@@ -6,7 +6,7 @@
                 <div class="row">
                     <div class="col-sm-3">
                         <ul class="list-group">
-                            <a style="text-decoration: none;" href="">
+                            <a style="text-decoration: none;border-top-left-radius: 12px;border-top-right-radius: 12px;" href="">
                                 <li style="background-color: rgb(242, 223, 16); font-weight: 500;" class="list-group-item d-flex justify-content-between align-items-center">
                                     Thông tin cá nhân
                               
@@ -18,7 +18,7 @@
                      
                                   </li>
                             </a>
-                            <a style="text-decoration: none;" href="/user-delivery-address">
+                            <a style="text-decoration: none;border-bottom-left-radius: 12px;border-bottom-right-radius: 12px;" href="/user-delivery-address">
                                 <li style="font-weight: 500;" class="list-group-item d-flex justify-content-between align-items-center">
                                     Danh sách Địa chỉ
                                 </li>

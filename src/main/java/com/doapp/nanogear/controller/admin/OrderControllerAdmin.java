@@ -100,9 +100,10 @@ public class OrderControllerAdmin {
 		List<OrderDetail> orderDetail = orderDetailService.findOrderDetailByOrderId(idOrder);
 		for (OrderDetail od : orderDetail ) {
 			String id = od.getProduct().getId();
-			Product products = productService.findById(od.getProduct().getId()); // Lấy danh sách product từ orderDetail
+			Product products = productService.findById(id); // Lấy product từ orderDetail
 			int qty = products.getQty() - od.getQuantity();
 			products.setQty(qty);
+			products.setSoldQuantity(products.getSoldQuantity() + od.getQuantity());
 			productService.saveProduct(products);
 		}
 		order.setStatus("N");

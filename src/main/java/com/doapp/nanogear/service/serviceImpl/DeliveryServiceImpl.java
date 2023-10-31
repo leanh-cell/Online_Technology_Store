@@ -23,8 +23,8 @@ public class DeliveryServiceImpl implements DeliveryAddressService{
 	SessionService sessionService;
 
 	@Override
-	public List<DeliveryAddress> findByIdDeliveryAddress(String idUser) {
-		return deliveryAddressRepository.findByIdDeliveryAddress(idUser);
+	public List<DeliveryAddress> findByIdUser(String idUser) {
+		return deliveryAddressRepository.findByIdUser(idUser);
 	}
 
 	@Override
@@ -38,6 +38,13 @@ public class DeliveryServiceImpl implements DeliveryAddressService{
 		User user = new User();
 		user.setId(userSession.getId());
 		DeliveryAddress da = new DeliveryAddress();
+		if (deliveryAddress.getIsUse() == 0) {
+			List<DeliveryAddress> deliveryAddressList = deliveryAddressRepository.findByIdUser(userSession.getId());
+			for (DeliveryAddress address : deliveryAddressList) {
+				address.setIsUse(1);
+			}
+			deliveryAddressRepository.saveAll(deliveryAddressList);
+		}
 		Long id = (long) (deliveryAddressRepository.selectMaxDeliveryAddressId() == null ? 1 : deliveryAddressRepository.selectMaxDeliveryAddressId());
 		da.setId(id);
 		da.setName(deliveryAddress.getName());
