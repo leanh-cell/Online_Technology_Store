@@ -3,6 +3,7 @@ package com.doapp.nanogear.controller;
 import java.io.UnsupportedEncodingException;
 import java.util.Comparator;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import javax.mail.MessagingException;
@@ -73,8 +74,11 @@ public class UserController {
             model.addAttribute("login", "Sai tài khoản hoặc mật khẩu.");
             return "login";
         } else {
+            User user = userService.findByIdAndPassword(un, pw);
             sessionService.setAttribute("logintc", "Đăng nhập thành công.");
-            sessionService.setAttribute("userss", userService.findByIdAndPassword(un, pw));
+            sessionService.setAttribute("userss", user);
+            String userId = user.getId();
+
             if (rmb = true) {
                 cookieService.add("user", un, 10);
                 cookieService.add("pass", pw, 10);
@@ -129,8 +133,18 @@ public class UserController {
         System.out.println("iD: " + u.getId());
         if (idUser == null) {
             String pass = encodePassword(u.getPassword());
+            String token = UUID.randomUUID().toString();
+            if (userService.findUserByToken(token) != null) {
+                String tokenNew = UUID.randomUUID().toString();
+                u.setPassword(pass);
+                u.setCode(tokenNew);
+                u.setRole(false);
+                u.setActive(false);
+                userService.saveUser(u);
+                sessionService.setAttribute("register", "Đăng kí tài khoản thành công và bạn sẽ được chuyển hướng đến trang login sau khi thông báo kết thúc !");
+            }
             u.setPassword(pass);
-            u.setCode("0");
+            u.setCode(token);
             u.setRole(false);
             u.setActive(false);
             userService.saveUser(u);
@@ -303,7 +317,8 @@ public class UserController {
             model.addAttribute("passwordnew", passwordnew);
             model.addAttribute("message", "Mật mới không khớp");
         } else {
-            userss.setPassword(passwordnew);
+            String passnew = encodePassword(passwordnew);
+            userss.setPassword(passnew);
             userService.saveUser(userss);
             model.addAttribute("message", "Đổi mật khẩu thành công.");
         }

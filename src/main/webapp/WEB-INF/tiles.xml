@@ -175,7 +175,7 @@
     <definition name="user_delivery_address" extends="userlayout">
         <put-attribute name="title" value="Địa chỉ giao hàng"/>
         <put-attribute name="body"
-                       value="/WEB-INF/views/user/delivery-address.jsp"/>
+                       value="/WEB-INF/views/user/user-delivery-address.jsp"/>
     </definition>
 
     <definition name="add_new_address" extends="userlayout">
@@ -372,13 +372,6 @@
                        value="/WEB-INF/views/admin/statisticalproduct.jsp"/>
     </definition>
 
-    <definition name="statisticaOrder" extends="adminlayout">
-        <put-attribute name="link"
-                       value="/css/link/linkadmin.jsp"/>
-        <put-attribute name="title" value="ListCategory"/>
-        <put-attribute name="body"
-                       value="/WEB-INF/views/admin/statisticaOrder.jsp"/>
-    </definition>
 
     <definition name="statistical" extends="adminlayout">
         <put-attribute name="link"

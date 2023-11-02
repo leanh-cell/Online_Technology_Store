@@ -222,6 +222,12 @@
                                         <p>DOANH THU</p>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="/statisticalOrder" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>thống kê order</p>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                         <hr style="color: grey"/>

@@ -33,7 +33,7 @@
         <h4 style="text-align: center;">THỐNG KÊ ĐƠN HÀNG </h4>
         <canvas class="m-auto" id="myChartUser" style="width: 250px;"></canvas>
     </div>
-    <div class="col-sm-5 p-5">
+    <div class="col-sm-6 p-5">
         <h4 style="text-align: center;">THỐNG KÊ DOANH THU THEO THÁNG</h4>
         <canvas id="myChart"></canvas>
     </div>

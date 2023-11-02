@@ -23,7 +23,7 @@ Start Xampp in file application.properties change the path to the database :
        spring.datasource.password=123456
 
 ## Password encrypt
-Password in table encrypted by `new BCryptPasswordEncoder().encode(password)`
+Password in table encrypted by `new BCryptPasswordEncoder().encode(password)` note: The account cookie memory period is 10 days
 
     Ex: new BCryptPasswordEncoder().encode("admin")
     Output: $2a$12$3hrlZBOJDCrIynDknlATE.5M3WaKdafOrMSDsImFJjDJOvuy9BKpy

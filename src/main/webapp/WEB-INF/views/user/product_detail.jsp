@@ -28,10 +28,16 @@
             </div>
 
 
-            <p>${productDetail.description}</p>
+
             <button id="${productDetail.id}" type="button" class="btn btn-primary mt-3 button-details">Thêm vào giỏ
                 hàng
             </button>
+            <br>
+            <br>
+
+        </div>
+        <div class="col-sm-12 mt-2">
+            <p>${productDetail.description}</p>
         </div>
     </div>
 

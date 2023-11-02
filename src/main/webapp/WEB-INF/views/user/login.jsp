@@ -20,7 +20,7 @@
 		</div>
 		<div class="mb-3 form-check">
 			<input ${u != null ? "checked" : ""} name="remember" value="true"
-				style="border: 2px solid rgb(205, 192, 50);" type="checkbox"
+				style="border: 2px solid rgb(205, 192, 50);" type="checkbox"nhớ
 				class="form-check-input" id="exampleCheck1"> <label
 				style="font-weight: 600;" class="form-check-label"
 				for="exampleCheck1">Nhớ tài khoản</label>

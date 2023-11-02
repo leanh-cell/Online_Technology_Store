@@ -61,10 +61,12 @@
                     </c:forEach>
                     </tbody>
                 </table>
-                <a href="/add-new-address"
-                   class="btn btn-outline-success">
-                    Thêm địa chỉ
-                </a>
+                <c:if test="">
+                    <a href="/add-new-address"
+                       class="btn btn-outline-success">
+                        Thêm địa chỉ
+                    </a>
+                </c:if>
             </div>
 <%--            <div class="col-sm-2" style="margin-left: inherit;">--%>
 <%--                <a href="/add-new-address"--%>

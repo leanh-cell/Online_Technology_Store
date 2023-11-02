@@ -58,17 +58,6 @@ public class StatisticalControllerAdmin {
 		model.addAttribute("renoveByCategory", orderDetailService.RevenueByCategory());
 		return "statisticalproduct";
 	}
-
-	@GetMapping("/statisticaOrder")
-	public String viewStatisticaOrder(Model model) {
-		return "statisticaOrder";
-	}
-
-	@ResponseBody
-	@GetMapping("/dataStatisticaOrder")
-	public List<OrderStatistics> dataStatisticaOrder() {
-		return orderService.getStatusOrder();
-	}
 		
 	@ResponseBody
 	@PostMapping("/viewtotaldate")

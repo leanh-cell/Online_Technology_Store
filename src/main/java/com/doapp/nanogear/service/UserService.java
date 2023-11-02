@@ -23,7 +23,7 @@ public interface UserService {
 	User findUserByToken(String token);
 	
 	void saveResetPassword(String token, String password);
-	
+
 	User findUserByOrderId(long id);
 	
 }
