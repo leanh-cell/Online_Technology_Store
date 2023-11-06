@@ -48,4 +48,6 @@ public interface ProductService {
 
 	List<Product> findAllProductTop10();
 
+	List<Product> findProductsWithDiscount();
+
 }

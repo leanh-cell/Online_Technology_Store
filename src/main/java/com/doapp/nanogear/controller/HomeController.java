@@ -32,6 +32,7 @@ public class HomeController {
 	@GetMapping("/home")
 	public String Home(Model model) {
 		model.addAttribute("listProductTop10",productService.findAllProductTop10());
+		model.addAttribute("listProductDiscount",productService.findProductsWithDiscount());
 		model.addAttribute("listProduct", productService.getAllProduct());
 		model.addAttribute("listCategory", categoryService.getAllCategory());
 		model.addAttribute("countCart",cartService.countCart());

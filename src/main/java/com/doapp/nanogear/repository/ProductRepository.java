@@ -20,7 +20,10 @@ public interface ProductRepository extends JpaRepository<Product, String> {
 	
 //	@Query("select p from Product p where p.category.id=:id")
 //	List<Product> findProductByIdCategory(@Param("id") int idCategory);
-	
+
+	@Query("SELECT p FROM Product p WHERE p.discount > 0")
+	List<Product> findProductsWithDiscount();
+
 	@Query("select p from Product p where p.category.id=:id and p.price between :min and :max ")
 	Page<Product> findProductByIdCategory(@Param("id") int idCategory,@Param("min") double min, @Param("max") double max, Pageable pageable);
 	

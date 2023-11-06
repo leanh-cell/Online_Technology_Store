@@ -29,7 +29,7 @@
 				<a href="/admin/cancel-order?id=${Order.id}"
 					class="btn  btn-danger mb-4">Hủy đơn hàng</a>
 			</c:if>
-			<div class="col-sm-9" style="">
+			<div class="col-sm-10" style="">
 				<div class="row ">
 					<div class="col-sm-6" style="border-radius: 10px;">
 						<div>

@@ -40,7 +40,14 @@ public class StatisticalControllerAdmin {
 	public List<TotalMonth> totalMonth() {
 		return orderService.getTotalMonth();
 	}
-	
+
+	@ResponseBody
+	@GetMapping("/dataStatisticalOrder")
+	public List<OrderStatistics> dataStatisticalOrder() {
+		return orderService.getStatusOrder();
+	}
+
+
 //	@GetMapping("/statistical")
 //	public String statistical(Model model) {
 //		Date date = new Date();

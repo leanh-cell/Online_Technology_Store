@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.doapp.nanogear.dto.TotalMonth;
+import com.doapp.nanogear.entity.Brand;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -38,6 +39,13 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query("select o from Order o where o.user.id=:userid order by o.id desc")
     List<Order> findByOrderUserId(@Param("userid") String userid);
 
+//    @Query("select o from Order o where o.user.id =: userId or o.status like : key")
+//    Page<Order> findByUserIdAndPage(@Param("userId") String userId,@Param("key") String key,Pageable pageable);
+
+    @Query("select o from Order o where o.user.id = :userId and (o.status like :key or :key is null) order by case when o.status = 'X' then 0 else 1 end, o.status asc")
+    Page<Order> findByUserIdAndStatusLike(@Param("userId") String userId, @Param("key") String key, Pageable pageable);
+
+
     @Query("select o.total from Order o where o.id=:orderid ")
     double findTotalByIdOrder(@Param("orderid") Long id);
 
@@ -64,6 +72,11 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Query("select o from Order o where o.id =:idOrder")
     Page<Order> findByIdKeyWord(@Param("idOrder") Long id, Pageable pageable);
+
+    @Query("SELECT o FROM Order o " +
+            "LEFT JOIN o.user u " +
+            "WHERE u.name = :keyword OR o.orderCode = :keyword")
+    Page<Order> findOrderByOrderCodeAndUserName(@Param("keyword") String keyword,Pageable pageable);
 
     @Query("select new TotalDate(o.date, sum(o.total)) from Order o where o.date between :date1 and :date2 and o.status = 'N' group by o.date")
     List<TotalDate> findTotalByDate(@Param("date1") Date date1, @Param("date2") Date date2);

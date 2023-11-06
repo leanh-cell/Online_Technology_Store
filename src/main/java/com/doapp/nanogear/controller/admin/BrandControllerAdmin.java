@@ -1,6 +1,11 @@
 package com.doapp.nanogear.controller.admin;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Optional;
 
 import javax.servlet.ServletContext;
 
@@ -15,6 +20,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.doapp.nanogear.entity.Brand;
 import com.doapp.nanogear.service.BrandService;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 @RequestMapping("/admin")
 @Controller
 public class BrandControllerAdmin {
@@ -26,8 +33,8 @@ public class BrandControllerAdmin {
 	BrandService brandService;
 	
 	@GetMapping("/list-brand")
-	public String listBrand(Model model) {
-		model.addAttribute("brand", brandService.findAllBrand());
+	public String listBrand(Model model, Optional<Integer> p, @RequestParam("keyword") Optional<String> key) {
+		model.addAttribute("brand", brandService.findByBrandKeyWordAndPage(key,p));
 		return "listbrand";
 	}
 	
@@ -89,5 +96,14 @@ public class BrandControllerAdmin {
 			}
 		}
 		return "updatebrand";
+	}
+	@GetMapping("delete-brand")
+	public String deleteBrand(@RequestParam("id") int idBrand, RedirectAttributes model) throws IOException {
+		Brand brand = brandService.findById(idBrand);
+		Path path = Paths.get("src/main/webapp/image/" + brand.getImg());
+		Files.delete(path);
+		brandService.deleteBrandById(idBrand);
+		model.addFlashAttribute("success","Đã xoá thương hiệu"+ brand.getName());
+		return "redirect:/admin/list-brand";
 	}
 }

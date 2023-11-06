@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.doapp.nanogear.dto.TotalMonth;
+import com.doapp.nanogear.entity.Brand;
 import org.springframework.data.domain.Page;
 
 import com.doapp.nanogear.dto.OrderStatistics;
@@ -15,8 +16,10 @@ public interface OrderService {
 	
 	List<Order> getAllOrder();
 	
-	List<Order> findByOrderUserId(String userid);
-	
+//	List<Order> findByOrderUserId(String userid);
+
+	Page<Order> findByUserIdAndStatusLike(Optional<String> key,Optional<Integer> p);
+
 	Order findOrderById(Long idOrder);
 	
 	Double findTotalByIdOrder(Long idOrder);

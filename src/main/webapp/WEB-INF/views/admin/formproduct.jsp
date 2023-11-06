@@ -136,10 +136,26 @@
     </div>
 </div>
 
-    <script>
+<script>
+    ClassicEditor
+        .create( document.querySelector( '#descriptionInput' ), {
+            ckbox: {
+                tokenUrl: `ckbox-example-ckeditor/ckbox/auth`,
+                theme: 'lark'
+            },
+            toolbar: [
+                'ckbox', 'imageUpload', '|', 'heading', '|', 'undo', 'redo', '|', 'bold', 'italic', '|',
+                'blockQuote', 'indent', 'link', '|', 'bulletedList', 'numberedList'
+            ],
+        } )
+        .catch( error => {
+            console.error( error );
+        } );
+</script>
+<script>
         var textarea = document.getElementById('descriptionInput');
         textarea.textContent = ${formProduct.description};
-    </script>
+</script>
 <script>
         function validateForm() {
             var id = document.getElementById('idInput').value;

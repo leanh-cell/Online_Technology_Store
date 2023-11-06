@@ -73,12 +73,112 @@
             </div>
         </div>
     </div>
+<%--///////////////////////// TEST /////////////////////////////////////////////////////--%>
+    <c:if test="${listProductDiscount.size() >= 8}">
+    <div style="border: 1px solid #ffff;background:#ffff;" class="mt-4">
+        <div style="max-width: 1200px;" class="m-auto mt-5 mb-5">
+            <p style="font-size: 22px; font-weight: bold;">SẢN PHẨM ĐANG GIẢM GIÁ</p>
+            <div style="width: 100%; height: 2px; background-color: black;"></div>
+            <div id="carouselExampleIndicator" class="carousel slide"
+                 data-bs-ride="carousel">
+                <button style="border: none; background-color: white;"
+                        class="float-end" type="button" data-bs-target="#carouselExampleIndicators"
+                        data-bs-slide="next">
+                    <!-- <span class="carousel-control-next-icon" aria-hidden="true"></span> -->
+                    <!-- -> -->
+                    <i style="font-size: 30px; padding: 10px;"
+                       class="fas fa-arrow-alt-circle-right fa-lg fa-fade"></i>
 
+                    <!-- <span class="visually-hidden">Next</span> -->
+                </button>
+                <button class="float-end"
+                        style="border: none; background-color: white;" type="button"
+                        data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                    <!-- <span class="carousel-control-prev-icon" aria-hidden="true"></span> -->
+                    <!-- <- -->
+                    <i style="font-size: 30px; padding: 10px;"
+                       class="fas fa-arrow-alt-circle-left fa-lg fa-fade"></i>
+                    <!-- <span class="visually-hidden">Previous</span> -->
+                </button>
+                <div class="carousel-inner">
+
+                    <div class="carousel-item active">
+                        <div class="row">
+                            <c:forEach var="item" items="${listProductDiscount}" varStatus="loop">
+                            <div class="col-md-4 col-sm-6 mb-3">
+                                <div class="product-grid" style="height: 530px;">
+                                    <div class="product-image">
+                                        <a href="#" class="image"> <img class="pic-1 p-4"
+                                                                        src="/image/${item.img}">
+                                        </a> <span class="product-discount-label">
+												  <img style="width: 70px;" src="/image/ban-chay-nhat-unscreen.gif"
+                                                       alt="">
+											</span>
+                                        <ul class="product-links">
+                                            <a class="button-detail"
+                                               href="/productdetail?productId=${item.id}&categoryId=${item.category.id}"
+                                               type="button" class="btn btn-outline-success"
+                                               style="border-radius: 12px"
+                                            >Chi tiết</a>
+                                        </ul>
+                                    </div>
+                                    <hr>
+                                    <div class="product-content">
+                                            <%--                                        <ul class="rating">--%>
+                                            <%--                                            <li class="fas fa-star"></li>--%>
+                                            <%--                                            <li class="fas fa-star"></li>--%>
+                                            <%--                                            <li class="fas fa-star"></li>--%>
+                                            <%--                                            <li class="far fa-star"></li>--%>
+                                            <%--                                            <li class="far fa-star"></li>--%>
+                                            <%--                                        </ul>--%>
+                                        <h3 class="title">
+                                            <a href="#">${item.name}</a>
+                                        </h3>
+                                        <div class="price">
+                                            <span>
+                                                <c:if test="${item.discount > 0}">
+                                                    <fmt:formatNumber value="${item.price}"
+                                                                      pattern="###,###,###.##"/>đ
+                                                </c:if>
+                                            </span>
+                                            <fmt:formatNumber value="${item.price - item.discount}"
+                                                              pattern="###,###,###.##"/>
+                                            đ
+                                        </div>
+
+                                        <div style="font-weight: bold;">
+                                            <span>Đã bán: ${item.soldQuantity}</span>
+                                        </div>
+
+
+                                        <a id="${item.id}" class="add-to-cart">Thêm vào giỏ</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <c:if test="${(loop.index+1) %3 == 0 || (loop.index+1)  ==  listProductTop10.size()}">
+                        </div>
+                    </div>
+                    <c:if test="${(loop.index+1)  <  listProductTop10.size()}">
+                    <div class="carousel-item">
+                        <div class="row">
+                            </c:if>
+                            </c:if>
+                            </c:forEach>
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </c:if>
+<%--///////////////////////// TEST /////////////////////////////////////////////////////--%>
     <div style="border: 1px solid #ffff;background:#ffff;" class="mt-4">
         <div style="max-width: 1200px;" class="m-auto mt-5 mb-5">
             <p style="font-size: 22px; font-weight: bold;">SẢN PHẨM BÁN CHẠY NHẤT</p>
             <div style="width: 100%; height: 2px; background-color: black;"></div>
-
             <div id="carouselExampleIndicators" class="carousel slide"
                  data-bs-ride="carousel">
                 <button style="border: none; background-color: white;"
@@ -124,13 +224,13 @@
                                     </div>
                                     <hr>
                                     <div class="product-content">
-<%--                                        <ul class="rating">--%>
-<%--                                            <li class="fas fa-star"></li>--%>
-<%--                                            <li class="fas fa-star"></li>--%>
-<%--                                            <li class="fas fa-star"></li>--%>
-<%--                                            <li class="far fa-star"></li>--%>
-<%--                                            <li class="far fa-star"></li>--%>
-<%--                                        </ul>--%>
+                                            <%--                                        <ul class="rating">--%>
+                                            <%--                                            <li class="fas fa-star"></li>--%>
+                                            <%--                                            <li class="fas fa-star"></li>--%>
+                                            <%--                                            <li class="fas fa-star"></li>--%>
+                                            <%--                                            <li class="far fa-star"></li>--%>
+                                            <%--                                            <li class="far fa-star"></li>--%>
+                                            <%--                                        </ul>--%>
                                         <h3 class="title">
                                             <a href="#">${item.name}</a>
                                         </h3>
@@ -171,61 +271,56 @@
 
                 </div>
             </div>
-
-
-            <div style="border: 1px solid #ffff;background:#ffff;" class="mt-4 pb-4">
-                <div style="max-width: 1200px;" class="m-auto mt-4">
-                    <p class="text-center" style="font-size: 23px; font-weight: bold;">TẤT
-                        CẢ SẢN PHẨM</p>
-                    <div class="m-auto"
-                         style="width: 30%; height: 4px; background-color: black;"></div>
-                </div>
-
-                <div style="max-width: 1200px;" class="m-auto pt-5">
-                    <div class="row">
-                        <c:forEach items="${listProduct}" var="product">
-                            <div class="col-md-3 col-sm-6 mb-3">
-                                <div class="product-grid" style="height: 400px;">
-                                    <div class="product-image">
-                                        <a href="#" class="image"> <img class="pic-1 p-4"
-                                                                        src="/image/${product.img}">
-                                        </a>
-                                        <ul class="product-links">
-                                            <a class="button-detail"
-                                               href="/productdetail?productId=${product.id}&categoryId=${product.category.id}"
-                                               type="button" class="btn btn-outline-success"
-                                               style="border-radius: 12px">Chi tiết</a>
-                                        </ul>
-                                    </div>
-                                    <hr>
-                                    <div class="product-content">
-<%--                                        <ul class="rating">--%>
-<%--                                            <li class="fas fa-star"></li>--%>
-<%--                                            <li class="fas fa-star"></li>--%>
-<%--                                            <li class="fas fa-star"></li>--%>
-<%--                                            <li class="far fa-star"></li>--%>
-<%--                                            <li class="far fa-star"></li>--%>
-<%--                                        </ul>--%>
-                                        <h3 class="title">
-                                            <a href="#">${product.name}</a>
-                                        </h3>
-                                        <span
-<%--                                                class="product-discount-label"--%>
-                                        >Đã bán: ${product.soldQuantity}</span>
-                                        <div class="price">
-                                            <fmt:formatNumber value="${product.price}"
-                                                              pattern="###,###,###.##"/>
-                                            đ
-                                        </div>
-
-                                        <a id="${product.id}" class="add-to-cart">Thêm vào giỏ</a>
-                                    </div>
-                                </div>
+        </div>
+    </div>
+    <div style="border: 1px solid #ffff;background:#ffff;" class="mt-4 pb-4">
+        <div style="max-width: 1200px;" class="m-auto mt-4">
+            <p class="text-center" style="font-size: 23px; font-weight: bold;">TẤT CẢ SẢN PHẨM</p>
+            <div class="m-auto" style="width: 30%; height: 4px; background-color: black;"></div>
+        </div>
+        <div style="max-width: 1200px;" class="m-auto pt-5">
+            <div class="row">
+                <c:forEach items="${listProduct}" var="product">
+                    <div class="col-md-3 col-sm-6 mb-3">
+                        <div class="product-grid" style="height: 400px;">
+                            <div class="product-image">
+                                <a href="#" class="image"> <img class="pic-1 p-4"
+                                                                src="/image/${product.img}">
+                                </a>
+                                <ul class="product-links">
+                                    <a class="button-detail"
+                                       href="/productdetail?productId=${product.id}&categoryId=${product.category.id}"
+                                       type="button" class="btn btn-outline-success"
+                                       style="border-radius: 12px">Chi tiết</a>
+                                </ul>
                             </div>
-                        </c:forEach>
+                            <hr>
+                            <div class="product-content">
+                                    <%--                                        <ul class="rating">--%>
+                                    <%--                                            <li class="fas fa-star"></li>--%>
+                                    <%--                                            <li class="fas fa-star"></li>--%>
+                                    <%--                                            <li class="fas fa-star"></li>--%>
+                                    <%--                                            <li class="far fa-star"></li>--%>
+                                    <%--                                            <li class="far fa-star"></li>--%>
+                                    <%--                                        </ul>--%>
+                                <h3 class="title">
+                                    <a href="#">${product.name}</a>
+                                </h3>
+                                <span
+                                    <%--                                                class="product-discount-label"--%>
+                                >Đã bán: ${product.soldQuantity}</span>
+                                <div class="price">
+                                    <fmt:formatNumber value="${product.price}"
+                                                      pattern="###,###,###.##"/>
+                                    đ
+                                </div>
 
+                                <a id="${product.id}" class="add-to-cart">Thêm vào giỏ</a>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                </c:forEach>
+
             </div>
         </div>
     </div>

@@ -172,4 +172,9 @@ public class ProductServiceImpl implements ProductService {
         List<Product> products = productList.subList(0, Math.min(productList.size(), 10));
         return products;
     }
+
+    @Override
+    public List<Product> findProductsWithDiscount(){
+        return productRepository.findProductsWithDiscount();
+    }
 }

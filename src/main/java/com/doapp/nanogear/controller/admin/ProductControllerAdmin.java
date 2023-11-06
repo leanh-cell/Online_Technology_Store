@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.ServletContext;
@@ -19,6 +21,7 @@ import com.doapp.nanogear.entity.Product;
 import com.doapp.nanogear.service.BrandService;
 import com.doapp.nanogear.service.CategoryService;
 import com.doapp.nanogear.service.ProductService;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @RequestMapping("/admin")
 @Controller
@@ -66,21 +69,28 @@ public class ProductControllerAdmin {
 	}
 	
 	@PostMapping("/save-product")
-	public String saveProduct(Model model,@RequestParam("image") MultipartFile image, Product product) {
+	public String saveProduct(Model model, @RequestParam("image") List<MultipartFile> images, Product product) {
 		
-		if(image.isEmpty()){
-			System.out.println(image.getOriginalFilename());
+		if(images.isEmpty()){
+//			System.out.println(image.getOriginalFilename());
 			model.addAttribute("message", "Vui lòng chọn file !");
 			model.addAttribute("listcbobrand", brandService.findAllBrand());
 			model.addAttribute("listcbocategory", categoryService.getAllCategory());
 			model.addAttribute("formProduct", product);
 		}
 		else{
+			StringBuilder imageFileNames = new StringBuilder();
 			try {
-				String filename = image.getOriginalFilename();
-				File file = new File(app.getRealPath("/image/"+filename));
-				image.transferTo(file);
-				product.setImg(image.getOriginalFilename());
+				for (MultipartFile image : images) {
+					String filename = image.getOriginalFilename();
+					File file = new File(app.getRealPath("/image/" + filename));
+					image.transferTo(file);
+					if (imageFileNames.length() > 0) {
+						imageFileNames.append(",");
+					}
+					imageFileNames.append(filename);
+				}
+				product.setImg(imageFileNames.toString());
 				product.getBrand().setId(product.getBrand().getId());
 				product.getCategory().setId(product.getCategory().getId());
 				productService.saveProduct(product);
@@ -104,11 +114,11 @@ public class ProductControllerAdmin {
 	}
 	
 	@PostMapping("/update-Product")
-	public String doPostUpdateProduct(Model model,@RequestParam("image") MultipartFile image, Product product) {
+	public String doPostUpdateProduct(RedirectAttributes model,@RequestParam("image") MultipartFile image, Product product) {
 		if(image.isEmpty()) {
 			productService.saveProduct(product);
-			model.addAttribute("message", "Update thành công.");
-			model.addAttribute("formProduct",product);
+			model.addFlashAttribute("message", "Update thành công.");
+			model.addFlashAttribute("formProduct",product);
 		}else {
 			try {
 				String filename = image.getOriginalFilename();
@@ -119,23 +129,24 @@ public class ProductControllerAdmin {
 				product.getBrand().setId(product.getBrand().getId());
 				product.getCategory().setId(product.getCategory().getId());
 				productService.saveProduct(product);
-				model.addAttribute("formProduct",product);
+				model.addAttribute("message",product);
 				return "formproductupdate";
 			} 
 			catch (Exception e) {
-				model.addAttribute("formProduct",product);
-				model.addAttribute("message", "Lỗi lưu file !");
+				model.addFlashAttribute("message",product.getName());
+				model.addFlashAttribute("message", "Lỗi lưu file cho sản phẩm !" );
+				return "formproductupdate";
 			}
 		}
 		return "redirect:/admin/list-product";
 	}
 	@GetMapping("/delete-product")
-	public String deleteProduct(@RequestParam("id") String idProduct,Model model) throws IOException {
+	public String deleteProduct(@RequestParam("id") String idProduct, RedirectAttributes model) throws IOException {
 		Product product = productService.findById(idProduct);
 		Path path = Paths.get("src/main/webapp/image/" + product.getImg());
 		Files.delete(path);
 		productService.deleteProductById(idProduct);
-		model.addAttribute("message","Xoá thành công sản phẩm mã : "+ idProduct );
+		model.addFlashAttribute("message","Xoá thành công sản phẩm mã : "+ idProduct );
 		return "redirect:/admin/list-product";
 	}
 }

@@ -8,7 +8,6 @@ import java.util.Optional;
 
 import com.doapp.nanogear.dto.TotalMonth;
 import com.doapp.nanogear.entity.User;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -55,8 +54,14 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public List<Order> findByOrderUserId(String userid) {
-		return orderRepository.findByOrderUserId(userid);
+	public Page<Order> findByUserIdAndStatusLike(Optional<String> key, Optional<Integer> p) {
+//		orderRepository.findByOrderUserId(userid);
+		User userSession = sessionService.get("userss");
+		String uid = userSession.getId();
+		String kw = key.orElse(sessionService.get("keywords", ""));
+		sessionService.set("keywords", kw);
+		Pageable pageable = PageRequest.of(p.orElse(0), 15);
+		return orderRepository.findByUserIdAndStatusLike(uid,"%" + kw + "%",pageable);
 	}
 
 	@Override
@@ -154,9 +159,9 @@ public class OrderServiceImpl implements OrderService {
 
 		String kwords = id.orElse(sessionService.get("keywords", ""));
 		sessionService.get("keywords", kwords);
-		long kwordsInt = Long.parseLong(kwords);
+//		long kwordsInt = Long.parseLong(kwords);
 		Pageable pageable = PageRequest.of(p.orElse(0), 8);
-		return orderRepository.findByIdKeyWord(kwordsInt, pageable);
+		return orderRepository.findOrderByOrderCodeAndUserName(kwords, pageable);
 	}
 
 	@Override

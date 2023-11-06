@@ -189,7 +189,7 @@ public class CartController {
 	@GetMapping("/cancelorder")
 	public String CancelOrder(@RequestParam("id") Long idOrder) {
 		Order ordert =	sessionService.get("Order");
-		sessionService.setAttribute("cancalorder", "Hủy đơn hàng mã : "+ordert.getOrderCode()+" thành công.");
+		sessionService.setAttribute("cancalorder", "Hủy đơn hàng thành công");
 		Order order = orderService.findOrderById(idOrder);
 		order.setStatus("H");
 		orderService.SaveOrder(order);

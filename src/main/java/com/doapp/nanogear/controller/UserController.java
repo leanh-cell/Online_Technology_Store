@@ -3,14 +3,17 @@ package com.doapp.nanogear.controller;
 import java.io.UnsupportedEncodingException;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 import javax.mail.MessagingException;
 
 import com.doapp.nanogear.entity.DeliveryAddress;
+import com.doapp.nanogear.entity.Order;
 import com.doapp.nanogear.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -142,6 +145,7 @@ public class UserController {
                 u.setActive(false);
                 userService.saveUser(u);
                 sessionService.setAttribute("register", "Đăng kí tài khoản thành công và bạn sẽ được chuyển hướng đến trang login sau khi thông báo kết thúc !");
+                return "register";
             }
             u.setPassword(pass);
             u.setCode(token);
@@ -149,7 +153,7 @@ public class UserController {
             u.setActive(false);
             userService.saveUser(u);
             sessionService.setAttribute("register", "Đăng kí tài khoản thành công và bạn sẽ được chuyển hướng đến trang login sau khi thông báo kết thúc !");
-
+            return "register";
         } else {
             model.addAttribute("messageUserRegister", "Username đã tồn tại. Vui lòng chọn username khác.");
         }
@@ -183,12 +187,18 @@ public class UserController {
     }
 
     @GetMapping("/user-order")
-    public String userInformation(Model model) {
+    public String userInformation(Model model, Optional<Integer> pg, @RequestParam("status") Optional<String> status, @RequestParam(name = "active", required = false) String active) {
+//        String active = paramService.getString("active", "");
+
         User userSession = sessionService.get("userss");
         if (userSession == null) {
             return "redirect:/formlogin";
         } else {
-            model.addAttribute("informationOrder", orderService.findByOrderUserId(userSession.getId()));
+            System.out.println(active);
+            model.addAttribute("active", active);
+//            Page<Order> orderPage = orderService.findByUserIdAndStatusLike(status, pg);
+//            System.out.println(orderPage.);
+            model.addAttribute("informationOrder", orderService.findByUserIdAndStatusLike(status, pg));
             return "user_order";
         }
     }

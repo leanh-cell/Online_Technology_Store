@@ -64,11 +64,10 @@
     var yValues1 = [];
     $(document).ready(function () {
         $.ajax({
-            url: '/dataStatisticaOrder',
+            url: '/dataStatisticalOrder',
             type: 'GET',
             dataType: 'json',
             success: function (data) {
-
 
                 data.forEach(function (item) {
                     xValues1.push(item.status);

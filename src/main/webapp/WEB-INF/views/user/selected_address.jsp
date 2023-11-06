@@ -48,6 +48,7 @@
                 <button type="submit" class="btn btn-primary" id="btnaddress">Tiếp tục</button>
             </form>
         </div>
+        
         <div class="col-sm-6">
             <form id="register-form" action="/save-address" method="post">
                 <div class="box">

@@ -125,9 +125,9 @@
 <%--				</div>--%>
 				<div class="mb-3 col-sm-4">
 					<label for="descriptionInput" class="form-label">GHI CHÚ</label>
-					<textarea ${formProduct.description} name="description"
+					<texteditor ${formProduct.description} name="description"
 														 id="descriptionInput" class="form-control"
-														 placeholder="Nhập ghi chú (nếu có)" rows="16"></textarea>
+														 placeholder="Nhập ghi chú (nếu có)" rows="16"></texteditor>
 				</div>
 			</div>
 		</form>

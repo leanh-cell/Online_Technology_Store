@@ -22,7 +22,7 @@
 		<div class="p-5" style="box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px; border-radius: 20px;background-color: #ffff;">
     <div class="d-flex mb-4">
     <form class="d-flex" action="/admin/view-all-order-keyword" method="get">
-        <input style="width: 300px;" class="form-control me-2" name="keyword" type="text" placeholder="Tìm kiếm theo mã đơn hàng" aria-label="Search">
+        <input style="width: 300px;" class="form-control me-2" name="keyword" type="text" placeholder="Tên khách hàng hoặc mã đơn hàng" aria-label="Search">
          <button class="btn btn-outline-success ml-3" type="submit">Tìm kiếm</button>
          </form>
           <form class="d-flex" action="/admin/view-all-order" method="get">
