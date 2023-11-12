@@ -320,8 +320,10 @@ public class UserController {
                                  @RequestParam("passwordnew2") String passwordnew2) {
         User userss = sessionService.get("userss");
         User user = userService.findIdUserById(userss.getId());
-        if (!user.getPassword().equals(password)) {
-            model.addAttribute("message", "Mật khẩu cũ k khớp");
+        String pas = user.getPassword();
+        boolean check = userService.checkPassword(password,pas);
+        if (check == false) {
+            model.addAttribute("message", "Mật khẩu cũ kông khớp");
         } else if (!passwordnew.equals(passwordnew2)) {
             model.addAttribute("password", password);
             model.addAttribute("passwordnew", passwordnew);

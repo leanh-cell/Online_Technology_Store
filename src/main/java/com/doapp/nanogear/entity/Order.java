@@ -44,6 +44,12 @@ public class Order implements Serializable {
 //	X: Dang xu li, N: Da nhan hang, H:Huy
 	@Column(name="status")
 	private String status;
+
+	@Column(name="user_name")
+	private String userName;
+
+	@Column(name="user_phone")
+	private String userPhone;
 	
 	@Column(name="province")
 	private String province;

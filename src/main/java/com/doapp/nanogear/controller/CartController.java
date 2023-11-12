@@ -113,18 +113,23 @@ public class CartController {
 			sessionService.setAttribute("loginCart", "Vui lòng đăng nhập để đặt hàng.");
 			model.addAttribute("countCart", cartService.countCart());
 			return "redirect:/formlogin";
-		}else {
+		} else if (cartService.countCart() == 0) {
+			return "noproduct";
+		} else{
 			List<DeliveryAddress> deliveryAddress = deliveryAddressService.findByIdUser(user.getId());
-			if (deliveryAddress != null) {
+			if (deliveryAddress.isEmpty() || deliveryAddress == null){
+				model.addAttribute("error","Vui lòng thêm địa chỉ nhận hàng để tiếp tục đơn hàng của bạn !!");
+				return "selected_address";
+			} else if (deliveryAddress != null) {
 				List<DeliveryAddress> sortedDeliveryAddress = deliveryAddress.stream()
 						.sorted(Comparator.comparingInt(address -> address.getIsUse() == 0 ? 0 : 1))
 						.collect(Collectors.toList());
 				model.addAttribute("addressUserId", sortedDeliveryAddress);
 				return "selected_address";
 			}
+			model.addAttribute("error","Có lỗi khác xảy ra bạn vui lòng chờ trong giây lát, cảm ơn bạn đã chờ!");
+			return "selected_address";
 		}
-		model.addAttribute("error","Vui lòng thêm địa chỉ nhận hàng để tiếp tục đơn hàng của bạn !!");
-		return "selected_address";
 	}
 
 	@GetMapping("/order")

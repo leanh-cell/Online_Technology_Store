@@ -25,8 +25,10 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Query("SELECT COUNT(o) FROM Order o WHERE o.status = 'X' ")
     long getTotalOrderX();
+
     @Query("SELECT COUNT(o) FROM Order o WHERE o.status = 'N'")
     long getTotalOrderN();
+
     @Query("SELECT COUNT(o) FROM Order o WHERE o.status = 'H'")
     long getTotalOrderH();
 
@@ -61,7 +63,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query("select o from Order o where o.date between :min and :max and o.status like :status order by o.id desc")
     Page<Order> findByOrderDate(@Param("min") Date minDate, @Param("max") Date maxDate, @Param("status") String status, Pageable pageable);
 
-    @Query("select new TotalYear(YEAR(o.date), sum(o.total)) from Order o where o.status ='N' group by YEAR(o.date) ")
+    @Query("select new TotalYear(YEAR(o.date), sum(o.total)) from Order o where o.status ='N' group by YEAR(o.date)")
     List<TotalYear> getTotalYear();
 
     @Query("SELECT NEW TotalMonth(MONTH(o.date), YEAR(o.date), SUM(o.total)) FROM Order o WHERE o.status = 'N' GROUP BY YEAR(o.date), MONTH(o.date) ORDER BY YEAR(o.date), MONTH(o.date)")
@@ -76,7 +78,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query("SELECT o FROM Order o " +
             "LEFT JOIN o.user u " +
             "WHERE u.name = :keyword OR o.orderCode = :keyword")
-    Page<Order> findOrderByOrderCodeAndUserName(@Param("keyword") String keyword,Pageable pageable);
+    Page<Order> findOrderByOrderCodeAndUserName(@Param("keyword") String keyword, Pageable pageable);
 
     @Query("select new TotalDate(o.date, sum(o.total)) from Order o where o.date between :date1 and :date2 and o.status = 'N' group by o.date")
     List<TotalDate> findTotalByDate(@Param("date1") Date date1, @Param("date2") Date date2);

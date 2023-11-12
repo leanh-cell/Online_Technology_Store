@@ -59,7 +59,7 @@
             <c:forEach items="${order.content}" var="order">
                 <tr>
                     <th scope="row">${order.orderCode}</th>
-                    <td>${order.user.name}</td>
+                    <td>${order.userName}</td>
                     <td>${order.date}</td>
                     <td><fmt:formatNumber value="${order.total}" pattern="###,###,###.##" />đ</td>
                     <td>

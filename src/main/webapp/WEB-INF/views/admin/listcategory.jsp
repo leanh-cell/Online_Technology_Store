@@ -37,7 +37,10 @@
 						<th scope="row">${category.id}</th>
 						<td>${category.name}</td>
 						<td><img src="/image/${category.img}" style="width: 100px;" alt=""></td>
-						<td><a class="btn btn-primary" href="/admin/form-update-category?id=${category.id}">Edit</a></td>
+						<td>
+							<a class="btn btn-primary" href="/admin/form-update-category?id=${category.id}">Edit</a>
+							<a class="btn btn-danger"  href="/admin/delete-category?id=${category.id}">Delete</a>
+						</td>
 					</tr>
 				</c:forEach>
 				</tbody>

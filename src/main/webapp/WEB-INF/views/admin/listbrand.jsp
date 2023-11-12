@@ -47,7 +47,7 @@
 						<td><img src="/image/${brand.img}" style="width: 100px;" alt=""></td>
 						<td>
 							<a class="btn btn-primary" href="/admin/form-update-brand?id=${brand.id}">Edit</a>
-							<a class="btn btn-primary" href="/admin/form-update-brand?id=${brand.id}">Edit</a>
+							<a class="btn btn-danger" href="/admin/delete-brand?id=${brand.id}">Delete</a>
 						</td>
 					</tr>
 				</c:forEach>

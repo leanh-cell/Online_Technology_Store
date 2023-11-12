@@ -6,7 +6,7 @@
             <div class="m-auto mb-3" style="width: 30%; height: 4px; background-color: black;"></div>
             <p style="font-size: 20px; font-weight: 500;">THÔNG TIN ĐƠN HÀNG:</p>
             <div style=" box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;" class="p-3">
-            <p style="font-weight: 500;">Mã đơn hàng: ${order.id}</p>
+            <p style="font-weight: 500;">Mã đơn hàng: ${order.orderCode}</p>
             <p style="font-weight: 500;">Ngày đặt: ${order.date}</p>
             <p style="font-weight: 500;">Địa chỉ: ${order.district}, ${order.province},${order.addressDetail}</p>
             <p style="color: red; font-weight: 500;">Tổng tiền đơn hàng: <fmt:formatNumber
@@ -30,7 +30,7 @@
                                         </div>
                                         <hr>  
                                     </c:forEach>  
-            <a href="/user-order" style="font-weight: 500; background-color: rgb(205, 192, 50);" type="button" class="btn  px-4 py-2 text-center">Xem lịch sử đặt hàng</a>
+            <a href="/user-order?status=" style="font-weight: 500; background-color: rgb(205, 192, 50);" type="button" class="btn  px-4 py-2 text-center">Xem lịch sử đặt hàng</a>
                 <a href="/home" style="font-weight: 500; background-color: rgb(205, 192, 50);" type="button" class="btn  px-4 py-2 text-center">Về Trang Chủ</a>
             </div>
         </div>

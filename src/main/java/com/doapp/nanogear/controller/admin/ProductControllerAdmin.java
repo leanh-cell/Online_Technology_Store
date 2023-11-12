@@ -45,11 +45,11 @@ public class ProductControllerAdmin {
 		return "listproduct";
 	}
 	
-	@GetMapping("/form-product-insert")
+	@GetMapping("/add-new-product")
 	public String doGetInsertProduct(Model model) {
 		model.addAttribute("listcbobrand", brandService.findAllBrand());
 		model.addAttribute("listcbocategory", categoryService.getAllCategory());
-		return "productinsert";
+		return "add_new_product";
 	}
 	
 	
@@ -58,7 +58,7 @@ public class ProductControllerAdmin {
 		model.addAttribute("listcbobrand", brandService.findAllBrand());
 		model.addAttribute("listcbocategory", categoryService.getAllCategory());
 		model.addAttribute("formProduct",productService.findById(idProduct));
-		return"formproductupdate";
+		return"update_product";
 	}
 	
 	@GetMapping("/form-product")
@@ -77,6 +77,7 @@ public class ProductControllerAdmin {
 			model.addAttribute("listcbobrand", brandService.findAllBrand());
 			model.addAttribute("listcbocategory", categoryService.getAllCategory());
 			model.addAttribute("formProduct", product);
+			return "redirect:/admin/add-new-product";
 		}
 		else{
 			StringBuilder imageFileNames = new StringBuilder();
@@ -98,53 +99,93 @@ public class ProductControllerAdmin {
 				model.addAttribute("listcbocategory", categoryService.getAllCategory());
 				model.addAttribute("formProduct", product);
 				model.addAttribute("message", "Thêm sản phẩm thành công");
-				return "productinsert";
-			} 
+				return "redirect:/admin/list-product";
+			}
 			catch (Exception e) {
 				model.addAttribute("message", "Lỗi lưu file !");
 				model.addAttribute("listcbobrand", brandService.findAllBrand());
 				model.addAttribute("listcbocategory", categoryService.getAllCategory());
 				model.addAttribute("formProduct", product);
+				return "redirect:/admin/add-new-product";
 			}
 		}
-		model.addAttribute("listcbobrand", brandService.findAllBrand());
-		model.addAttribute("listcbocategory", categoryService.getAllCategory());
-		model.addAttribute("formProduct", product);
-		return "productinsert";
+//		model.addAttribute("listcbobrand", brandService.findAllBrand());
+//		model.addAttribute("listcbocategory", categoryService.getAllCategory());
+//		model.addAttribute("formProduct", product);
+
 	}
 	
-	@PostMapping("/update-Product")
-	public String doPostUpdateProduct(RedirectAttributes model,@RequestParam("image") MultipartFile image, Product product) {
-		if(image.isEmpty()) {
+	@PostMapping("/update-product")
+	public String doPostUpdateProduct(RedirectAttributes model,@RequestParam("image") List<MultipartFile> images, Product product) {
+		if(images.isEmpty()) {
 			productService.saveProduct(product);
 			model.addFlashAttribute("message", "Update thành công.");
 			model.addFlashAttribute("formProduct",product);
 		}else {
+//			StringBuilder imageFileNames = new StringBuilder();
 			try {
-				String filename = image.getOriginalFilename();
-				File file = new File(app.getRealPath("/image/"+filename));
-				image.transferTo(file);
+				deleteOldImages(product);
 
-				product.setImg(image.getOriginalFilename());
+				StringBuilder imageFileNames = new StringBuilder();
+				for (MultipartFile image : images) {
+					String filename = image.getOriginalFilename();
+					File file = new File(app.getRealPath("/image/" + filename));
+					image.transferTo(file);
+					if (imageFileNames.length() > 0) {
+						imageFileNames.append(",");
+					}
+					imageFileNames.append(filename);
+				}
+//				String filename = images.getOriginalFilename();
+//				File file = new File(app.getRealPath("/image/"+filename));
+//				images.transferTo(file);
+
+				product.setImg(imageFileNames.toString());
 				product.getBrand().setId(product.getBrand().getId());
 				product.getCategory().setId(product.getCategory().getId());
 				productService.saveProduct(product);
 				model.addAttribute("message",product);
-				return "formproductupdate";
+				model.addAttribute("listcbobrand", brandService.findAllBrand());
+				model.addAttribute("listcbocategory", categoryService.getAllCategory());
+				model.addAttribute("formProduct",product);
+				return "redirect:/admin/list-product";
 			} 
 			catch (Exception e) {
 				model.addFlashAttribute("message",product.getName());
 				model.addFlashAttribute("message", "Lỗi lưu file cho sản phẩm !" );
-				return "formproductupdate";
+				return "update_product";
 			}
 		}
 		return "redirect:/admin/list-product";
 	}
+	private void deleteOldImages(Product product) {
+		if (product.getId() != null) {
+			Product existingProduct = productService.findById(product.getId());
+			if (existingProduct != null && existingProduct.getImg() != null) {
+				String[] oldImageNames = existingProduct.getImg().split(",");
+				for (String oldImageName : oldImageNames) {
+					File oldImageFile = new File(app.getRealPath("/image/" + oldImageName));
+					if (oldImageFile.exists()) {
+						oldImageFile.delete();
+					}
+				}
+			}
+		}
+	}
 	@GetMapping("/delete-product")
 	public String deleteProduct(@RequestParam("id") String idProduct, RedirectAttributes model) throws IOException {
 		Product product = productService.findById(idProduct);
-		Path path = Paths.get("src/main/webapp/image/" + product.getImg());
-		Files.delete(path);
+		String imgList = product.getImg();
+		String[] imgNames = imgList.split(",");
+		for (String imgName : imgNames) {
+			Path path = Paths.get("src/main/webapp/image/" + imgName.trim());
+			try {
+				Files.delete(path);
+			} catch (IOException e) {
+				// Xử lý lỗi nếu có
+				e.printStackTrace();
+			}
+		}
 		productService.deleteProductById(idProduct);
 		model.addFlashAttribute("message","Xoá thành công sản phẩm mã : "+ idProduct );
 		return "redirect:/admin/list-product";

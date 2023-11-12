@@ -1,26 +1,69 @@
 <%@ page pageEncoding="utf-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<style>
+    .fit-image-container {
+        width: 120px; /* Đặt kích thước của container */
+        height: 120px;
+        overflow: hidden; /* Để ảnh không tràn ra khỏi container */
+        border-radius: 8px;
+    }
+
+    .fit-image {
+        width: 100%; /* Kích thước ảnh sẽ chiếm 100% của container */
+        height: 100%;
+        object-fit: cover; /* Hiển thị ảnh mà không làm thay đổi tỉ lệ khung hình */
+        border-radius: 8px; /* Độ cong góc */
+    }
+</style>
 <div style="max-width: 1200px;" class="m-auto mt-5">
 
     <!-- product -->
     <div class="row mb-5"
          style="background-color: white; padding: 10px; border-radius: 30px; box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;">
-        <div class="col-sm-4">
-            <img src="image/${productDetail.img}" style="width: 100%;" class="img-fluid" alt="">
+        <div class="col-sm-6">
+            <div id="demo" class="carousel slide" data-bs-ride="carousel">
+                <!-- Indicators/dots -->
+                <div class="carousel-indicators">
+                    <c:forEach items="${fn:split(productDetail.img, ',')}" var="image" varStatus="status">
+                        <button type="button" data-bs-target="#demo" data-bs-slide-to="${status.index}" class="${status.index == 0 ? 'active' : ''}"></button>
+                    </c:forEach>
+                </div>
+
+                <!-- The slideshow/carousel -->
+                <div class="carousel-inner">
+                    <c:forEach items="${fn:split(productDetail.img, ',')}" var="image" varStatus="status">
+                        <div class="${status.index == 0 ? 'carousel-item active' : 'carousel-item'} " data-bs-interval="10000">
+                            <div class="d-flex justify-content-center align-items-center" style="height: 500px; background-color: #f0f0f0;">
+                                <img src="/image/${image}" class="img-fluid" style="max-height: 100%; max-width: 100%;" alt="...">
+                            </div>
+<%--                            <img src="/image/${image}" class="img-fluid" style="height: 500px;" alt="...">--%>
+                        </div>
+                    </c:forEach>
+                </div>
+
+                <!-- Left and right controls/icons -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" style="color: #0a0e14"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+            </div>
+<%--            <img src="image/${productDetail.img}" style="width: 100%;" class="img-fluid" alt="">--%>
         </div>
-        <div class="col-sm-8 p-3">
+        <div class="col-sm-6 p-3">
             <h4 style="font-weight: 600;">${productDetail.name}</h4>
 
             <div class="row">
-                <h5 class="col-sm-2 mt-4 mb-4" style="font-weight: 600; color:red">
+                <h5 class="col-sm-4 mt-4 mb-4" style="font-weight: 600; color:red">
                     <fmt:formatNumber value="${productDetail.price - productDetail.discount}" pattern="###,###,###.##"/>đ
                 </h5>
-                <span class="col-sm-2 mt-4 mb-4">
+                <span class="col-sm-6 mt-4 mb-4">
                     <c:if test="${productDetail.discount > 0}">
-
-                        <fmt:formatNumber value="${productDetail.price}"
-                                          pattern="###,###,###.##"/>đ
+                        (Giá gốc :<fmt:formatNumber value="${productDetail.price}"
+                                          pattern="###,###,###.##"/>đ)
                     </c:if>
 
                 </span>

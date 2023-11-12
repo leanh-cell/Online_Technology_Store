@@ -4,23 +4,26 @@
         src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0/dist/chartjs-plugin-datalabels.min.js"></script>
 <div class="col-sm-12 m-auto  row" style=" background-color: #fff;">
     <div class="row mb-2 ml-1 mr-1 mt-2">
-        <div class="col-sm-4">
+        <div class="col-sm-2 mr-5" style="border: 1px solid;border-radius: 10px;padding: 10px 10px 5px 10px;" >
+           Đơn hàng đang xử lý
             <div>
                 <h3>${orderX}</h3>
             </div>
-            đang xu ly
+
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-2 mr-5" style="border: 1px solid;border-radius: 10px;padding: 10px 10px 5px 10px;" >
+        Đơn hàng đã nhận
             <div>
                 <h3>${orderN}</h3>
             </div>
-            đã nhận
+
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-2 mr-5" style="border: 1px solid;border-radius: 10px;padding: 10px 10px 5px 10px;" >
+        Đơn hàng đã huỷ
             <div>
                 <h3>${orderH}</h3>
             </div>
-            đã huỷ
+
         </div>
 <%--        <div class="col-sm-4">--%>
 <%--            <div>--%>

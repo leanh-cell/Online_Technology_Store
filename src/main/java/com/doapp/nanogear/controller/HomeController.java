@@ -1,16 +1,12 @@
 package com.doapp.nanogear.controller;
 
 import com.doapp.nanogear.entity.Product;
+import com.doapp.nanogear.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 //import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.doapp.nanogear.service.CartService;
-import com.doapp.nanogear.service.CategoryService;
-import com.doapp.nanogear.service.OrderDetailService;
-import com.doapp.nanogear.service.ProductService;
 
 
 //@RequestMapping("/index")
@@ -28,9 +24,14 @@ public class HomeController {
 	
 	@Autowired
 	OrderDetailService orderDetailService;
+
+	@Autowired
+	BannerService bannerService;
+
 	
 	@GetMapping("/home")
 	public String Home(Model model) {
+		model.addAttribute("listBanner", bannerService.getAll());
 		model.addAttribute("listProductTop10",productService.findAllProductTop10());
 		model.addAttribute("listProductDiscount",productService.findProductsWithDiscount());
 		model.addAttribute("listProduct", productService.getAllProduct());

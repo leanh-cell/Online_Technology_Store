@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -28,8 +29,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     SessionService sessionService;
 
-//    @Autowired
-    private PasswordEncoder passwordEncoder;
+    @Autowired
+    @Lazy
+    PasswordEncoder passwordEncoder;
 
     @Override
     public User findById(String id) {
@@ -46,7 +48,7 @@ public class UserServiceImpl implements UserService {
         }
         return null;
     }
-
+    @Override
     public boolean checkPassword(String rawPassword, String encodedPassword) {
         return new BCryptPasswordEncoder().matches(rawPassword, encodedPassword);
     }

@@ -107,6 +107,8 @@ public class CartServiceImpl implements CartService {
 		order.setTotal(getAmount());
 		order.setStatus("X");
 		order.setUser(user);
+		order.setUserName(deliveryAddress.getName());
+		order.setUserPhone(deliveryAddress.getPhone());
 		order.setProvince(deliveryAddress.getProvince());
 		order.setDistrict(deliveryAddress.getDistrict());
 		order.setWard(deliveryAddress.getWard());

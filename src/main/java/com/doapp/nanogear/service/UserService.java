@@ -25,5 +25,6 @@ public interface UserService {
 	void saveResetPassword(String token, String password);
 
 	User findUserByOrderId(long id);
-	
+
+	boolean checkPassword(String rawPassword, String encodedPassword);
 }

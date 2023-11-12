@@ -2,11 +2,82 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <div style="background-color: #f2f3f4;" class="pb-4">
+    <div class="mt-4"
+         style="background-color: #fff; border: 1px solid #fff;">
+        <div style="max-width: 1300px;" class="m-auto mt-2 mb-2">
+            <div class="mt-4">
+				<span class="text-center"
+                      style="font-size: 18px; font-weight: 	bold;">THƯƠNG HIỆU</span>
+                <div class=""
+                     style="width: 203px; height: 2px; background-color: black;"></div>
+            </div>
+        </div>
+        <div style="max-width: 1300px; background-color: #fff;"
+             class="m-auto p-3">
+            <div style="display: flex; flex-wrap: wrap;">
+                <c:forEach items="${brandByIdCategory}" var="brand" >
+                    <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center;">
+                        <a href="/productbrand?idBrand=${brand.id}&idCategory=${idCategory}"
+                           style="align-items: center; border: 1px solid ${brand.id == idBrand ? "#000000" : "#e0e0e0"} ; border-radius: 4px; color: #333; display: flex; font-size: 14px; line-height: 13px; margin-right: 8px; margin-bottom: 10px; min-height: 36px; max-height: 36px; padding: 6px 13px; vertical-align: top;">
+                            <img src="image/${brand.img}" style="width: 90px;" alt="">
+                        </a>
+                    </div>
+                </c:forEach>
+            </div>
+            <hr>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button"
+                        id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                        aria-expanded="false">Giá
+                </button>
+                <ul class="dropdown-menu p-0" aria-labelledby="dropdownMenuButton1">
+                    <form action="/productcategory" method="post">
+                        <div class="wrapper">
+                            <div class="price-input">
+                                <div class="field">
+                                    <span class="range-left" style="">
+                                        <input type="tel"
+                                               class="inputmax" maxlength="8"
+                                               name="price-min"
+                                               data-minvalue="300000"
+                                               value="${minPriceRange}">
+                                        <label class="place-holder">.000đ</label>
+                                    </span>
+                                </div>
+                                <div class="field">
+                                    <span class="range-right">
+                                        <input class="inputmax"
+                                               type="tel" maxlength="8" name="price-max"
+                                               data-maxvalue="42000000" value="${maxPriceRange}"> <label
+                                            class="place-holder">.000đ</label>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="slider">
+                                <div class="progress"></div>
+                            </div>
+                            <div class="range-input">
+                                <input type="range" class="range-min" min="${minPriceRange}" max="${maxPriceRange}"
+                                       value="${minPriceRange}" step="100">
+                                <input type="range"
+                                       class="range-max" min="${minPriceRange}" max="${maxPriceRange}"
+                                       value="${maxPriceRange}" step="100">
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <button type="submit" class="btn btn-primary mt-4 text-center">Lọc</button>
+                            </div>
+                        </div>
+                        <input type="hidden" name="id" value="${idCategory}">
+                        <input type="hidden" value="${s}" name="sort">
+                    </form>
+                </ul>
+            </div>
+        </div>
+    </div>
 
 
-    <div
-            style="max-width: 1300px; background-color: #fff; border-radius: 10px;"
-            class="m-auto pt-3">
+    <div style="max-width: 1300px; background-color: #fff; border-radius: 10px;"
+         class="m-auto pt-3">
         <div class="p-3">
             <div class="col-sm-12 m-auto">
                 <div style="max-width: 1300px;" class="m-auto  mb-3 ">
@@ -14,134 +85,78 @@
                           style="font-size: 18px; font-weight: bold;">SẢN PHẨM
 						<div class=""
                              style="width: 192px; height: 2px; background-color: black;"></div>
+                    </span>
                 </div>
 
                 <div class="row">
                     <div class="col-sm-2 ml-2">
                         <div class="accordion" id="accordionPanelsStayOpenExample">
                             <div class="accordion-item" style="border-radius: 0px;">
-                                <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-                                    <button class="accordion-button" type="button"
-                                            data-bs-toggle="collapse"
-                                            data-bs-target="#panelsStayOpen-collapseOne"
-                                            aria-expanded="true"
-                                            aria-controls="panelsStayOpen-collapseOne">LỌC THEO
-                                        HÃNG
-                                    </button>
-                                </h2>
-                                <div id="panelsStayOpen-collapseOne"
-                                     class="accordion-collapse collapse show"
-                                     aria-labelledby="panelsStayOpen-headingOne">
-                                    <div class="accordion-body pt-3 pb-3 pl-5 ">
-                                        hello
-                                    </div>
-                                </div>
+                                <%--                                <h2 class="accordion-header" id="panelsStayOpen-headingOne">--%>
+                                <%--                                    <button class="accordion-button" type="button"--%>
+                                <%--                                            data-bs-toggle="collapse"--%>
+                                <%--                                            data-bs-target="#panelsStayOpen-collapseOne"--%>
+                                <%--                                            aria-expanded="true"--%>
+                                <%--                                            aria-controls="panelsStayOpen-collapseOne">LỌC THEO--%>
+                                <%--                                        HÃNG--%>
+                                <%--                                    </button>--%>
+                                <%--                                </h2>--%>
+                                <%--                                <div id="panelsStayOpen-collapseOne"--%>
+                                <%--                                     class="accordion-collapse collapse show"--%>
+                                <%--                                     aria-labelledby="panelsStayOpen-headingOne">--%>
+                                <%--                                    <div class="accordion-body pt-3 pb-3 pl-5 ">--%>
+                                <%--                                        hello--%>
+                                <%--                                    </div>--%>
+                                <%--                                </div>--%>
 
                             </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
-                                    <button class="accordion-button collapsed" type="button"
-                                            data-bs-toggle="collapse"
-                                            data-bs-target="#panelsStayOpen-collapseTwo"
-                                            aria-expanded="false"
-                                            aria-controls="panelsStayOpen-collapseTwo">Accordion
-                                        Item #2
-                                    </button>
-                                </h2>
-                                <div id="panelsStayOpen-collapseTwo"
-                                     class="accordion-collapse collapse"
-                                     aria-labelledby="panelsStayOpen-headingTwo">
-                                    <div class="accordion-body">div></div>
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="panelsStayOpen-headingThree">
-                                    <button class="accordion-button collapsed" type="button"
-                                            data-bs-toggle="collapse"
-                                            data-bs-target="#panelsStayOpen-collapseThree"
-                                            aria-expanded="false"
-                                            aria-controls="panelsStayOpen-collapseThree">
-                                        Accordion Item #3
-                                    </button>
-                                </h2>
-                                <div id="panelsStayOpen-collapseThree"
-                                     class="accordion-collapse collapse"
-                                     aria-labelledby="panelsStayOpen-headingThree">
-                                    <div class="accordion-body">
-                                        <strong>This is the third item's accordion body.</strong> It
-                                        is hidden by default, until the collapse plugin adds the
-                                        appropriate classes that we use to style each element. These
-                                        classes control the overall appearance, as well as the showing
-                                        and hiding via CSS transitions. You can modify any of this
-                                        with custom CSS or overriding our default variables. It's also
-                                        worth noting that just about any HTML can go within the
-                                        <code>.accordion-body</code>
-                                        , though the transition does limit overflow.
-                                    </div>
-                                </div>
-                            </div>
+                            <%--                            <div class="accordion-item">--%>
+                            <%--                                <h2 class="accordion-header" id="panelsStayOpen-headingTwo">--%>
+                            <%--                                    <button class="accordion-button collapsed" type="button"--%>
+                            <%--                                            data-bs-toggle="collapse"--%>
+                            <%--                                            data-bs-target="#panelsStayOpen-collapseTwo"--%>
+                            <%--                                            aria-expanded="false"--%>
+                            <%--                                            aria-controls="panelsStayOpen-collapseTwo">Accordion--%>
+                            <%--                                        Item #2--%>
+                            <%--                                    </button>--%>
+                            <%--                                </h2>--%>
+                            <%--                                <div id="panelsStayOpen-collapseTwo"--%>
+                            <%--                                     class="accordion-collapse collapse"--%>
+                            <%--                                     aria-labelledby="panelsStayOpen-headingTwo">--%>
+                            <%--                                    <div class="accordion-body">div></div>--%>
+                            <%--                                </div>--%>
+                            <%--                            </div>--%>
+                            <%--                            <div class="accordion-item">--%>
+                            <%--                                <h2 class="accordion-header" id="panelsStayOpen-headingThree">--%>
+                            <%--                                    <button class="accordion-button collapsed" type="button"--%>
+                            <%--                                            data-bs-toggle="collapse"--%>
+                            <%--                                            data-bs-target="#panelsStayOpen-collapseThree"--%>
+                            <%--                                            aria-expanded="false"--%>
+                            <%--                                            aria-controls="panelsStayOpen-collapseThree">--%>
+                            <%--                                        Accordion Item #3--%>
+                            <%--                                    </button>--%>
+                            <%--                                </h2>--%>
+                            <%--                                <div id="panelsStayOpen-collapseThree"--%>
+                            <%--                                     class="accordion-collapse collapse"--%>
+                            <%--                                     aria-labelledby="panelsStayOpen-headingThree">--%>
+                            <%--                                    <div class="accordion-body">--%>
+                            <%--                                        <strong>This is the third item's accordion body.</strong> It--%>
+                            <%--                                        is hidden by default, until the collapse plugin adds the--%>
+                            <%--                                        appropriate classes that we use to style each element. These--%>
+                            <%--                                        classes control the overall appearance, as well as the showing--%>
+                            <%--                                        and hiding via CSS transitions. You can modify any of this--%>
+                            <%--                                        with custom CSS or overriding our default variables. It's also--%>
+                            <%--                                        worth noting that just about any HTML can go within the--%>
+                            <%--                                        <code>.accordion-body</code>--%>
+                            <%--                                        , though the transition does limit overflow.--%>
+                            <%--                                    </div>--%>
+                            <%--                                </div>--%>
+                            <%--                            </div>--%>
                         </div>
                     </div>
                     <div class="col-sm-10">
                         <div class="row ">
-                            <div class="col-sm-9">
-                                <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button"
-                                            id="dropdownMenuButton1" data-bs-toggle="dropdown"
-                                            aria-expanded="false">Giá
-                                    </button>
-                                    <ul class="dropdown-menu p-0"
-                                        aria-labelledby="dropdownMenuButton1">
-
-                                        <form action="/productbrand" method="post">
-                                            <input name="idBrand" value="${idBrand}" type="hidden">
-                                            <input name="idCategory" value="${idCategory}" type="hidden">
-                                            <input name="p" type="hidden">
-                                            <input type="hidden" value="${s}" name="sort">
-                                            <div class="wrapper">
-                                                <div class="price-input">
-                                                    <div class="field">
-                                                        <!-- <span>Min</span>
-            <input id="min" type="number" class="input-min" value="100"> -->
-                                                        <span class="range-left" style=""> <input
-                                                                type="tel" class="inputmax" maxlength="8"
-                                                                name="price-min" data-minvalue="300000"
-                                                                value="${minPriceRange}"> <label
-                                                                class="place-holder">.000đ</label>
-														</span>
-                                                    </div>
-                                                    <!-- <div class="separator">-</div> -->
-                                                    <div class="field">
-														<span class="range-right"> <input class="inputmax"
-                                                                                          type="tel" maxlength="8"
-                                                                                          name="price-max"
-                                                                                          data-maxvalue="42000000"
-                                                                                          value="${maxPriceRange}">
-															<label class="place-holder">.000đ</label>
-														</span>
-                                                    </div>
-                                                </div>
-                                                <div class="slider">
-                                                    <div class="progress"></div>
-                                                </div>
-                                                <div class="range-input">
-                                                    <input type="range" class="range-min"
-                                                           min="${minPriceRange}" max="${maxPriceRange}"
-                                                           value="${minPriceRange}" step="100"> <input
-                                                        type="range" class="range-max" min="0"
-                                                        max="${maxPriceRange}" value="${maxPriceRange}" step="100">
-                                                </div>
-                                                <div class="d-flex justify-content-center">
-                                                    <button type="submit"
-                                                            class="btn btn-primary mt-4 text-center">Lọc
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </ul>
-                                </div>
-                            </div>
-
+                            <div class="col-sm-9"></div>
                             <div class="col-sm-3">
                                 <div class="input-group mb-3">
                                     <label class="input-group-text" style="border-radius: 0px;"
@@ -178,7 +193,8 @@
                                             <ul class="product-links">
                                                 <a class="button-detail"
                                                    href="/productdetail?productId=${product.id}&categoryId=${product.category.id}"
-                                                   type="button" class="btn btn-outline-success" style="border-radius: 12px">Chi tiết</a>
+                                                   type="button" class="btn btn-outline-success"
+                                                   style="border-radius: 12px">Chi tiết</a>
                                             </ul>
                                         </div>
                                         <div class="product-content">

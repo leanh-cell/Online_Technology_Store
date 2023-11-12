@@ -30,7 +30,7 @@ public interface ProductRepository extends JpaRepository<Product, String> {
 	@Query("select p from Product p where p.brand.id=:idBrand and p.category.id=:idCategory and p.price between :min and :max")
 	Page<Product> findProductByIdBrand(@Param("idBrand") int idBrand, @Param("idCategory") int idCategory,@Param("min") double min, @Param("max") double  max, Pageable pageable);
 	
-	@Query("select p from Product p where p.name like ?1")
+	@Query("select p from Product p where p.name like ?1 or p.brand.name like ?1 or p.category.name like ?1")
 	Page<Product> findByProductKeyWordAndPage(@Param("name") String nameProduct, Pageable pageable);
 	
 	@Query("select min(p.price) from Product p where p.category.id =:id")

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
       <link href="/css/link/linkadmin.jsp" rel="stylesheet" >
        <tiles:insertAttribute name="linkadmin" />
-    <title>AdminLTE 3 | Dashboard</title>
+<%--    <title>AdminLTE 3 | Dashboard</title>--%>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -267,41 +267,50 @@
                         </li>
                         <hr style="color: grey"/>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="/admin/view-all-order" class="nav-link">
                                 <i class="nav-icon fas fa-chart-pie"></i>
                                 <p>
                                     ĐƠN HÀNG
-                                    <i class="right fas fa-angle-left"></i>
+<%--                                    <i class="right fas fa-angle-left"></i>--%>
                                 </p>
                             </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="/admin/view-all-order" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Tất cả đơn hàng</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="/admin/view-order-waiting" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Đang chờ</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="/admin/view-order-orderdelivered" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Đã duyệt</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="/admin/view-order-ordercancel" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Đã hủy</p>
-                                    </a>
-                                </li>
-                            </ul>
+<%--                            <ul class="nav nav-treeview">--%>
+<%--                                <li class="nav-item">--%>
+<%--                                    <a href="/admin/view-all-order" class="nav-link">--%>
+<%--                                        <i class="far fa-circle nav-icon"></i>--%>
+<%--                                        <p>Tất cả đơn hàng</p>--%>
+<%--                                    </a>--%>
+<%--                                </li>--%>
+<%--                                <li class="nav-item">--%>
+<%--                                    <a href="/admin/view-order-waiting" class="nav-link">--%>
+<%--                                        <i class="far fa-circle nav-icon"></i>--%>
+<%--                                        <p>Đang chờ</p>--%>
+<%--                                    </a>--%>
+<%--                                </li>--%>
+<%--                                <li class="nav-item">--%>
+<%--                                    <a href="/admin/view-order-orderdelivered" class="nav-link">--%>
+<%--                                        <i class="far fa-circle nav-icon"></i>--%>
+<%--                                        <p>Đã duyệt</p>--%>
+<%--                                    </a>--%>
+<%--                                </li>--%>
+<%--                                <li class="nav-item">--%>
+<%--                                    <a href="/admin/view-order-ordercancel" class="nav-link">--%>
+<%--                                        <i class="far fa-circle nav-icon"></i>--%>
+<%--                                        <p>Đã hủy</p>--%>
+<%--                                    </a>--%>
+<%--                                </li>--%>
+<%--                            </ul>--%>
                         </li>
-
+                        <hr style="color: grey"/>
+                        <li class="nav-item">
+                            <a href="/admin/edit_banner" class="nav-link">
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <p>
+                                    Chỉnh sửa banner
+                                    <%--                                    <i class="right fas fa-angle-left"></i>--%>
+                                </p>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->

@@ -28,13 +28,14 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 centerOnMobile">
-                <select id="ngonngu" class="me-3 border-0 bg-light">
-                    <option value="?lang=en">ENGLISH</option>
-                    <option value="?lang=vi">TIẾNG VIỆT</option>
-                </select> <span
+<%--                <select id="ngonngu" class="me-3 border-0 bg-light">--%>
+<%--                    <option value="?lang=en">ENGLISH</option>--%>
+<%--                    <option value="?lang=vi">TIẾNG VIỆT</option>--%>
+<%--                </select> --%>
+                <span
                     class="d-none d-lg-inline-block d-md-inline-block d-sm-inline-block d-xs-none me-3"><strong>lea4921@gmail.com</strong></span>
                 <span class="me-3"><i
-                        class="fa-solid fa-phone me-1 text-warning"></i> <strong>0346363860</strong></span>
+                        class="fa-solid fa-phone me-1 text-warning"></i> <strong>0969930684</strong></span>
             </div>
             <div
                     class="col-lg-6 col-md-6 col-sm-12 col-xs-12 d-none d-lg-block d-md-block-d-sm-block d-xs-none text-end">
@@ -92,7 +93,7 @@
                         code="lo.mn.home"/></a></li>
                 <li class="nav-item"><a
                         class="nav-link mx-2 text-uppercase gradient-text"
-                        href="/product-all-shareandpage"><s:message
+                        href="/product-all-shareandpage?keyword="><s:message
                         code="lo.mn.product"/></a></li>
                 <li class="nav-item"><a class="nav-link mx-2 text-uppercase"
                                         href="#"><s:message code="lo.mn.contact"/></a></li>

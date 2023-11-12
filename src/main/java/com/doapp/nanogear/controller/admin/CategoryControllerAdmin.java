@@ -1,9 +1,14 @@
 package com.doapp.nanogear.controller.admin;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import javax.servlet.ServletContext;
 
+import com.doapp.nanogear.entity.Brand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +20,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.doapp.nanogear.entity.Category;
 import com.doapp.nanogear.service.CategoryService;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 @RequestMapping("/admin")
 @Controller
 public class CategoryControllerAdmin {
@@ -89,5 +96,15 @@ public class CategoryControllerAdmin {
 			}
 		}
 		return "update-category";
+	}
+
+	@GetMapping("/delete-category")
+	public String deleteBrand(@RequestParam("id") int idCategory, RedirectAttributes model) throws IOException {
+		Category category = categoryService.findById(idCategory);
+		Path path = Paths.get("src/main/webapp/image/" + category.getImg());
+		Files.delete(path);
+		categoryService.deleteCategoryById(idCategory);
+		model.addFlashAttribute("success","Đã xoá thương hiệu"+ category.getName());
+		return "redirect:/admin/list-category";
 	}
 }

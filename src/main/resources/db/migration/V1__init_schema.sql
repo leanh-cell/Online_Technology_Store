@@ -1,3 +1,17 @@
+CREATE TABLE `banner`
+(
+    `id`    int(20) UNSIGNED NOT NULL,
+    `img`  longtext DEFAULT NULL,
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Đang đổ dữ liệu cho bảng `banner`
+--
+INSERT INTO `banner` (`id`, `img`)
+VALUES (1, 's20-plus-pc-banner.jpg'),
+       (2, 's20-plus-pc-banner.jpg'),
+       (3, 's20-plus-pc-banner.jpg');
+
 CREATE TABLE `brand`
 (
     `id`   int(11) NOT NULL,
@@ -93,6 +107,8 @@ CREATE TABLE `Orders`
     `Order_date`     date         DEFAULT NULL,
     `total`          float        DEFAULT NULL,
     `status`         varchar(1)   DEFAULT NULL,
+    `user_name`      varchar(50)  DEFAULT NULL,
+    `user_phone`     varchar(50)  DEFAULT NULL,
     `province`       varchar(50)  DEFAULT NULL,
     `district`       varchar(50)  DEFAULT NULL,
     `address_detail` varchar(500) DEFAULT NULL,
@@ -106,7 +122,7 @@ CREATE TABLE `Orders`
 --
 
 INSERT INTO `Orders` (`Order_id`, `Order_date`, `total`, `status`, `province`, `district`, `address_detail`,
-                      `order_code`, `user_id`, `ward`)
+                      `order_code`, `user_id`, `ward`, `user_name`, `user_phone`)
 VALUES (1, '2023-03-10', 28270000, 'N', 'Đắk Nông', 'Đắk R Lấp', 'Đạo Nghĩa', '122wwiei3', 'qanh', 'Đạo Nghĩa'),
        (2, '2023-03-09', 18490000, 'N', 'Đắk Nông', 'Đắk R Lấp', 'Đạo Nghĩa', 'wwww333', 'qanh', 'Đạo Nghĩa'),
        (3, '2023-04-11', 100000000, 'N', 'Đắk Nông', 'Đắk R Lấp', 'Đạo Nghĩa', 'dd2def2', 'qanh', 'Đạo Nghĩa'),
@@ -383,6 +399,12 @@ ALTER TABLE `brand`
     ADD PRIMARY KEY (`id`);
 
 --
+-- Chỉ mục cho bảng `banner`
+--
+ALTER TABLE `banner`
+    ADD PRIMARY KEY (`id`);
+
+--
 -- Chỉ mục cho bảng `category`
 --
 ALTER TABLE `category`
@@ -427,6 +449,12 @@ ALTER TABLE `Users`
 --
 -- AUTO_INCREMENT cho các bảng đã đổ
 --
+
+--
+-- AUTO_INCREMENT cho bảng `banner`
+--
+ALTER TABLE `banner`
+    MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT cho bảng `brand`

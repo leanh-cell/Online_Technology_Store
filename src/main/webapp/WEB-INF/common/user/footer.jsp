@@ -47,8 +47,7 @@
 							code="lo.mn.aboutus" />
                         </h6>
                         <p>
-                            Here you can use rows and columns to organize your footer content. Lorem ipsum
-                            dolor sit amet, consectetur adipisicing elit.
+                            Nanogear Store cung cấp hàng loạt sản phẩm công nghệ như điện thoại di động, máy tính, phụ kiện để đáp ứng nhu cầu đa dạng của người mua.
                         </p>
                     </div>
                     <!-- Grid column -->
@@ -106,12 +105,12 @@
                         <!-- Links -->
                         <h6 class="text-uppercase fw-bold mb-4">  <s:message
 							code="lo.mn.contact" /></h6>
-                        <p><i class="fas fa-home me-3"></i>Lý Thường Kiệt, Phường 4, Gò Vấp, Hồ Chí Minh</p>
+                        <p><i class="fas fa-home me-3"></i>8A Tôn Thất Thuyết, Mỹ Đình, Nam Từ Liêm, Hà Nội</p>
                         <p>
                             <i class="fas fa-envelope me-3"></i>
-                            phanphuc20102003@gmail.com
+                            lea4921@gmail.com
                         </p>
-                        <p><i class="fas fa-phone me-3"></i>0346363860</p>
+                        <p><i class="fas fa-phone me-3"></i>0969930684</p>
                     </div>
                     <!-- Grid column -->
                 </div>

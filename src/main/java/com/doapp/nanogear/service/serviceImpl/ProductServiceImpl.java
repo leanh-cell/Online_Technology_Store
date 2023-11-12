@@ -174,7 +174,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findProductsWithDiscount(){
+    public List<Product> findProductsWithDiscount() {
         return productRepository.findProductsWithDiscount();
     }
 }

@@ -15,40 +15,46 @@
     </c:if>
 
     <div class="row">
-        <div class="col-sm-6">
-            <form action="/order" method="get">
-                <c:forEach var="ad" items="${addressUserId}">
-                    <div class="row custom-control custom-radio">
-                        <div class="col-sm-1">
-                            <input type="radio" class="custom-control-input"
-                                   id="customControlValidation2" name="idSelect"
-                                   style="width: 20px;height: 20px;"
-                                   value="${ad.id}">
+        <c:if test="${not empty addressUserId}">
+            <div class="col-sm-6">
+                <form action="/order" method="get">
+                    <c:forEach var="ad" items="${addressUserId}">
+                        <div class="row custom-control custom-radio">
+                            <div class="col-sm-1">
+                                <input type="radio" class="custom-control-input"
+                                       id="customControlValidation2" name="idSelect"
+                                       style="width: 20px;height: 20px;"
+                                       value="${ad.id}">
+                            </div>
+                            <div class="col-sm-11">
+                                <label class="col-sm-12 custom-control-label"
+                                       for="customControlValidation2"
+                                       style="font-size: larger;">
+                                        ${ad.name} | ${ad.phone}
+                                </label>
+                                <label class="col-sm-12 custom-control-label"
+                                       for="customControlValidation2">${ad.detail}</label>
+                                <label class="col-sm-12 custom-control-label"
+                                       for="customControlValidation2">${ad.district},${ad.province}</label>
+                                <label class="custom-control-label"><c:choose>
+                                    <c:when test="${ad.isUse == 0}"><span
+                                            style="color: blue; font-style: italic;">Mặc Định</span></c:when>
+                                    <c:when test="${ad.isUse == 1}"><span
+                                            style="color: blue; font-style: italic;"></span></c:when>
+                                </c:choose></label>
+                            </div>
                         </div>
-                        <div class="col-sm-11">
-                            <label class="col-sm-12 custom-control-label"
-                                   for="customControlValidation2"
-                                   style="font-size: larger;">
-                                    ${ad.name} | ${ad.phone}
-                            </label>
-                            <label class="col-sm-12 custom-control-label"
-                                   for="customControlValidation2">${ad.detail}</label>
-                            <label class="col-sm-12 custom-control-label"
-                                   for="customControlValidation2">${ad.district},${ad.province}</label>
-                            <label class="custom-control-label"><c:choose>
-                                <c:when test="${ad.isUse == 0}"><span
-                                        style="color: blue; font-style: italic;">Mặc Định</span></c:when>
-                                <c:when test="${ad.isUse == 1}"><span
-                                        style="color: blue; font-style: italic;"></span></c:when>
-                            </c:choose></label>
-                        </div>
-                    </div>
-                    <hr>
-                </c:forEach>
-                <button type="submit" class="btn btn-primary" id="btnaddress">Tiếp tục</button>
-            </form>
-        </div>
-        
+                        <hr>
+                    </c:forEach>
+                    <button type="submit" class="btn btn-primary" id="btnaddress">Tiếp tục</button>
+                </form>
+            </div>
+        </c:if>
+        <c:if test="${not empty error}">
+            <h5 class="col-sm-6">
+               ${error}
+            </h5>
+        </c:if>
         <div class="col-sm-6">
             <form id="register-form" action="/save-address" method="post">
                 <div class="box">

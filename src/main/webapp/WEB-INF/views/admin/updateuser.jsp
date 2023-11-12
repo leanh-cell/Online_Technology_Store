@@ -2,7 +2,7 @@
 		<%@ page pageEncoding="utf-8" %>
 			<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 				<div class="col-sm-12 m-auto p-0 m-0">
-					<a href="/admin/homeadmin" class="btn btn-primary ml-5">Quay lại</a>
+					<a href="/admin/user_management" class="btn btn-primary ml-5">Quay lại</a>
 					<div class="container-user p-4 ml-2 mr-2 col-sm-7 m-auto"
 						style="background-color: #fff; box-shadow: rgba(165, 163, 163, 0.24) 0px 3px 8px;">
 						<form action="/admin/updateuseradmin" method="POST" class="m-auto">

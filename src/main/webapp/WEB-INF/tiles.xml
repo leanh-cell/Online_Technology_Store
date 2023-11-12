@@ -243,12 +243,12 @@
                        value="/WEB-INF/views/admin/listcategory.jsp"/>
     </definition>
 
-    <definition name="formproductupdate" extends="adminlayout">
+    <definition name="update_product" extends="adminlayout">
         <put-attribute name="link"
                        value="/css/link/linkadmin.jsp"/>
         <put-attribute name="title" value="ListCategory"/>
         <put-attribute name="body"
-                       value="/WEB-INF/views/admin/formproduct.jsp"/>
+                       value="/WEB-INF/views/admin/update_product.jsp"/>
     </definition>
 
     <definition name="listproduct" extends="adminlayout">
@@ -300,12 +300,12 @@
                        value="/WEB-INF/views/admin/ordercancel.jsp"/>
     </definition>
 
-    <definition name="productinsert" extends="adminlayout">
+    <definition name="add_new_product" extends="adminlayout">
         <put-attribute name="link"
                        value="/css/link/linkadmin.jsp"/>
         <put-attribute name="title" value="ListCategory"/>
         <put-attribute name="body"
-                       value="/WEB-INF/views/admin/formproductinsert.jsp"/>
+                       value="/WEB-INF/views/admin/add_new_product.jsp"/>
     </definition>
 
     <definition name="updateuser" extends="adminlayout">
@@ -379,6 +379,14 @@
         <put-attribute name="title" value="ListCategory"/>
         <put-attribute name="body"
                        value="/WEB-INF/views/admin/statistical.jsp"/>
+    </definition>
+
+    <definition name="edit_banner" extends="adminlayout">
+        <put-attribute name="link"
+                       value="/css/link/linkadmin.jsp"/>
+        <put-attribute name="title" value="edit_banner"/>
+        <put-attribute name="body"
+                       value="/WEB-INF/views/admin/edit-banner.jsp"/>
     </definition>
 
     <definition name="statisticaltotaldate" extends="adminlayout">

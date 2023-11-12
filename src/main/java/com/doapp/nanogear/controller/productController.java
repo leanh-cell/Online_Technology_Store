@@ -96,13 +96,15 @@ public class ProductController {
 		model.addAttribute("idBrand", idBrand);
 		model.addAttribute("s", s.isPresent() ? s.get() : "asc");
 		model.addAttribute("countCart", cartService.countCart());
+		model.addAttribute("brandByIdCategory", brandService.findBrandByCategory(idCategory));
 		return "productBrand";
 	}
 	
 	@PostMapping("/productbrand")
-	public String postProductBrand(@RequestParam("idBrand") int idBrand, @RequestParam("idCategory") int idCategory,
+	public String postProductBrand(@RequestParam("idBrand") int idBrand, @RequestParam("idCategory") int idCategory,@RequestParam(name = "active", required = false) String active,
 			Model model,@RequestParam("price-min") Optional<Double> min, @RequestParam("price-max") Optional<Double> max,@RequestParam("p") Optional<Integer> p,
 			@RequestParam("sort") Optional<String> s) {
+		model.addAttribute("active",active);
 		model.addAttribute("minPriceRange", (int) (productService.findMinPriceProductByBrand(idCategory,idBrand) / 1000));
 		model.addAttribute("maxPriceRange", (int) (productService.findMaxPriceProductByBrand(idCategory, idBrand) / 1000));
 		model.addAttribute("productByBrand", productService.findProductByIdBrand(idBrand, idCategory,min, max, p,s));
@@ -112,6 +114,7 @@ public class ProductController {
 		model.addAttribute("max", max.isPresent() ? max.get() : "");
 		model.addAttribute("s", s.isPresent() ? s.get() : "asc");
 		model.addAttribute("countCart", cartService.countCart());
+		model.addAttribute("brandByIdCategory", brandService.findBrandByCategory(idCategory));
 		return "productBrand";
 	}
 	

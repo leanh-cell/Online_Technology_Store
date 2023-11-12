@@ -1,33 +1,68 @@
 <%@ page pageEncoding="utf-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <div style="background: radial-gradient(50.08% 44.51% at 50% 50%, rgba(188, 134, 143, 0.2) 0, rgba(255,192,203,0) 100%), radial-gradient(60.76% 48.01% at 0 100%, rgba(255,192,203,.2) 0, rgba(255,192,203,0) 100%), #f2f3f4; }">
-    <div>
-        <div id="carouselExampleControls" class="carousel slide"
-             data-bs-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="/image/s20-plus-pc-banner.jpg"
+    <%--    <div id="carouselExampleControls" class="carousel slide"--%>
+    <%--         data-bs-ride="carousel">--%>
+    <%--        <div class="carousel-inner">--%>
+    <%--            <div class="carousel-item active">--%>
+    <%--                <img src="/image/s20-plus-pc-banner.jpg"--%>
+    <%--                     class="d-block w-100" alt="...">--%>
+    <%--                <img src="/image/s20-plus-pc-banner.jpg"--%>
+    <%--                     class="d-block w-100" alt="...">--%>
+    <%--                <img src="/image/s20-plus-pc-banner.jpg"--%>
+    <%--                     class="d-block w-100" alt="...">--%>
+    <%--                <img src="/image/s20-plus-pc-banner.jpg"--%>
+    <%--                     class="d-block w-100" alt="...">--%>
+    <%--            </div>--%>
+    <%--        </div>--%>
+    <%--        <button class="carousel-control-prev" type="button"--%>
+    <%--                data-bs-target="#carouselExampleControls" data-bs-slide="prev">--%>
+    <%--            <span class="carousel-control-prev-icon" aria-hidden="true"></span> <span--%>
+    <%--                class="visually-hidden">Previous</span>--%>
+    <%--        </button>--%>
+    <%--        <button class="carousel-control-next" type="button"--%>
+    <%--                data-bs-target="#carouselExampleControls" data-bs-slide="next">--%>
+    <%--            <span class="carousel-control-next-icon" aria-hidden="true"></span> <span--%>
+    <%--                class="visually-hidden">Next</span>--%>
+    <%--        </button>--%>
+    <%--    </div>--%>
+    <div id="demo" class="carousel slide" data-bs-ride="carousel">
+
+        <!-- Indicators/dots -->
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
+            <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
+            <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
+        </div>
+
+        <!-- The slideshow/carousel -->
+        <div class="carousel-inner">
+            <c:forEach items="${listBanner}" var="image" varStatus="status">
+                <div class="${status.index == 0 ? 'carousel-item active' : 'carousel-item'}" data-bs-interval="2000">
+                    <img src="/image/${image.imgUrl}"
                          class="d-block w-100" alt="...">
                 </div>
-                <!-- <div class="carousel-item">
-                            <img src="image/banner-tgdd-800x300.jpg" class="d-block w-100" alt="...">
-                        </div> -->
-                <!-- <div class="carousel-item">
-                            <img src="..." class="d-block w-100" alt="...">
-                        </div> -->
-            </div>
-            <button class="carousel-control-prev" type="button"
-                    data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span> <span
-                    class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button"
-                    data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span> <span
-                    class="visually-hidden">Next</span>
-            </button>
+            </c:forEach>
+
+            <%--            <div class="carousel-item">--%>
+            <%--                <img src="/image/s20-plus-pc-banner.jpg"--%>
+            <%--                     class="d-block w-100" alt="...">--%>
+            <%--            </div>--%>
+            <%--            <div class="carousel-item">--%>
+            <%--                <img src="/image/s20-plus-pc-banner.jpg"--%>
+            <%--                     class="d-block w-100" alt="...">--%>
+            <%--            </div>--%>
         </div>
+
+        <!-- Left and right controls/icons -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </button>
     </div>
     <div style="border: 1px solid #ffff;background:#ffff;" class="mt-4">
         <div class="container-category pt-4">
@@ -73,108 +108,110 @@
             </div>
         </div>
     </div>
-<%--///////////////////////// TEST /////////////////////////////////////////////////////--%>
+    <%--///////////////////////// SẢN PHẨM ĐANG GIẢM GIÁ /////////////////////////////////////////////////////--%>
     <c:if test="${listProductDiscount.size() >= 8}">
-    <div style="border: 1px solid #ffff;background:#ffff;" class="mt-4">
-        <div style="max-width: 1200px;" class="m-auto mt-5 mb-5">
-            <p style="font-size: 22px; font-weight: bold;">SẢN PHẨM ĐANG GIẢM GIÁ</p>
-            <div style="width: 100%; height: 2px; background-color: black;"></div>
-            <div id="carouselExampleIndicator" class="carousel slide"
-                 data-bs-ride="carousel">
-                <button style="border: none; background-color: white;"
-                        class="float-end" type="button" data-bs-target="#carouselExampleIndicators"
-                        data-bs-slide="next">
-                    <!-- <span class="carousel-control-next-icon" aria-hidden="true"></span> -->
-                    <!-- -> -->
-                    <i style="font-size: 30px; padding: 10px;"
-                       class="fas fa-arrow-alt-circle-right fa-lg fa-fade"></i>
+        <div style="border: 1px solid #ffff;background:#ffff;" class="mt-4">
+            <div style="max-width: 1200px;" class="m-auto mt-5 mb-5">
+                <p style="font-size: 22px; font-weight: bold;">SẢN PHẨM ĐANG GIẢM GIÁ</p>
+                <div style="width: 100%; height: 2px; background-color: black;"></div>
+                <div id="carouselExampleIndicator" class="carousel slide"
+                     data-bs-ride="carousel">
+                    <button style="border: none; background-color: white;"
+                            class="float-end" type="button" data-bs-target="#carouselExampleIndicators"
+                            data-bs-slide="next">
+                        <!-- <span class="carousel-control-next-icon" aria-hidden="true"></span> -->
+                        <!-- -> -->
+                        <i style="font-size: 30px; padding: 10px;"
+                           class="fas fa-arrow-alt-circle-right fa-lg fa-fade"></i>
 
-                    <!-- <span class="visually-hidden">Next</span> -->
-                </button>
-                <button class="float-end"
-                        style="border: none; background-color: white;" type="button"
-                        data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                    <!-- <span class="carousel-control-prev-icon" aria-hidden="true"></span> -->
-                    <!-- <- -->
-                    <i style="font-size: 30px; padding: 10px;"
-                       class="fas fa-arrow-alt-circle-left fa-lg fa-fade"></i>
-                    <!-- <span class="visually-hidden">Previous</span> -->
-                </button>
-                <div class="carousel-inner">
-
-                    <div class="carousel-item active">
-                        <div class="row">
-                            <c:forEach var="item" items="${listProductDiscount}" varStatus="loop">
-                            <div class="col-md-4 col-sm-6 mb-3">
-                                <div class="product-grid" style="height: 530px;">
-                                    <div class="product-image">
-                                        <a href="#" class="image"> <img class="pic-1 p-4"
-                                                                        src="/image/${item.img}">
-                                        </a> <span class="product-discount-label">
+                        <!-- <span class="visually-hidden">Next</span> -->
+                    </button>
+                    <button class="float-end"
+                            style="border: none; background-color: white;" type="button"
+                            data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                        <!-- <span class="carousel-control-prev-icon" aria-hidden="true"></span> -->
+                        <!-- <- -->
+                        <i style="font-size: 30px; padding: 10px;"
+                           class="fas fa-arrow-alt-circle-left fa-lg fa-fade"></i>
+                        <!-- <span class="visually-hidden">Previous</span> -->
+                    </button>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="row">
+                                <c:forEach var="item" items="${listProductDiscount}" varStatus="loop">
+                                <div class="col-md-4 col-sm-6 mb-3">
+                                    <div class="product-grid" style="height: 530px;">
+                                        <div class="product-image">
+                                            <a href="#" class="image">
+                                                <c:forEach items="${fn:split(item.img, ',')}" var="image" varStatus="status">
+                                                    <c:if test="${status.index == 0}">
+                                                        <div class="fit-image-container" style="display: inline-block; margin-right: 10px;">
+                                                            <img src="/image/${image}" class="pic-1 p-4"
+                                                                 alt="...">
+                                                        </div>
+                                                    </c:if>
+                                                </c:forEach>
+<%--                                                <img class="pic-1 p-4" src="/image/${item.img}">--%>
+                                            </a>
+                                            <span class="product-discount-label">
 												  <img style="width: 70px;" src="/image/ban-chay-nhat-unscreen.gif"
                                                        alt="">
 											</span>
-                                        <ul class="product-links">
-                                            <a class="button-detail"
-                                               href="/productdetail?productId=${item.id}&categoryId=${item.category.id}"
-                                               type="button" class="btn btn-outline-success"
-                                               style="border-radius: 12px"
-                                            >Chi tiết</a>
-                                        </ul>
-                                    </div>
-                                    <hr>
-                                    <div class="product-content">
-                                            <%--                                        <ul class="rating">--%>
-                                            <%--                                            <li class="fas fa-star"></li>--%>
-                                            <%--                                            <li class="fas fa-star"></li>--%>
-                                            <%--                                            <li class="fas fa-star"></li>--%>
-                                            <%--                                            <li class="far fa-star"></li>--%>
-                                            <%--                                            <li class="far fa-star"></li>--%>
-                                            <%--                                        </ul>--%>
-                                        <h3 class="title">
-                                            <a href="#">${item.name}</a>
-                                        </h3>
-                                        <div class="price">
+                                            <ul class="product-links">
+                                                <a class="button-detail"
+                                                   href="/productdetail?productId=${item.id}&categoryId=${item.category.id}"
+                                                   type="button" class="btn btn-outline-success"
+                                                   style="border-radius: 12px"
+                                                >Chi tiết</a>
+                                            </ul>
+                                        </div>
+                                        <hr>
+                                        <div class="product-content">
+                                                <%--                                        <ul class="rating">--%>
+                                                <%--                                            <li class="fas fa-star"></li>--%>
+                                                <%--                                            <li class="fas fa-star"></li>--%>
+                                                <%--                                            <li class="fas fa-star"></li>--%>
+                                                <%--                                            <li class="far fa-star"></li>--%>
+                                                <%--                                            <li class="far fa-star"></li>--%>
+                                                <%--                                        </ul>--%>
+                                            <h3 class="title">
+                                                <a href="#">${item.name}</a>
+                                            </h3>
+                                            <div class="price">
                                             <span>
                                                 <c:if test="${item.discount > 0}">
                                                     <fmt:formatNumber value="${item.price}"
                                                                       pattern="###,###,###.##"/>đ
                                                 </c:if>
                                             </span>
-                                            <fmt:formatNumber value="${item.price - item.discount}"
-                                                              pattern="###,###,###.##"/>
-                                            đ
+                                                <fmt:formatNumber value="${item.price - item.discount}"
+                                                                  pattern="###,###,###.##"/>
+                                                đ
+                                            </div>
+                                            <div style="font-weight: bold;">
+                                                <span>Đã bán: ${item.soldQuantity}</span>
+                                            </div>
+                                            <a id="${item.id}" class="add-to-cart">Thêm vào giỏ</a>
                                         </div>
-
-                                        <div style="font-weight: bold;">
-                                            <span>Đã bán: ${item.soldQuantity}</span>
-                                        </div>
-
-
-                                        <a id="${item.id}" class="add-to-cart">Thêm vào giỏ</a>
                                     </div>
                                 </div>
+                                <c:if test="${(loop.index+1) %3 == 0 || (loop.index+1)  ==  listProductTop10.size()}">
                             </div>
-                            <c:if test="${(loop.index+1) %3 == 0 || (loop.index+1)  ==  listProductTop10.size()}">
+                        </div>
+                        <c:if test="${(loop.index+1)  <  listProductTop10.size()}">
+                        <div class="carousel-item">
+                            <div class="row">
+                                </c:if>
+                                </c:if>
+                                </c:forEach>
+                            </div>
                         </div>
                     </div>
-                    <c:if test="${(loop.index+1)  <  listProductTop10.size()}">
-                    <div class="carousel-item">
-                        <div class="row">
-                            </c:if>
-                            </c:if>
-                            </c:forEach>
-
-
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </div>
-    </div>
     </c:if>
-<%--///////////////////////// TEST /////////////////////////////////////////////////////--%>
+    <%--///////////////////////// SẢN PHẨM ĐANG GIẢM GIÁ END /////////////////////////////////////////////////////--%>
     <div style="border: 1px solid #ffff;background:#ffff;" class="mt-4">
         <div style="max-width: 1200px;" class="m-auto mt-5 mb-5">
             <p style="font-size: 22px; font-weight: bold;">SẢN PHẨM BÁN CHẠY NHẤT</p>
@@ -208,8 +245,16 @@
                             <div class="col-md-4 col-sm-6 mb-3">
                                 <div class="product-grid" style="height: 530px;">
                                     <div class="product-image">
-                                        <a href="#" class="image"> <img class="pic-1 p-4"
-                                                                        src="/image/${item.img}">
+                                        <a href="#" class="image">
+                                            <c:forEach items="${fn:split(item.img, ',')}" var="image" varStatus="status">
+                                                <c:if test="${status.index == 0}">
+                                                    <div class="fit-image-container" style="display: inline-block; margin-right: 10px;">
+                                                        <img src="/image/${image}" class="pic-1 p-4" style=""
+                                                             alt="...">
+                                                    </div>
+                                                </c:if>
+                                            </c:forEach>
+<%--                                            <img class="pic-1 p-4" src="/image/${item.img}">--%>
                                         </a> <span class="product-discount-label">
 												  <img style="width: 70px;" src="/image/ban-chay-nhat-unscreen.gif"
                                                        alt="">

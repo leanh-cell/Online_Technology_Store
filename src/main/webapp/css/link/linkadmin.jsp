@@ -64,11 +64,15 @@
     <script
 	src="https://pro.fontawesome.com/releases/v6.0.0-beta1/js/all.js"
 	integrity="..." crossorigin="anonymous"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<%--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>--%>
 
     <script src="/css/user/jquery.twbsPagination.js"></script>
 
 
-
+<%--<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>--%>
 <%--////////////////////////test//////////////////--%>
 <script src="https://cdn.ckeditor.com/ckeditor5/39.0.2/classic/ckeditor.js"></script>
+
+<link rel="stylesheet" href="/css/user/font-awesome-4.7.0/css/font-awesome.min.css" />
+<link rel="stylesheet" href="/css/user/richtext.min.css">
+<script src="/css/user/jquery.richtext.min.js"></script>
